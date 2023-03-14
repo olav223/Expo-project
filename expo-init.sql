@@ -50,7 +50,7 @@ CREATE TABLE voter
     id_event INTEGER REFERENCES event (id) NOT NULL
 );
 
-CREATE TABLE votes
+CREATE TABLE vote
 (
     id_voter CHAR(7) REFERENCES voter (id)               NOT NULL,
     id_stand INTEGER REFERENCES stand (id)               NOT NULL,
