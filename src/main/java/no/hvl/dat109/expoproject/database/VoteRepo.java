@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface VoteRepo /*extends JpaRepository<Vote, VotesPK>*/{
+public interface VoteRepo extends JpaRepository<Vote, VotesPK>{
 
     /**
     @return a list with all the votes
