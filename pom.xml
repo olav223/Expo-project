@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>no.hvl.dat109</groupId>
-    <artifactId>Expo-prosject</artifactId>
+    <artifactId>Expo-project</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Expo-prosject</name>
