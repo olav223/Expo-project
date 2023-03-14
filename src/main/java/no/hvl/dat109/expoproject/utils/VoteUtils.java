@@ -4,7 +4,7 @@ import no.hvl.dat109.expoproject.interfaces.utils.IVoteUtil;
 
 public class VoteUtils implements IVoteUtil {
     @Override
-    public String generateVoterID(int amount) {
+    public String generateVoterID() {
         return null;
     }
 }
