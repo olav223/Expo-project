@@ -1,4 +1,5 @@
 package no.hvl.dat109.expoproject.database;
+
 import no.hvl.dat109.expoproject.entities.Vote;
 import no.hvl.dat109.expoproject.primarykeys.VotesPK;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -7,30 +8,18 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface VoteRepo /*extends JpaRepository<Vote, VotesPK>*/{
+public interface VoteRepo extends JpaRepository<Vote, VotesPK> {
 
     /**
-    @return a list with all the votes
+     * @param userID  Id-en til
+     * @param standID Id-en til standen som brukeren har stemt på
+     * @return Antall stjerner brukeren har gitt standen, ellers -1
      */
-    List<Vote> getAllVotes();
+    int findByStandAndVoter(int userID, int standID); // TODO test, usikker på om det skal være ID eller objekt
 
     /**
-    @param userID of the user
-    @param standID of the stand
-    @return number of stars if a vote contains userID and StandID, else
-    @return null
+     * @param standID Id-en til standen som brukeren har stemt på
+     * @return En liste med alle stemmer for en stand
      */
-    int getVote(int userID, int standID);
-
-    /**
-    @param id of the event
-    @return a list of votes from the event with the id
-     */
-    List<Vote>getAllVotesByEventID(int id);
-
-    /**
-    @param EventID of the event
-    @return a list of Vote Codes from the event with the id
-     */
-    List<String>getAllVoteCodes(int EventID);
+    List<Vote> findAllByStand(int standID); // TODO test, usikker på om det skal være ID eller objekt
 }
