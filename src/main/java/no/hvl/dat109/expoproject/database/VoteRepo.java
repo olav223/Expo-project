@@ -7,14 +7,14 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface VoteRepo extends JpaRepository<Vote, VotesPK>{
+public interface VoteRepo /*extends JpaRepository<Vote, VotesPK>*/{
 
-    /*
+    /**
     @return a list with all the votes
      */
     List<Vote> getAllVotes();
 
-    /*
+    /**
     @param userID of the user
     @param standID of the stand
     @return number of stars if a vote contains userID and StandID, else
@@ -22,13 +22,13 @@ public interface VoteRepo extends JpaRepository<Vote, VotesPK>{
      */
     int getVote(int userID, int standID);
 
-    /*
+    /**
     @param id of the event
     @return a list of votes from the event with the id
      */
     List<Vote>getAllVotesByEventID(int id);
 
-    /*
+    /**
     @param EventID of the event
     @return a list of Vote Codes from the event with the id
      */

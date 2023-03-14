@@ -7,15 +7,15 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepo extends JpaRepository<User,String>{
+public interface UserRepo /*extends JpaRepository<User,String>*/{
 
-    /*
+    /**
     @param id of the user
     @return the user with the id
      */
     User findUserById(int id);
 
-    /*
+    /**
     @return a list of all users
      */
     List<User> getAllUsers();

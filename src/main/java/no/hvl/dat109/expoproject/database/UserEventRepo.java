@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserEventRepo  extends JpaRepository<UserEvent, UserEventPK>{
+public interface UserEventRepo /* extends JpaRepository<UserEvent, UserEventPK>*/{
 
-    /*
+    /**
     @return a list of all users in the event sorted by id
      */
     List<User> getAllUsersInEventById();
