@@ -4,19 +4,19 @@ public interface IVoteController {
 
     /**
      * post the given vote
-     * @param userID
+     * @param voterID
      * @param standID
      * @param stars
      * @return true if post of vote is OK
      */
-    boolean postVote(int userID, int standID, int stars);
+    boolean postVote(int voterID, int standID, int stars);
 
     /**
-     * get the number of stars in the vote from given user for the given stand
-     * @param userID
+     * get the number of stars in the vote from given voter for the given stand
+     * @param voterID
      * @param standID
      * @return number of stars in vote
      */
-    int getVote(int userID, int standID);
+    int getVote(int voterID, int standID);
 
 }
