@@ -2,13 +2,13 @@ package no.hvl.dat109.expoproject.controllers;
 
 import no.hvl.dat109.expoproject.database.StandService;
 import no.hvl.dat109.expoproject.entities.Stand;
+import no.hvl.dat109.expoproject.interfaces.controllers.IStandController;
 import no.hvl.dat109.expoproject.interfaces.database.IStandService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/stand")
-public class StandController implements IStandService {
+public class StandController implements IStandController {
 
     private final IStandService ss;
 
@@ -17,17 +17,33 @@ public class StandController implements IStandService {
     }
 
     @Override
-    public void addStand(Stand stand) {
-
+    @GetMapping
+    public Stand getStand(@RequestParam int id) {
+        if (id < 1) {
+            return null;
+        }
+        return ss.getStand(id);
     }
 
     @Override
-    public void updateStand(Stand stand) {
+    @PostMapping
+    public Stand postUpdateInfo(@RequestBody Stand stand) {
+        if (stand == null) {
+            throw new IllegalArgumentException("Stand cannot be null");
+        }
 
+        ss.addStand(stand);
+
+        return null; // TODO
     }
 
     @Override
-    public Stand removeStand(int standID) {
-        return null;
+    @DeleteMapping
+    public Boolean removeStand(@RequestBody int standID) {
+        if (standID < 1) {
+            return false;
+        }
+        ss.removeStand(standID);
+        return false; // TODO
     }
 }

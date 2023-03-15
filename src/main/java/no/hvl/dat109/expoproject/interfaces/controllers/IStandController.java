@@ -8,7 +8,7 @@ public interface IStandController {
      * updates stand info from updated stand object
      * @param stand
      */
-    void postUpdateInfo(Stand stand);
+    Stand postUpdateInfo(Stand stand);
 
     /**
      * get stand with id
@@ -17,4 +17,6 @@ public interface IStandController {
      */
 
     Stand getStand(int id);
+
+    Boolean removeStand(int standID);
 }

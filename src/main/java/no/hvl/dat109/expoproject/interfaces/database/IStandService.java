@@ -23,4 +23,6 @@ public interface IStandService {
      */
     Stand removeStand(int standID);
 
+    Stand getStand(int id);
+
 }

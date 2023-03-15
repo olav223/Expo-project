@@ -20,4 +20,9 @@ public class StandService implements IStandService {
     public Stand removeStand(int standID) {
         return null;
     }
+
+    @Override
+    public Stand getStand(int id) {
+        return null;
+    }
 }
