@@ -15,12 +15,12 @@ public interface VoteRepo extends JpaRepository<Vote, VotesPK>{
     List<Vote> getAllVotes();
 
     /**
-    @param userID of the user
+    @param voterID of the user
     @param standID of the stand
     @return number of stars if a vote contains userID and StandID, else
     @return null
      */
-    int getVote(int userID, int standID);
+    int getVote(int voterID, int standID);
 
     /**
     @param id of the event
