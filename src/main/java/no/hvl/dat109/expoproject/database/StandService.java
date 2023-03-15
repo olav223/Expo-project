@@ -12,13 +12,19 @@ public class StandService implements IStandService {
     public StandService(StandRepo standRepo) {this.standRepo = standRepo; }
 
     @Override
-    public void addStand(Stand stand) { throw new UnsupportedOperationException("Not supported yet.");}
+    public void addStand(Stand stand) {
+        //throw new UnsupportedOperationException("Not supported yet."); }
+    }
+    @Override
+    public void updateStand(Stand stand) { //throw new UnsupportedOperationException("Not supported yet.");}
+    }
+    @Override
+    public void removeStand(int standID) { //throw new UnsupportedOperationException("Not supported yet.");}
+        standRepo.deleteById(standID);
+    }
 
     @Override
-    public void updateStand(Stand stand) { throw new UnsupportedOperationException("Not supported yet.");}
-
-    @Override
-    public Stand removeStand(int standID) { throw new UnsupportedOperationException("Not supported yet.");}
-
-
+    public Stand getStand(int id) {
+        return standRepo.getStandById(id);
+    }
 }

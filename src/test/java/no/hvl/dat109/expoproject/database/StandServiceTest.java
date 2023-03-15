@@ -1,7 +1,7 @@
 package no.hvl.dat109.expoproject.database;
 
 import no.hvl.dat109.expoproject.entities.Stand;
-import no.hvl.dat109.expoproject.interfaces.database.IStandService;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,7 +9,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+
+
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 public class StandServiceTest {
@@ -23,6 +26,7 @@ public class StandServiceTest {
     private Stand stand1, stand2;
 
 
+
     @BeforeEach
     void setUp() {
         stand1 = new Stand();
@@ -30,24 +34,26 @@ public class StandServiceTest {
     }
 
     @Test
-    void addStand(Stand stand) {
+    void addStand() {
+        service.addStand(stand1);
 
-        assertTrue(true);
+//        Assertions.assertEquals(stand1, x);
     }
 
     @Test
-    void updateStand(Stand stand) {
-        assertTrue(true);
+    void updateStand() {
+        service.updateStand(stand2);
     }
 
     @Test
-    Stand removeStand(int standID) {
-        standID = 1;
-
-        assertTrue(true);
-        return null;
-
+    void removeStand() {
+        service.removeStand(1);
     }
 
-
+    @Test
+    void getStand() {
+        Stand y = repo.getStandById(2);
+        Stand x = service.getStand(2);
+        Assertions.assertEquals(y, x);
+    }
 }

@@ -21,6 +21,8 @@ public interface IStandService {
      * @param standID
      * @return the removed stand
      */
-    Stand removeStand(int standID);
+    void removeStand(int standID);
+
+    Stand getStand(int id);
 
 }
