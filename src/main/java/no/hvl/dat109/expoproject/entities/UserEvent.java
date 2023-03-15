@@ -19,12 +19,9 @@ public class UserEvent {
     @JoinColumn(name = "username")
     private Event event;
 
-    private int accessLevel;
-
-    public UserEvent(User user, Event event, int accessLevel) {
+    public UserEvent(User user, Event event) {
         this.user = user;
         this.event = event;
-        this.accessLevel = accessLevel;
     }
 
     public UserEvent() {
@@ -46,20 +43,11 @@ public class UserEvent {
         this.event = event;
     }
 
-    public int getAccessLevel() {
-        return accessLevel;
-    }
-
-    public void setAccessLevel(int accessLevel) {
-        this.accessLevel = accessLevel;
-    }
-
     @Override
     public String toString() {
         return "UserEvent{" +
                 "user=" + user +
                 ", event=" + event +
-                ", accessLevel=" + accessLevel +
                 '}';
     }
 }

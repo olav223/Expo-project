@@ -22,14 +22,14 @@ CREATE TABLE "user" -- user is a reserved word in postgres
     phone        VARCHAR(15),
     email        VARCHAR(100),
     hash         VARCHAR(255) NOT NULL,
-    salt         VARCHAR(255) NOT NULL
+    salt         VARCHAR(255) NOT NULL,
+    access_level INTEGER REFERENCES access_level (id)
 );
 
 CREATE TABLE user_event
 (
-    id_event INTEGER REFERENCES event (id)        NOT NULL,
+    id_event INTEGER REFERENCES event (id)            NOT NULL,
     username VARCHAR(20) REFERENCES "user" (username) NOT NULL,
-    access_level INTEGER REFERENCES access_level (id),
     PRIMARY KEY (id_event, username)
 );
 

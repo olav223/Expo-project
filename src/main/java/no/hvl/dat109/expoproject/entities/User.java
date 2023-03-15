@@ -16,15 +16,17 @@ public class User {
     private String email;
     private String hash;
     private String salt;
+    private int accessLevel;
     @OneToMany(mappedBy = "user")
     private List<UserEvent> userEvents;
 
-    public User(String username, String phone, String email, String hash, String salt, List<UserEvent> userEvents) {
+    public User(String username, String phone, String email, String hash, String salt, int accessLevel, List<UserEvent> userEvents) {
         this.username = username;
         this.phone = phone;
         this.email = email;
         this.hash = hash;
         this.salt = salt;
+        this.accessLevel = accessLevel;
         this.userEvents = userEvents;
     }
 
@@ -79,6 +81,14 @@ public class User {
         this.userEvents = userEvents;
     }
 
+    public int getAccessLevel() {
+        return accessLevel;
+    }
+
+    public void setAccessLevel(int accessLevel) {
+        this.accessLevel = accessLevel;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -87,6 +97,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", hash='" + hash + '\'' +
                 ", salt='" + salt + '\'' +
+                ", accessLevel='" + accessLevel + '\'' +
                 ", userEvents=" + userEvents +
                 '}';
     }
