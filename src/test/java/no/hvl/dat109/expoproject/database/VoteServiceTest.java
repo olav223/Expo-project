@@ -29,6 +29,9 @@ public class VoteServiceTest {
     @Mock
     private VoteRepo voteRepo;
 
+    @Mock
+    private VoterRepo voterRepo; // Trengs slik at vi ikke får nullpointerexception
+
     private Voter voter1AtExpo1, voter2AtExpo1, voter3AtExpo2;
     private Stand stand1AtExpo1, stand2AtExpo1, stand3AtExpo2;
     private Event expo1, expo2;
@@ -117,8 +120,6 @@ public class VoteServiceTest {
 
     @Test
     void generateVoteCodes() {
-        List<Voter> voterCodes = List.of(new Voter("1", expo1), new Voter("2", expo1), new Voter("3", expo1));
-
         List<String> codes = service.generateVoteCodes(3, expo1);
 
         assertEquals(3, codes.size());
