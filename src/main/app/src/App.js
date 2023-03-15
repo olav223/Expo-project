@@ -1,13 +1,14 @@
-import {Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Test from "./components/test";
-
 
 function App() {
   return (
-      <Routes>
-          <Route index element={<Test />} />
-          <Route path="test" element={<div>Test</div>} />
-      </Routes>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+          <Routes>
+              <Route index element={<Test />} />
+              <Route path="/test" element={<div>Test</div>} />
+          </Routes>
+      </BrowserRouter>
   );
 }
 export default App;
