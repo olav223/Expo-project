@@ -29,6 +29,18 @@ public class Stand {
     @JoinColumn(name = "responsible")
     private User responsible;
 
+    public Stand(int id, String name, String description, String image, String url, Event event) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.image = image;
+        this.url = url;
+        this.event = event;
+    }
+
+    public Stand() {
+    }
+
     public int getId() {
         return id;
     }

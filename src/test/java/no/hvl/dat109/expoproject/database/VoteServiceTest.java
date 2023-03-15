@@ -1,10 +1,9 @@
 package no.hvl.dat109.expoproject.database;
 
+import no.hvl.dat109.expoproject.entities.Event;
 import no.hvl.dat109.expoproject.entities.Stand;
 import no.hvl.dat109.expoproject.entities.Vote;
 import no.hvl.dat109.expoproject.entities.Voter;
-import no.hvl.dat109.expoproject.interfaces.database.IVoteService;
-import no.hvl.dat109.expoproject.primarykeys.VotesPK;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,15 +11,17 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.util.AssertionErrors.fail;
 
 @ExtendWith(MockitoExtension.class)
-public class VoteServiceTest { // FIXME
+public class VoteServiceTest {
 
     @InjectMocks
     private VoteService service;
@@ -28,51 +29,57 @@ public class VoteServiceTest { // FIXME
     @Mock
     private VoteRepo voteRepo;
 
-    @Mock
-    private VoterRepo voterRepo;
-
-    private Voter voter1, voter2, voter3;
-    private Stand stand1, stand2, stand3;
-    private VotesPK voter1AndStand1PK;
+    private Voter voter1AtExpo1, voter2AtExpo1, voter3AtExpo2;
+    private Stand stand1AtExpo1, stand2AtExpo1, stand3AtExpo2;
+    private Event expo1, expo2;
 
     @BeforeEach
     void setUp() {
-        voter1 = new Voter(1, 1);
-        voter2 = new Voter(2, 2);
-        voter3 = new Voter(3, 3);
-        stand1 = new Stand();
-        stand2 = new Stand();
-        stand3 = new Stand();
-        voter1AndStand1PK = new VotesPK(voter1.getId(), stand1.getId());
+        expo1 = new Event(1, "Expo1", LocalDateTime.now(), LocalDateTime.now().plusMonths(1));
+        expo2 = new Event(2, "Expo2", LocalDateTime.now(), LocalDateTime.now().plusMonths(1));
+        voter1AtExpo1 = new Voter("1", expo1);
+        voter2AtExpo1 = new Voter("2", expo1);
+        voter3AtExpo2 = new Voter("3", expo2);
+        stand1AtExpo1 = new Stand(1, "Stand 1", "Stand 1", null, null, expo1);
+        stand2AtExpo1 = new Stand(2, "Stand 2", "Stand 2", null, null, expo1);
+        stand3AtExpo2 = new Stand(3, "Stand 3", "Stand 3", null, null, expo2);
     }
 
     @Test
     void getAllVotesInEvent() {
-        fail("Not yet implemented");
+        List<Vote> votesExpo1 = List.of(
+                new Vote(voter1AtExpo1, stand1AtExpo1, 5),
+                new Vote(voter1AtExpo1, stand2AtExpo1, 4),
+                new Vote(voter2AtExpo1, stand2AtExpo1, 4));
+
+        List<Vote> allVotes = Stream.concat(votesExpo1.stream(), Stream.of(new Vote(voter3AtExpo2, stand3AtExpo2, 3)))
+                .collect(Collectors.toList());
+
+        when(voteRepo.findAll()).thenReturn(allVotes);
+
+        List<Vote> votes = service.getAllVotesInEvent(expo1.getId());
+
+        assertEquals(3, votes.size());
+        assertEquals(votesExpo1, votes);
+
     }
 
     @Test
     void getVoteWhenExists() {
-        Vote vote = new Vote(voter1AndStand1PK, 5);
+        Vote vote = new Vote(voter1AtExpo1, stand1AtExpo1, 5);
 
-        when(voteRepo.findVoteBy(voter1AndStand1PK)).thenReturn(vote);
+        when(voteRepo.findByStandAndVoter(stand1AtExpo1, voter1AtExpo1)).thenReturn(vote);
 
-        when(voteRepo.save(vote));
-
-        service.registerVote(vote);
-
-        when(voteRepo.findVoteBy(voter1AndStand1PK)).thenReturn(vote);
-
-        int stars = service.getVote(voter1.getId(), stand1.getId());
+        int stars = service.getVote(stand1AtExpo1, voter1AtExpo1);
 
         assertEquals(5, stars);
     }
 
     @Test
     void getVoteWhenNotExists() {
-        when(voteRepo.findVoteBy(voter1AndStand1PK)).thenReturn(null);
+        when(voteRepo.findByStandAndVoter(stand1AtExpo1, voter1AtExpo1)).thenReturn(null);
 
-        int stars = service.getVote(voter1.getId(), stand1.getId());
+        int stars = service.getVote(stand1AtExpo1, voter1AtExpo1);
 
         assertEquals(-1, stars);
     }
@@ -84,25 +91,25 @@ public class VoteServiceTest { // FIXME
 
     @Test
     void registerLegalVote() {
-        Vote vote = new Vote(voter1, stand1, 5);
+        Vote vote = new Vote(voter1AtExpo1, stand1AtExpo1, 5);
 
-        when(voteRepo.findVoteBy(voter1AndStand1PK)).thenReturn(null);
+        when(voteRepo.findByStandAndVoter(stand1AtExpo1, voter1AtExpo1)).thenReturn(null);
 
-        when(voteRepo.save(vote));
+        when(voteRepo.save(vote)).thenReturn(vote);
 
         service.registerVote(vote);
 
-        when(voteRepo.findVoteBy(voter1AndStand1PK)).thenReturn(vote);
+        when(voteRepo.findByStandAndVoter(stand1AtExpo1, voter1AtExpo1)).thenReturn(vote);
 
-        int stars = service.getVote(voter1.getId(), stand1.getId());
+        int stars = service.getVote(stand1AtExpo1, voter1AtExpo1);
 
         assertEquals(5, stars);
     }
 
     @Test
     void registerIllegalVote() {
-        Vote vote6 = new Vote(voter1, stand1, 6);
-        Vote voteNegative1 = new Vote(voter1, stand1, -1);
+        Vote vote6 = new Vote(voter1AtExpo1, stand1AtExpo1, 6);
+        Vote voteNegative1 = new Vote(voter1AtExpo1, stand1AtExpo1, -1);
 
         assertThrows(IllegalArgumentException.class, () -> service.registerVote(vote6));
         assertThrows(IllegalArgumentException.class, () -> service.registerVote(voteNegative1));
@@ -110,22 +117,12 @@ public class VoteServiceTest { // FIXME
 
     @Test
     void generateVoteCodes() {
-        List<Voter> codes = List.of(new Voter("1", null), new Voter("2", null), new Voter("3", null));
+        List<Voter> voterCodes = List.of(new Voter("1", expo1), new Voter("2", expo1), new Voter("3", expo1));
 
-        when(voterRepo.saveAll(codes));
+        List<String> codes = service.generateVoteCodes(3, expo1);
 
-        service.generateVoteCodes(3, 1);
-
-        when(voterRepo.findAll()).thenReturn(codes);
-
-        List<String> voteCodes = service.getAllVoteCodes(1);
-
-        assertEquals(3, voteCodes.size());
-    }
-
-    @Test
-    void getAllVoteCodes() {
-        fail("Not yet implemented");
+        assertEquals(3, codes.size());
+        assertEquals(3, codes.stream().distinct().count());
     }
 
 }

@@ -6,12 +6,12 @@ import java.io.Serializable;
 public class VotesPK implements Serializable {
 
     @Column(name = "id_voter")
-    private int voter;
+    private String voter;
 
     @Column(name = "id_stand")
     private int stand;
 
-    public VotesPK(int voter, int stand) {
+    public VotesPK(String voter, int stand) {
         this.voter = voter;
         this.stand = stand;
     }
@@ -20,11 +20,11 @@ public class VotesPK implements Serializable {
 
     }
 
-    public int getVoter() {
+    public String getVoter() {
         return voter;
     }
 
-    public void setVoter(int voter) {
+    public void setVoter(String voter) {
         this.voter = voter;
     }
 

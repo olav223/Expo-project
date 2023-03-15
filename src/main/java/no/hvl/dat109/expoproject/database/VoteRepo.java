@@ -10,14 +10,14 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface VoteRepo extends JpaRepository<Vote, VotesPK> {
+interface VoteRepo extends JpaRepository<Vote, VotesPK> {
 
     /**
      * @param stand Standen som brukeren har stemt på
      * @param voter Brukeren som har stemt
      * @return Antall stjerner brukeren har gitt standen, ellers -1
      */
-    int findByStandAndVoter(Stand stand, Voter voter);
+    Vote findByStandAndVoter(Stand stand, Voter voter);
 
     /**
      * @param stand Standen vi skal hente stemmer for
