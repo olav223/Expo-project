@@ -37,6 +37,11 @@ public class Stand {
         this.url = url;
         this.event = event;
     }
+    public Stand(int id, String name, Event event){
+        this.id = id;
+        this.name = name;
+        this.event = event;
+    }
 
     public Stand() {
     }
