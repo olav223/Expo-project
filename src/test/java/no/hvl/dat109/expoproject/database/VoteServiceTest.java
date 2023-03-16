@@ -4,6 +4,7 @@ import no.hvl.dat109.expoproject.entities.Event;
 import no.hvl.dat109.expoproject.entities.Stand;
 import no.hvl.dat109.expoproject.entities.Vote;
 import no.hvl.dat109.expoproject.entities.Voter;
+import no.hvl.dat109.expoproject.primarykeys.VotesPK;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,11 +32,15 @@ public class VoteServiceTest {
     private VoteRepo voteRepo;
 
     @Mock
+    private EventRepo eventRepo;
+
+    @Mock
     private VoterRepo voterRepo; // Trengs slik at vi ikke får nullpointerexception
 
     private Voter voter1AtExpo1, voter2AtExpo1, voter3AtExpo2;
     private Stand stand1AtExpo1, stand2AtExpo1, stand3AtExpo2;
     private Event expo1, expo2;
+    private VotesPK voter1Stand1PK;
 
     @BeforeEach
     void setUp() {
@@ -46,6 +52,7 @@ public class VoteServiceTest {
         stand1AtExpo1 = new Stand(1, "Stand 1", "Stand 1", null, null, expo1);
         stand2AtExpo1 = new Stand(2, "Stand 2", "Stand 2", null, null, expo1);
         stand3AtExpo2 = new Stand(3, "Stand 3", "Stand 3", null, null, expo2);
+        voter1Stand1PK = new VotesPK(voter1AtExpo1.getId(), stand1AtExpo1.getId());
     }
 
     @Test
@@ -71,18 +78,18 @@ public class VoteServiceTest {
     void getVoteWhenExists() {
         Vote vote = new Vote(voter1AtExpo1, stand1AtExpo1, 5);
 
-        when(voteRepo.findByStandAndVoter(stand1AtExpo1, voter1AtExpo1)).thenReturn(vote);
+        when(voteRepo.findById(voter1Stand1PK)).thenReturn(Optional.of(vote));
 
-        int stars = service.getVote(stand1AtExpo1, voter1AtExpo1);
+        int stars = service.getVote(stand1AtExpo1.getId(), voter1AtExpo1.getId());
 
         assertEquals(5, stars);
     }
 
     @Test
     void getVoteWhenNotExists() {
-        when(voteRepo.findByStandAndVoter(stand1AtExpo1, voter1AtExpo1)).thenReturn(null);
+        when(voteRepo.findById(voter1Stand1PK)).thenReturn(Optional.empty());
 
-        int stars = service.getVote(stand1AtExpo1, voter1AtExpo1);
+        int stars = service.getVote(stand1AtExpo1.getId(), voter1AtExpo1.getId());
 
         assertEquals(-1, stars);
     }
@@ -96,15 +103,15 @@ public class VoteServiceTest {
     void registerLegalVote() {
         Vote vote = new Vote(voter1AtExpo1, stand1AtExpo1, 5);
 
-        when(voteRepo.findByStandAndVoter(stand1AtExpo1, voter1AtExpo1)).thenReturn(null);
+        when(voteRepo.findById(voter1Stand1PK)).thenReturn(Optional.of(vote));
 
         when(voteRepo.save(vote)).thenReturn(vote);
 
         service.registerVote(vote);
 
-        when(voteRepo.findByStandAndVoter(stand1AtExpo1, voter1AtExpo1)).thenReturn(vote);
+        when(voteRepo.findById(voter1Stand1PK)).thenReturn(Optional.of(vote));
 
-        int stars = service.getVote(stand1AtExpo1, voter1AtExpo1);
+        int stars = service.getVote(stand1AtExpo1.getId(), voter1AtExpo1.getId());
 
         assertEquals(5, stars);
     }
@@ -120,7 +127,8 @@ public class VoteServiceTest {
 
     @Test
     void generateVoteCodes() {
-        List<String> codes = service.generateVoteCodes(3, expo1);
+        when(eventRepo.findById(1)).thenReturn(expo1);
+        List<String> codes = service.generateVoteCodes(3, 1);
 
         assertEquals(3, codes.size());
         assertEquals(3, codes.stream().distinct().count());

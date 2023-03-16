@@ -2,6 +2,7 @@ package no.hvl.dat109.expoproject.primarykeys;
 
 import javax.persistence.Column;
 import java.io.Serializable;
+import java.util.Objects;
 
 public class VotesPK implements Serializable {
 
@@ -16,8 +17,22 @@ public class VotesPK implements Serializable {
         this.stand = stand;
     }
 
-    public VotesPK() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        VotesPK votesPK = (VotesPK) o;
+
+        if (stand != votesPK.stand) return false;
+        return Objects.equals(voter, votesPK.voter);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = voter != null ? voter.hashCode() : 0;
+        result = 31 * result + stand;
+        return result;
     }
 
     public String getVoter() {

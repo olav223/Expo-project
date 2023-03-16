@@ -24,7 +24,7 @@ public interface IVoteService {
      * @param standID
      * @return number of stars in vote
      */
-    int getVote(Stand stand, Voter voter);
+    int getVote(int standID, String voterID);
 
     /**
      * register vote in database
@@ -39,6 +39,6 @@ public interface IVoteService {
      * @param nrOfCodes
      * @param eventID
      */
-    List<String> generateVoteCodes(int nrOfCodes, Event events);
+    List<String> generateVoteCodes(int nrOfCodes, int eventID);
 
 }
