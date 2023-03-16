@@ -2,6 +2,8 @@ package no.hvl.dat109.expoproject.interfaces.database;
 
 import no.hvl.dat109.expoproject.entities.Stand;
 
+import java.util.List;
+
 public interface IStandService {
 
     /**
@@ -24,5 +26,7 @@ public interface IStandService {
     Stand removeStand(int standID);
 
     Stand getStand(int id);
+
+    List<Stand> getAllStands(int eventID);
 
 }

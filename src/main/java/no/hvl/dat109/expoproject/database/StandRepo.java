@@ -1,8 +1,11 @@
 package no.hvl.dat109.expoproject.database;
 
+import no.hvl.dat109.expoproject.entities.Event;
 import no.hvl.dat109.expoproject.entities.Stand;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 interface StandRepo extends JpaRepository<Stand, Integer> {
@@ -12,4 +15,6 @@ interface StandRepo extends JpaRepository<Stand, Integer> {
      * @return stand with the id
      */
     Stand findById(int id);
+
+    List<Stand> findAllByEvent(Event event);
 }

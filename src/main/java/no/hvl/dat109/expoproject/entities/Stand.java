@@ -41,6 +41,21 @@ public class Stand {
     public Stand() {
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Stand stand = (Stand) o;
+
+        return id == stand.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
+
     public int getId() {
         return id;
     }
