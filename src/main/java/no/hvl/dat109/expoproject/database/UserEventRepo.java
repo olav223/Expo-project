@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserEventRepo extends JpaRepository<UserEvent, UserEventPK> {
+interface UserEventRepo extends JpaRepository<UserEvent, UserEventPK> {
 
     /**
      * @param event Eventen vi skal hente brukere for

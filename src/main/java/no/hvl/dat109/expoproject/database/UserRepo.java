@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepo extends JpaRepository<User, String> {
+interface UserRepo extends JpaRepository<User, String> {
 
     /**
      * @param username Brukernavn til brukeren
