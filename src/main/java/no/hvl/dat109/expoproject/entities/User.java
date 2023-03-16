@@ -29,6 +29,10 @@ public class User {
         this.accessLevel = accessLevel;
         this.userEvents = userEvents;
     }
+    public User(String username, List<UserEvent> userEvents){
+        this.username = username;
+        this.userEvents = userEvents;
+    }
 
     public User() {
     }
@@ -88,6 +92,14 @@ public class User {
     public void setAccessLevel(int accessLevel) {
         this.accessLevel = accessLevel;
     }
+
+    public void appendEvent(UserEvent userEvent){
+        this.userEvents.add(userEvent);
+    }
+    public void removeEvent(UserEvent userEvent){
+        this.userEvents.remove(userEvent);
+    }
+
 
     @Override
     public String toString() {
