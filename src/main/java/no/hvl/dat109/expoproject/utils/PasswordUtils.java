@@ -9,15 +9,15 @@ import java.security.spec.InvalidKeySpecException;
 
 public class PasswordUtils {
 
-    public static String genererSalt() {
+    public static String generateSalt() {
         final byte[] salt = new byte[16];
         new SecureRandom().nextBytes(salt);
         return DatatypeConverter.printHexBinary(salt);
     }
 
-    public static String hashMedSalt(String passord, String salt) {
+    public static String hashWithSalt(final String passord, final String salt) {
         if (passord == null || salt == null) {
-            throw new IllegalArgumentException("Passord og salt kan ikke være null");
+            throw new IllegalArgumentException("Password and salt cannot be null");
         }
 
         final PBEKeySpec pbe = new PBEKeySpec(passord.toCharArray(), salt.getBytes(), 696, 256);
@@ -34,9 +34,11 @@ public class PasswordUtils {
         return DatatypeConverter.printHexBinary(keyhash);
     }
 
-    public static boolean validerMedSalt(String passord, String salt, String passordHash) {
-        assert passord != null && salt != null && passordHash != null;
-        return passordHash.equals(hashMedSalt(passord, salt));
+    public static boolean validate(final String passord, final String salt, final String passordHash) {
+        if (passord == null || salt == null || passordHash == null) {
+            throw new IllegalArgumentException("Password and salt cannot be null");
+        }
+        return passordHash.equals(hashWithSalt(passord, salt));
     }
 
 }

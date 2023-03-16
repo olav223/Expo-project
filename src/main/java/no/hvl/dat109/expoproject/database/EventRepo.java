@@ -4,26 +4,23 @@ import no.hvl.dat109.expoproject.entities.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface EventRepo /*extends JpaRepository<Event,Integer>*/{
+interface EventRepo extends JpaRepository<Event, Integer> {
 
     /**
-    @param id of the event
-    @return the event with the id
+     * @param id of the event
+     * @return the event with the id
      */
-    Event getEventById(int id);
+    Event getById(int id);
 
     /**
-    @return a list of all events
+     * @param id of event
+     * @return true if event is open, else
      */
-    List<Event>getAllEvents();
+//    boolean isOpen(int id); // TODO finn query, bruk JPA designer?
 
-    /**
-    @param id of event
-    @return true if event is open, else
-    @return false if event is closed
-     */
-    boolean isOpen(int id);
+
 }
