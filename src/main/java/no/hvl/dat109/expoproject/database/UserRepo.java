@@ -1,22 +1,24 @@
 package no.hvl.dat109.expoproject.database;
 
 import no.hvl.dat109.expoproject.entities.User;
+import no.hvl.dat109.expoproject.entities.UserEvent;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface UserRepo /*extends JpaRepository<User,String>*/{
+public interface UserRepo extends JpaRepository<User, String> {
 
     /**
-    @param id of the user
-    @return the user with the id
+     * @param username Brukernavn til brukeren
+     * @return Brukeren til brukernavnet, eller null
      */
-    User findUserById(int id);
+    User findByUsername(String username);
 
     /**
-    @return a list of all users
+     * @param accessLevel Tilgangsnivået til brukeren, 0 for admin, 1 for jury og 2 for utstiller
+     * @return Brukeren til tilgangsnivået, eller null
      */
-    List<User> getAllUsers();
+    User findByAccessLevel(int accessLevel);
 }
