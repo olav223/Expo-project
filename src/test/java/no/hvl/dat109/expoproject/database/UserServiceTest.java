@@ -126,7 +126,7 @@ class UserServiceTest {
         us.addUserToEvent(user1, event);
         us.addUserToEvent(user2, event);
 
-        us.removeUserFromEvent(user1, event);
+        us.removeUserFromEvent(user1, event); // FIXME
 
         List<User> users = userEventRepo.findAllByEvent(event).stream()
                 .map(UserEvent::getUser)
