@@ -30,6 +30,9 @@ public class Event {
         this.userEvent = new ArrayList<>();
         this.voters = new ArrayList<>();
     }
+    public Event(int id){
+        this.id = id;
+    }
 
     public Event() {
     }
