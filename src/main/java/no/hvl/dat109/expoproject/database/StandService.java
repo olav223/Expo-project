@@ -4,39 +4,27 @@ import no.hvl.dat109.expoproject.entities.Stand;
 import no.hvl.dat109.expoproject.interfaces.database.IStandService;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class StandService implements IStandService {
 
     private final StandRepo standRepo;
 
-    public StandService(StandRepo standRepo) {
-        this.standRepo = standRepo;
-    }
+    public StandService(StandRepo standRepo) {this.standRepo = standRepo; }
 
     @Override
     public void addStand(Stand stand) {
-
+        //throw new UnsupportedOperationException("Not supported yet."); }
     }
-
     @Override
-    public void updateStand(Stand stand) {
-
+    public void updateStand(Stand stand) { //throw new UnsupportedOperationException("Not supported yet.");}
     }
-
     @Override
-    public Stand removeStand(int standID) {
-
-        return null;
+    public void removeStand(int standID) { //throw new UnsupportedOperationException("Not supported yet.");}
+        standRepo.deleteById(standID);
     }
 
     @Override
     public Stand getStand(int id) {
-        return null;
-    }
-
-    public List<Stand> getAllStands(int eventID) {
-        return null;
+        return standRepo.getStandById(id);
     }
 }
