@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements IUserService {
@@ -16,6 +17,8 @@ public class UserService implements IUserService {
     private UserRepo userRepo;
     @Autowired
     private EventRepo eventRepo;
+    @Autowired
+    private UserEventRepo userEventRepo;
 
     @Override
     public void addUser(User user) {
@@ -31,22 +34,35 @@ public class UserService implements IUserService {
         User user = userRepo.findByUsername(userID);
 
         if(user == null){
+            //Means the user is not in the database
             throw new NullPointerException("The user was not found");
         }
         else
             userRepo.delete(user);
 
-        return null;
+        return user;
     }
 
     @Override
     public void addUserToEvent(User user, Event event) {
-        user.appendEvent(new UserEvent(user, event));
+        if(user == null || event == null)
+            throw new NullPointerException("user or event can not be null");
+        else
+            user.appendEvent(new UserEvent(user, event));
     }
 
     @Override
     public void removeUserFromEvent(User user, Event event) {
-        user.removeEvent(new UserEvent(user, event));
+        List<UserEvent> allUsers = userEventRepo.findAllByEvent(event);
+
+        List<User> users = allUsers.stream()
+                .map(UserEvent::getUser)
+                .collect(Collectors.toList());
+
+        if(users.contains(user))
+            user.removeEvent(new UserEvent(user, event));
+        else
+            throw new NullPointerException("The user is not in the event");
     }
 
     @Override
