@@ -6,6 +6,8 @@ import no.hvl.dat109.expoproject.interfaces.database.IStandService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/stand")
 public class StandController implements IStandService {
@@ -28,6 +30,17 @@ public class StandController implements IStandService {
 
     @Override
     public Stand removeStand(int standID) {
+        return null;
+
+    }
+
+    @Override
+    public Stand getStand(int id) {
+        return null;
+    }
+
+    @Override
+    public List<Stand> findAllByEvent(int id) {
         return null;
     }
 }
