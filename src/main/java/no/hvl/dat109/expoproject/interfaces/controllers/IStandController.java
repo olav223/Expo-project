@@ -11,9 +11,9 @@ public interface IStandController {
      * updates stand info from updated stand object
      * @param stand
      */
-    Stand postUpdateStand(Stand stand);
+    Boolean postUpdateStand(Stand stand);
 
-    Stand postAddStand(Stand stand);
+    Boolean postAddStand(Stand stand);
 
     /**
      * get stand with id

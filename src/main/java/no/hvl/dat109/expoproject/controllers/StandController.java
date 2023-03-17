@@ -39,26 +39,38 @@ public class StandController implements IStandController {
 
     @Override
     @PostMapping("/update")
-    public Stand postUpdateStand(@RequestBody Stand stand) {
+    public Boolean postUpdateStand(@RequestBody Stand stand) {
         if (stand == null) {
             throw new IllegalArgumentException("Stand cannot be null");
         }
 
-        ss.addStand(stand);
+        boolean isUpdated = false;
+        try {
+            ss.updateStand(stand);
+            isUpdated = true;
+        }
+        catch (RuntimeException ignored) {
+        }
 
-        return null; // TODO
+        return isUpdated;
     }
 
     @Override
     @PostMapping("/add")
-    public Stand postAddStand(@RequestBody Stand stand) {
+    public Boolean postAddStand(@RequestBody Stand stand) {
         if (stand == null) {
             throw new IllegalArgumentException("Stand cannot be null");
         }
 
-        ss.addStand(stand);
+        boolean isAdded = false;
+        try {
+            ss.addStand(stand);
+            isAdded = true;
+        }
+        catch (RuntimeException ignored) {
+        }
 
-        return null; // TODO
+        return isAdded;
     }
 
     @Override

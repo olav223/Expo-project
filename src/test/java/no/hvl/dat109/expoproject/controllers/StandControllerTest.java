@@ -13,8 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
-import static org.springframework.test.util.AssertionErrors.fail;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class StandControllerTest {
@@ -51,16 +50,29 @@ public class StandControllerTest {
     }
 
     @Test
-    void addStand() {
-        fail("Not yet implemented");
+    void addStandSuccessful() {
+        doNothing().when(ss).addStand(stand1);
         sc.postAddStand(stand1);
     }
 
     @Test
-    void updateStand() {
-        fail("Not yet implemented");
+    void addStandWhenNotSuccessful() {
+        doThrow(RuntimeException.class).when(ss).addStand(stand1);
+        sc.postAddStand(stand1);
+    }
+
+    @Test
+    void updateStandSuccessful() {
+        doNothing().when(ss).updateStand(stand1);
         sc.postUpdateStand(stand1);
     }
+
+    @Test
+    void updateStandWhenNotSuccessful() {
+        doThrow(RuntimeException.class).when(ss).updateStand(stand1);
+        sc.postUpdateStand(stand1);
+    }
+
 
     @Test
     void removeStandWithExistingID() {
