@@ -1,9 +1,12 @@
 import React from "react";
-import {useRoutes} from "react-router-dom";
-import routes from "./routes";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import FrontPage from "./pages/FontPage";
 
 function App() {
-  const content = useRoutes(routes);
-  return content;
+  return <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <Routes>
+      <Route index element={<FrontPage />}/>
+    </Routes>
+  </BrowserRouter>
 }
 export default App;
