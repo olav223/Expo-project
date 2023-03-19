@@ -16,11 +16,11 @@ public class User {
     private String email;
     private String hash;
     private String salt;
-    private int accessLevel;
+    private Integer accessLevel;
     @OneToMany(mappedBy = "user")
     private List<UserEvent> userEvents;
 
-    public User(String username, String phone, String email, String hash, String salt, int accessLevel, List<UserEvent> userEvents) {
+    public User(String username, String phone, String email, String hash, String salt, Integer accessLevel, List<UserEvent> userEvents) {
         this.username = username;
         this.phone = phone;
         this.email = email;
@@ -85,11 +85,11 @@ public class User {
         this.userEvents = userEvents;
     }
 
-    public int getAccessLevel() {
+    public Integer getAccessLevel() {
         return accessLevel;
     }
 
-    public void setAccessLevel(int accessLevel) {
+    public void setAccessLevel(Integer accessLevel) {
         this.accessLevel = accessLevel;
     }
 

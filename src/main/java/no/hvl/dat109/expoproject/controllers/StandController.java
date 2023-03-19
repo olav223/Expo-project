@@ -34,7 +34,7 @@ public class StandController implements IStandController {
         if (eventID < 1) {
             return null;
         }
-        return ss.getAllStands(eventID);
+        return ss.findAllByEvent(eventID);
     }
 
     @Override
