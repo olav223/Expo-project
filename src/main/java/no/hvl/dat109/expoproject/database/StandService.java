@@ -47,7 +47,7 @@ public class StandService implements IStandService {
 
     @Override
     public List<Stand> findAllByEvent(int id) {
-        Event eventID = eventRepo.getById(id);
+        Event eventID = eventRepo.findById(id);
         if (eventID == null) {
             return null;
         } else {
