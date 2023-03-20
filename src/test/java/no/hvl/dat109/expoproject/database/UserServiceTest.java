@@ -33,7 +33,7 @@ class UserServiceTest {
     private Event event, event2, event3;
 
     @BeforeEach
-    void setup(){
+    void setup() {
         user1 = new User("user1", new ArrayList<>());
         user2 = new User("user2", new ArrayList<>());
         user3 = new User("user3", new ArrayList<>());
@@ -51,27 +51,31 @@ class UserServiceTest {
         when(ur.findByUsername("user3")).thenReturn(user3);
         assertEquals("user3", ur.findByUsername("user3").getUsername());
     }
+
     @Test
-    void addNullUser(){
+    void addNullUser() {
         Exception exception = assertThrows(NullPointerException.class, () -> us.addUser(user4));
         String expectedMessage = "The user cannot be null";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
+
     @Test
-    void addANullUserToEvent(){
+    void addANullUserToEvent() {
         Exception exception = assertThrows(NullPointerException.class, () -> us.addUserToEvent(user4, event));
         String expectedMessage = "user or event can not be null";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
+
     @Test
-    void addAUserToNullEvent(){
+    void addAUserToNullEvent() {
         Exception exception = assertThrows(NullPointerException.class, () -> us.addUserToEvent(user1, event3));
         String expectedMessage = "user or event can not be null";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
+
     @Test
     void testAddandRemoveUser() {
         when(ur.save(user2)).thenReturn(user2);
@@ -83,15 +87,17 @@ class UserServiceTest {
         us.removeUser("user2");
         verify(ur, times(1)).delete(user2);
     }
+
     @Test
-    void deleteUserThatDoesNotExist(){
+    void deleteUserThatDoesNotExist() {
         Exception exception = assertThrows(NullPointerException.class, () -> us.removeUser("user4"));
         String expectedMessage = "The user was not found";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
+
     @Test
-    void removeUserThatDoesNotExist(){
+    void removeUserThatDoesNotExist() {
         List<Event> events = Arrays.asList(
                 event,
                 event2
@@ -120,10 +126,11 @@ class UserServiceTest {
         assertEquals(events.get(0).getId(), user1.getUserEvents().get(0).getEvent().getId());
         assertEquals(events.get(1).getId(), user1.getUserEvents().get(1).getEvent().getId());
     }
+
     @Test
-    void addAndRemoveUserFromEvent(){
-        //Kaster en stackOverflowError
-        /*us.addUserToEvent(user1, event);
+    void addAndRemoveUserFromEvent() {
+        // TODO Kaster en stackOverflowError | Mangler when() eller tilsvarende
+        us.addUserToEvent(user1, event);
         us.addUserToEvent(user2, event);
 
         us.removeUserFromEvent(user1, event); // FIXME
@@ -132,10 +139,11 @@ class UserServiceTest {
                 .map(UserEvent::getUser)
                 .collect(Collectors.toList());
 
-        assertFalse(users.contains(user1));*/
+        assertFalse(users.contains(user1));
     }
+
     @Test
-    void allUsers(){
+    void allUsers() {
         when(ur.save(user1)).thenReturn(user1);
         when(ur.save(user2)).thenReturn(user2);
 

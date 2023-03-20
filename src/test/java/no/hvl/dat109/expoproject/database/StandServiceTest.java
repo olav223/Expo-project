@@ -28,7 +28,7 @@ public class StandServiceTest {
     private StandRepo repo;
 
     private Stand stand1, stand2;
-private Event event1;
+    private Event event1;
 
 
     @BeforeEach
@@ -41,8 +41,9 @@ private Event event1;
     @Test
     void addStand() {
         when(repo.findById(1)).thenReturn(stand1);
-        assertThrows(RuntimeException.class, () -> service.addStand(stand1) );
+        assertThrows(RuntimeException.class, () -> service.addStand(stand1));
     }
+
     @Test
     void notAddStand() {
         when(repo.findById(1)).thenReturn(null);
@@ -52,7 +53,7 @@ private Event event1;
     @Test
     void updateStand() {
         when(repo.findById(1)).thenReturn(null);
-        assertThrows(RuntimeException.class, () -> service.updateStand(stand1) );
+        assertThrows(RuntimeException.class, () -> service.updateStand(stand1));
     }
 
     @Test
@@ -81,6 +82,6 @@ private Event event1;
 
     @Test
     void findAllByID() {
-
+        fail();
     }
 }
