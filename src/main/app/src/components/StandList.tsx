@@ -27,7 +27,7 @@ export const StandList = () => {
         {stands.length > 0 ? stands.map((item,i) => {
             return <div key={"stand-"+i} className="standItem">
                 <div>
-                    <h4>{item["name"]}</h4>
+                    <h4>{item["title"]}</h4>
                     <p>{item["description"]}</p>
                 </div>
                 <button onClick={() => vote(2)}>Stem på</button>
