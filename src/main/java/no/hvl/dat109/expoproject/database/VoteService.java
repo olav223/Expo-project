@@ -4,7 +4,7 @@ import no.hvl.dat109.expoproject.entities.Event;
 import no.hvl.dat109.expoproject.entities.Vote;
 import no.hvl.dat109.expoproject.entities.Voter;
 import no.hvl.dat109.expoproject.interfaces.database.IVoteService;
-import no.hvl.dat109.expoproject.primarykeys.VotesPK;
+import no.hvl.dat109.expoproject.primarykeys.VotePK;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -22,27 +22,25 @@ public class VoteService implements IVoteService {
     private final EventRepo eventRepo;
 
     private static final int CODE_LENGTH = 6;
+    private final StandRepo standRepo;
 
-    public VoteService(VoteRepo voteRepo, VoterRepo voterRepo, EventRepo eventRepo) {
+    public VoteService(VoteRepo voteRepo, VoterRepo voterRepo, EventRepo eventRepo,
+                       StandRepo standRepo) {
         this.voteRepo = voteRepo;
         this.voterRepo = voterRepo;
         this.eventRepo = eventRepo;
+        this.standRepo = standRepo;
     }
 
     @Override
     public List<Vote> getAllVotesInEvent(int eventID) {
-        List<Vote> allVotes = voteRepo.findAll();
-
-        List<Vote> votesInEvent = allVotes.stream()
-                .filter(vote -> vote.getStand().getEvent().getId() == eventID)
-                .collect(Collectors.toList());
-
-        return votesInEvent;
+        List<Vote> allVotes = voteRepo.findByStand_Event_Id(eventID);
+        return allVotes;
     }
 
     @Override
     public int getVote(int standID, String voterID) {
-        Optional<Vote> vote = voteRepo.findById(new VotesPK(voterID, standID));
+        Optional<Vote> vote = voteRepo.findById(new VotePK(voterID, standID));
         return vote.map(Vote::getStars).orElse(-1);
     }
 
@@ -53,7 +51,12 @@ public class VoteService implements IVoteService {
         if (vote.getStars() < 0 || vote.getStars() > 5)
             throw new IllegalArgumentException("Vote must be between 0 and 5");
 
-        voteRepo.save(vote);
+        try {
+            voteRepo.save(vote);
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Could not save vote: " + e.getMessage());
+        }
     }
 
     @Override
@@ -61,7 +64,7 @@ public class VoteService implements IVoteService {
         List<Voter> codes = new ArrayList<>(nrOfCodes);
         Event event = eventRepo.findById(eventID);
 
-        if (event == null) {
+        if (event == null) {;
             return null;
         }
 

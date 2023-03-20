@@ -2,18 +2,24 @@ package no.hvl.dat109.expoproject.database;
 
 import no.hvl.dat109.expoproject.entities.Stand;
 import no.hvl.dat109.expoproject.entities.Vote;
-import no.hvl.dat109.expoproject.primarykeys.VotesPK;
+import no.hvl.dat109.expoproject.primarykeys.VotePK;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-interface VoteRepo extends JpaRepository<Vote, VotesPK> {
+interface VoteRepo extends JpaRepository<Vote, VotePK> {
 
     /**
-     * @param stand Standen vi skal hente stemmer for
+     * @param standID Standen vi skal hente stemmer for
      * @return En liste med alle stemmer for en stand
      */
-    List<Vote> findAllByStand(Stand stand);
+    @Query("select v from Vote v where v.votePK.id_stand = ?1")
+    List<Vote> findAllByVotePK_idstand(Integer standID);
+
+    @Query("select v from Vote v join Stand s join Event e where e.id = ?1")
+    List<Vote> findByStand_Event_Id(int id);
+
 }
