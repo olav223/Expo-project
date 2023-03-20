@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/stand")
 public class StandController implements IStandController {
@@ -34,7 +35,7 @@ public class StandController implements IStandController {
         if (eventID < 1) {
             return null;
         }
-        return ss.getAllStands(eventID);
+        return ss.findAllByEvent(eventID);
     }
 
     @Override
