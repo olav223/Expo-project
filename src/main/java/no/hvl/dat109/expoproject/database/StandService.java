@@ -21,7 +21,8 @@ public class StandService implements IStandService {
     public void addStand(Stand stand) {
         if (standRepo.findById(stand.getId()) != null) {
             throw new RuntimeException("Stand exist already");
-        } else {
+        }
+        else {
             standRepo.save(stand);
         }
     }
@@ -30,7 +31,8 @@ public class StandService implements IStandService {
     public void updateStand(Stand stand) {
         if (standRepo.findById(stand.getId()) == null) {
             throw new RuntimeException("Stand does not exist already");
-        } else {
+        }
+        else {
             standRepo.save(stand);
         }
     }
@@ -50,7 +52,8 @@ public class StandService implements IStandService {
         Event eventID = eventRepo.findById(id);
         if (eventID == null) {
             return null;
-        } else {
+        }
+        else {
             List<Stand> CompleteList = standRepo.findAllByEvent(eventID);
             return CompleteList;
         }
