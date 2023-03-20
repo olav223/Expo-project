@@ -22,14 +22,12 @@ public class VoteService implements IVoteService {
     private final EventRepo eventRepo;
 
     private static final int CODE_LENGTH = 6;
-    private final StandRepo standRepo;
 
     public VoteService(VoteRepo voteRepo, VoterRepo voterRepo, EventRepo eventRepo,
                        StandRepo standRepo) {
         this.voteRepo = voteRepo;
         this.voterRepo = voterRepo;
         this.eventRepo = eventRepo;
-        this.standRepo = standRepo;
     }
 
     @Override
@@ -44,6 +42,14 @@ public class VoteService implements IVoteService {
         return vote.map(Vote::getStars).orElse(-1);
     }
 
+    /**
+     * Registerer en stemme i databasen, stemmen må være mellom 0 og 5.
+     *
+     * @param vote stemmen som skal registreres, skal inneholde en eksisterende standId og voterID.
+     * @throws NullPointerException     hvis vote er null
+     * @throws IllegalArgumentException hvis vote ikke er mellom 0 og 5
+     * @throws RuntimeException         hvis stemmen ikke kan lagres
+     */
     @Override
     public void registerVote(Vote vote) {
         if (vote == null)
@@ -64,7 +70,7 @@ public class VoteService implements IVoteService {
         List<Voter> codes = new ArrayList<>(nrOfCodes);
         Event event = eventRepo.findById(eventID);
 
-        if (event == null) {;
+        if (event == null) {
             return null;
         }
 
