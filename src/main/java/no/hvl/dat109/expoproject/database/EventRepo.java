@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface EventRepo /*extends JpaRepository<Event,Integer>*/{
+public interface EventRepo extends JpaRepository<Event,Integer>{
 
     /**
     @param id of the event

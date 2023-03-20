@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepo /*extends JpaRepository<User,String>*/{
+public interface UserRepo extends JpaRepository<User,String>{
 
     /**
     @param id of the user
