@@ -47,13 +47,12 @@ public class StandService implements IStandService {
 
     @Override
     public List<Stand> findAllByEvent(int id) {
-        Event eventID = eventRepo.getById(id);
-        if (eventID == null) {
+        Event event = eventRepo.getById(id);
+        if (event == null) {
             return null;
         } else {
-            List<Stand> CompleteList = standRepo.findAllByEvent(eventID);
+            List<Stand> CompleteList = standRepo.findAllByEvent(event);
             return CompleteList;
         }
     }
-
 }

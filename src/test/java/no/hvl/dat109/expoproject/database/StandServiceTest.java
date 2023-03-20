@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 import static org.springframework.web.servlet.mvc.method.annotation.SseEmitter.event;
@@ -81,6 +82,10 @@ private Event event1;
 
     @Test
     void findAllByID() {
+        List<Stand> check = List.of(stand1, stand2);
+        doReturn(check).when(repo).findAllByEvent(event1);
+        doReturn(check).when(repo).getById(1);
+        Assertions.assertEquals(check, service.findAllByEvent(1));
 
     }
 }
