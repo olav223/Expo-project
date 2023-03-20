@@ -6,6 +6,8 @@ import no.hvl.dat109.expoproject.interfaces.controllers.IVoteController;
 import no.hvl.dat109.expoproject.interfaces.database.IVoteService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/vote")
 public class VoteController implements IVoteController {
@@ -28,5 +30,14 @@ public class VoteController implements IVoteController {
     @GetMapping
     public int getVote(@RequestParam String voterID, @RequestParam int standID) {
         return vs.getVote(standID, voterID);
+    }
+
+    @Override
+    @GetMapping("/all")
+    public List<Vote> getVotes(@RequestParam(defaultValue = "0") int eventID) {
+        if (eventID == 0) {
+            return null;
+        }
+        return vs.getAllVotesInEvent(eventID);
     }
 }

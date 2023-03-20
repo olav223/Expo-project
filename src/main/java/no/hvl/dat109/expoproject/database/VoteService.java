@@ -23,8 +23,7 @@ public class VoteService implements IVoteService {
 
     private static final int CODE_LENGTH = 6;
 
-    public VoteService(VoteRepo voteRepo, VoterRepo voterRepo, EventRepo eventRepo,
-                       StandRepo standRepo) {
+    public VoteService(VoteRepo voteRepo, VoterRepo voterRepo, EventRepo eventRepo) {
         this.voteRepo = voteRepo;
         this.voterRepo = voterRepo;
         this.eventRepo = eventRepo;

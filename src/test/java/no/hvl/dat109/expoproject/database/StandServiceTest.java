@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,8 +27,6 @@ public class StandServiceTest {
 
     @Mock
     private StandRepo standRepo;
-    @Mock
-    private EventRepo eventRepo;
 
     private Stand stand1, stand2;
     private Event event1;
@@ -85,15 +84,14 @@ public class StandServiceTest {
     @Test
     void findAllByID() {
         List<Stand> check = List.of(stand1, stand2);
-        doReturn(check).when(standRepo).findAllByEvent(event1);
-        doReturn(event1).when(eventRepo).findById(1);
+        doReturn(check).when(standRepo).findAllByEvent(event1.getId());
         Assertions.assertEquals(check, service.findAllByEvent(1));
     }
 
     @Test
     void nullFindAllByID() {
-       doReturn(null).when(eventRepo).findById(2);
-       Assertions.assertEquals(null, service.findAllByEvent(2));
+        doReturn(null).when(standRepo).findAllByEvent(2);
+        assertNull(service.findAllByEvent(2));
 
     }
 }

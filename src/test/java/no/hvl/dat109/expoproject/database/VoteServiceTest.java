@@ -70,11 +70,10 @@ public class VoteServiceTest {
 
         when(voteRepo.findAll()).thenReturn(allVotes);
 
-        List<Vote> votes = service.getAllVotesInEvent(expo1.getId());
+        List<Vote> votes = service.getAllVotesInEvent(expo1.getId()); // FIXME feil resultat
 
         assertEquals(3, votes.size());
         assertEquals(votesExpo1, votes);
-
     }
 
     @Test
