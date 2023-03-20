@@ -1,5 +1,6 @@
 package no.hvl.dat109.expoproject.database;
 
+import no.hvl.dat109.expoproject.entities.Event;
 import no.hvl.dat109.expoproject.entities.Stand;
 import no.hvl.dat109.expoproject.interfaces.database.IStandService;
 import org.springframework.stereotype.Service;
@@ -8,35 +9,54 @@ import java.util.List;
 
 @Service
 public class StandService implements IStandService {
-
     private final StandRepo standRepo;
+    private final EventRepo eventRepo;
 
-    public StandService(StandRepo standRepo) {
+    public StandService(StandRepo standRepo, EventRepo eventRepo) {
         this.standRepo = standRepo;
+        this.eventRepo = eventRepo;
     }
 
     @Override
     public void addStand(Stand stand) {
-
+        if (standRepo.findById(stand.getId()) != null) {
+            throw new RuntimeException("Stand exist already");
+        }
+        else {
+            standRepo.save(stand);
+        }
     }
 
     @Override
     public void updateStand(Stand stand) {
-
+        if (standRepo.findById(stand.getId()) == null) {
+            throw new RuntimeException("Stand does not exist already");
+        }
+        else {
+            standRepo.save(stand);
+        }
     }
 
     @Override
     public Stand removeStand(int standID) {
-
-        return null;
+        return standRepo.deleteById(standID);
     }
 
     @Override
     public Stand getStand(int id) {
-        return null;
+        return standRepo.findById(id);
     }
 
-    public List<Stand> getAllStands(int eventID) {
-        return null;
+    @Override
+    public List<Stand> findAllByEvent(int id) {
+        Event eventID = eventRepo.findById(id);
+        if (eventID == null) {
+            return null;
+        }
+        else {
+            List<Stand> CompleteList = standRepo.findAllByEvent(eventID);
+            return CompleteList;
+        }
     }
+
 }

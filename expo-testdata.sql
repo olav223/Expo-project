@@ -9,10 +9,10 @@ VALUES (0, 'admin'),
        (2, 'exhibitor');
 
 INSERT INTO "user"
-VALUES ('admin', '123445678', 'admin@admin.com', 'admin', ''),
-       ('jury', '123445678', 'jury@jury.com', 'jury', ''),
-       ('exhibitor1', '123445678', 'exhibitor1@exhibitor.com', 'exhibitor1', ''),
-       ('exhibitor2', '87654321', 'exhibitor2@exhibitor.com', 'exhibitor2', '');
+VALUES ('admin', '123445678', 'admin@admin.com', 'admin', '', 0),
+       ('jury', '123445678', 'jury@jury.com', 'jury', '', 1),
+       ('exhibitor1', '123445678', 'exhibitor1@exhibitor.com', 'exhibitor1', '', 2),
+       ('exhibitor2', '87654321', 'exhibitor2@exhibitor.com', 'exhibitor2', '', 2);
 
 INSERT INTO voter
 VALUES ('1', 1),
@@ -26,3 +26,6 @@ VALUES ('test1', 'description', null, null, 1, 'exhibitor1'),
 INSERT INTO exhibitor(firstname, lastname, stand, phone)
 VALUES ('Kontakt', 'Person', 1, '12345678'),
        ('Person', 'Kontakt', 2, '23456789');
+
+INSERT INTO user_event(id_event,username) VALUES
+                                              (1, 'exhibitor1');
