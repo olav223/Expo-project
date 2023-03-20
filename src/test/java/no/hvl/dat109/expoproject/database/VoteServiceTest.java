@@ -127,7 +127,7 @@ public class VoteServiceTest {
 
     @Test
     void generateVoteCodes() {
-        when(eventRepo.getById(1)).thenReturn(expo1);
+        when(eventRepo.findById(1)).thenReturn(expo1);
         List<String> codes = service.generateVoteCodes(3, 1);
 
         assertEquals(3, codes.size());

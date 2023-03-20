@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 import static org.springframework.web.servlet.mvc.method.annotation.SseEmitter.event;
@@ -29,7 +28,7 @@ public class StandServiceTest {
     private StandRepo repo;
 
     private Stand stand1, stand2;
-private Event event1;
+    private Event event1;
 
 
     @BeforeEach
@@ -42,8 +41,9 @@ private Event event1;
     @Test
     void addStand() {
         when(repo.findById(1)).thenReturn(stand1);
-        assertThrows(RuntimeException.class, () -> service.addStand(stand1) );
+        assertThrows(RuntimeException.class, () -> service.addStand(stand1));
     }
+
     @Test
     void notAddStand() {
         when(repo.findById(1)).thenReturn(null);
@@ -53,7 +53,7 @@ private Event event1;
     @Test
     void updateStand() {
         when(repo.findById(1)).thenReturn(null);
-        assertThrows(RuntimeException.class, () -> service.updateStand(stand1) );
+        assertThrows(RuntimeException.class, () -> service.updateStand(stand1));
     }
 
     @Test
@@ -82,10 +82,6 @@ private Event event1;
 
     @Test
     void findAllByID() {
-        List<Stand> check = List.of(stand1, stand2);
-        doReturn(check).when(repo).findAllByEvent(event1);
-        doReturn(check).when(repo).getById(1);
-        Assertions.assertEquals(check, service.findAllByEvent(1));
-
+        fail();
     }
 }

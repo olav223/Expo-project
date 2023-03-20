@@ -59,7 +59,7 @@ public class VoteService implements IVoteService {
     @Override
     public List<String> generateVoteCodes(int nrOfCodes, int eventID) {
         List<Voter> codes = new ArrayList<>(nrOfCodes);
-        Event event = eventRepo.getById(eventID);
+        Event event = eventRepo.findById(eventID);
 
         if (event == null) {
             return null;

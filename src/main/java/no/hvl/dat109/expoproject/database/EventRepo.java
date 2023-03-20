@@ -11,16 +11,8 @@ import java.util.List;
 interface EventRepo extends JpaRepository<Event, Integer> {
 
     /**
-     * @param id of the event
-     * @return the event with the id
+     * @param id ID til eventen
+     * @return Eventen til id, eller null
      */
-    Event getById(int id);
-
-    /**
-     * @param id of event
-     * @return true if event is open, else
-     */
-//    boolean isOpen(int id); // TODO finn query, bruk JPA designer?
-
-
+    Event findById(int id);
 }
