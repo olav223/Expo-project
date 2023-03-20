@@ -34,3 +34,4 @@ build/
 /src/main/app/node_modules/
 
 .attach*
+/src/main/resources/static/

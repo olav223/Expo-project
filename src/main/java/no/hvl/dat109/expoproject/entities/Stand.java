@@ -15,12 +15,12 @@ public class Stand {
     private String image;
     private String url;
 
-    @ManyToOne
-    @JoinColumn(name = "event")
-    private Event event;
-
-    @OneToMany(mappedBy = "stand")
-    private List<Vote> votes;
+//    @ManyToOne
+//    @JoinColumn(name = "event")
+//    private Event event;
+//
+//    @OneToMany(mappedBy = "stand")
+//    private List<Vote> votes;
 
     @OneToMany(mappedBy = "stand")
     private List<Exhibitor> exhibitors;
@@ -35,12 +35,12 @@ public class Stand {
         this.description = description;
         this.image = image;
         this.url = url;
-        this.event = event;
+//        this.event = event;
     }
     public Stand(int id, String title, Event event){
         this.id = id;
         this.title = title;
-        this.event = event;
+//        this.event = event;
     }
 
     public Stand() {
@@ -101,21 +101,21 @@ public class Stand {
         this.url = url;
     }
 
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-
-    public List<Vote> getVotes() {
-        return votes;
-    }
-
-    public void setVotes(List<Vote> votes) {
-        this.votes = votes;
-    }
+//    public Event getEvent() {
+//        return event;
+//    }
+//
+//    public void setEvent(Event event) {
+//        this.event = event;
+//    }
+//
+//    public List<Vote> getVotes() {
+//        return votes;
+//    }
+//
+//    public void setVotes(List<Vote> votes) {
+//        this.votes = votes;
+//    }
 
     public List<Exhibitor> getExhibitors() {
         return exhibitors;

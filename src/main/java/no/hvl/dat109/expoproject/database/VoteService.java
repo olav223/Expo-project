@@ -4,7 +4,7 @@ import no.hvl.dat109.expoproject.entities.Event;
 import no.hvl.dat109.expoproject.entities.Vote;
 import no.hvl.dat109.expoproject.entities.Voter;
 import no.hvl.dat109.expoproject.interfaces.database.IVoteService;
-import no.hvl.dat109.expoproject.primarykeys.VotesPK;
+import no.hvl.dat109.expoproject.primarykeys.VotePK;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -31,21 +31,24 @@ public class VoteService implements IVoteService {
 
     @Override
     public List<Vote> getAllVotesInEvent(int eventID) {
-        List<Vote> allVotes = voteRepo.findAll();
-
-        List<Vote> votesInEvent = allVotes.stream()
-                .filter(vote -> vote.getStand().getEvent().getId() == eventID)
-                .collect(Collectors.toList());
-
-        return votesInEvent;
+        List<Vote> allVotes = voteRepo.findByStand_Event_Id(eventID);
+        return allVotes;
     }
 
     @Override
     public int getVote(int standID, String voterID) {
-        Optional<Vote> vote = voteRepo.findById(new VotesPK(voterID, standID));
+        Optional<Vote> vote = voteRepo.findById(new VotePK(voterID, standID));
         return vote.map(Vote::getStars).orElse(-1);
     }
 
+    /**
+     * Registerer en stemme i databasen, stemmen må være mellom 0 og 5.
+     *
+     * @param vote stemmen som skal registreres, skal inneholde en eksisterende standId og voterID.
+     * @throws NullPointerException     hvis vote er null
+     * @throws IllegalArgumentException hvis vote ikke er mellom 0 og 5
+     * @throws RuntimeException         hvis stemmen ikke kan lagres
+     */
     @Override
     public void registerVote(Vote vote) {
         if (vote == null)
@@ -53,7 +56,12 @@ public class VoteService implements IVoteService {
         if (vote.getStars() < 0 || vote.getStars() > 5)
             throw new IllegalArgumentException("Vote must be between 0 and 5");
 
-        voteRepo.save(vote);
+        try {
+            voteRepo.save(vote);
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Could not save vote: " + e.getMessage());
+        }
     }
 
     @Override
