@@ -65,15 +65,21 @@ public class VoteServiceTest {
                 new Vote(voter1Stand2PK, 4),
                 new Vote(voter2Stand2PK, 4));
 
-        List<Vote> allVotes = Stream.concat(votesExpo1.stream(), Stream.of(new Vote(voter3Stand3PK, 3)))
-                .collect(Collectors.toList());
+        when(voteRepo.findByStand_Event_Id(expo1.getId())).thenReturn(votesExpo1);
 
-        when(voteRepo.findAll()).thenReturn(allVotes);
-
-        List<Vote> votes = service.getAllVotesInEvent(expo1.getId()); // FIXME feil resultat
+        List<Vote> votes = service.getAllVotesInEvent(expo1.getId());
 
         assertEquals(3, votes.size());
         assertEquals(votesExpo1, votes);
+    }
+
+    @Test
+    void getAllVotesInEventWhenNoVotes() {
+        when(voteRepo.findByStand_Event_Id(expo1.getId())).thenReturn(List.of());
+
+        List<Vote> votes = service.getAllVotesInEvent(expo1.getId());
+
+        assertEquals(0, votes.size());
     }
 
     @Test
