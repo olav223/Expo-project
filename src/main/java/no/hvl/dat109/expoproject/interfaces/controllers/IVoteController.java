@@ -9,7 +9,7 @@ public interface IVoteController {
      * @param stars
      * @return true if post of vote is OK
      */
-    boolean postVote(int voterID, int standID, int stars);
+    boolean postVote(String voterID, int standID, int stars);
 
     /**
      * get the number of stars in the vote from given voter for the given stand
@@ -17,6 +17,6 @@ public interface IVoteController {
      * @param standID
      * @return number of stars in vote
      */
-    int getVote(int voterID, int standID);
+    int getVote(String voterID, int standID);
 
 }

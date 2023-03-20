@@ -1,7 +1,10 @@
 package no.hvl.dat109.expoproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -16,18 +19,23 @@ public class Event {
     private LocalDateTime eventEnd;
 
     @OneToMany(mappedBy = "event")
+    @JsonIgnore
     private List<UserEvent> userEvent;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "event")
     private List<Voter> voters;
 
-    public Event(int id, String name, LocalDateTime eventStart, LocalDateTime eventEnd, List<UserEvent> userEvent, List<Voter> voters) {
+    public Event(int id, String name, LocalDateTime eventStart, LocalDateTime eventEnd) {
         this.id = id;
         this.name = name;
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
-        this.userEvent = userEvent;
-        this.voters = voters;
+        this.userEvent = new ArrayList<>();
+        this.voters = new ArrayList<>();
+    }
+    public Event(int id){
+        this.id = id;
     }
 
     public Event() {

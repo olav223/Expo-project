@@ -5,13 +5,13 @@ import java.io.Serializable;
 
 public class UserEventPK implements Serializable {
 
-    @Column(name = "user_id")
-    private int user;
+    @Column(name = "username")
+    private String user;
 
-    @Column(name = "event_id")
+    @Column(name = "id_event")
     private int event;
 
-    public UserEventPK(int user, int event) {
+    public UserEventPK(String user, int event) {
         this.user = user;
         this.event = event;
     }
@@ -20,11 +20,11 @@ public class UserEventPK implements Serializable {
 
     }
 
-    public int getUser() {
+    public String getUser() {
         return user;
     }
 
-    public void setUser(int user) {
+    public void setUser(String user) {
         this.user = user;
     }
 

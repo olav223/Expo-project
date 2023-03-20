@@ -19,20 +19,7 @@ public interface IUserService {
      * @param userID
      * @return removed user
      */
-    User removeUser(int userID);
-
-    /**
-     * adds the given user to the given event in the database
-     * @param user
-     * @param event
-     */
-    void addUserToEvent(User user, Event event);
-
-    /**
-     * removes user from the event where both event and user is matching the userEventPK
-     * @param userEventPK
-     */
-    void removeUserFromEvent(UserEventPK userEventPK);
+    User removeUser(String userID);
 
     /**
      * gets all users registered inn database

@@ -10,7 +10,7 @@ public class Stand {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
+    private String title;
     private String description;
     private String image;
     private String url;
@@ -29,6 +29,38 @@ public class Stand {
     @JoinColumn(name = "responsible")
     private User responsible;
 
+    public Stand(int id, String title, String description, String image, String url, Event event) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.image = image;
+        this.url = url;
+        this.event = event;
+    }
+    public Stand(int id, String title, Event event){
+        this.id = id;
+        this.title = title;
+        this.event = event;
+    }
+
+    public Stand() {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Stand stand = (Stand) o;
+
+        return id == stand.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
+
     public int getId() {
         return id;
     }
@@ -37,12 +69,12 @@ public class Stand {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDescription() {

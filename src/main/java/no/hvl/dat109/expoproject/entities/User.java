@@ -1,5 +1,7 @@
 package no.hvl.dat109.expoproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -16,17 +18,22 @@ public class User {
     private String email;
     private String hash;
     private String salt;
-    private int accessLevel;
+    private Integer accessLevel;
     @OneToMany(mappedBy = "user")
+    @JsonIgnore
     private List<UserEvent> userEvents;
 
-    public User(String username, String phone, String email, String hash, String salt, int accessLevel, List<UserEvent> userEvents) {
+    public User(String username, String phone, String email, String hash, String salt, Integer accessLevel, List<UserEvent> userEvents) {
         this.username = username;
         this.phone = phone;
         this.email = email;
         this.hash = hash;
         this.salt = salt;
         this.accessLevel = accessLevel;
+        this.userEvents = userEvents;
+    }
+    public User(String username, List<UserEvent> userEvents){
+        this.username = username;
         this.userEvents = userEvents;
     }
 
@@ -81,13 +88,21 @@ public class User {
         this.userEvents = userEvents;
     }
 
-    public int getAccessLevel() {
+    public Integer getAccessLevel() {
         return accessLevel;
     }
 
-    public void setAccessLevel(int accessLevel) {
+    public void setAccessLevel(Integer accessLevel) {
         this.accessLevel = accessLevel;
     }
+
+    public void appendEvent(UserEvent userEvent){
+        this.userEvents.add(userEvent);
+    }
+    public void removeEvent(UserEvent userEvent){
+        this.userEvents.remove(userEvent);
+    }
+
 
     @Override
     public String toString() {

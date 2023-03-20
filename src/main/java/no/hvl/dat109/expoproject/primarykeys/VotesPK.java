@@ -2,29 +2,44 @@ package no.hvl.dat109.expoproject.primarykeys;
 
 import javax.persistence.Column;
 import java.io.Serializable;
+import java.util.Objects;
 
 public class VotesPK implements Serializable {
 
     @Column(name = "id_voter")
-    private int voter;
+    private String voter;
 
     @Column(name = "id_stand")
     private int stand;
 
-    public VotesPK(int voter, int stand) {
+    public VotesPK(String voter, int stand) {
         this.voter = voter;
         this.stand = stand;
     }
 
-    public VotesPK() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
+        VotesPK votesPK = (VotesPK) o;
+
+        if (stand != votesPK.stand) return false;
+        return Objects.equals(voter, votesPK.voter);
     }
 
-    public int getVoter() {
+    @Override
+    public int hashCode() {
+        int result = voter != null ? voter.hashCode() : 0;
+        result = 31 * result + stand;
+        return result;
+    }
+
+    public String getVoter() {
         return voter;
     }
 
-    public void setVoter(int voter) {
+    public void setVoter(String voter) {
         this.voter = voter;
     }
 
