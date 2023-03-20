@@ -3,6 +3,7 @@ package no.hvl.dat109.expoproject.database;
 import no.hvl.dat109.expoproject.entities.Event;
 import no.hvl.dat109.expoproject.entities.User;
 import no.hvl.dat109.expoproject.entities.UserEvent;
+import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -59,21 +60,7 @@ class UserServiceTest {
         assertTrue(actualMessage.contains(expectedMessage));
     }
     @Test
-    void addANullUserToEvent(){
-        Exception exception = assertThrows(NullPointerException.class, () -> us.addUserToEvent(user4, event));
-        String expectedMessage = "user or event can not be null";
-        String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
-    }
-    @Test
-    void addAUserToNullEvent(){
-        Exception exception = assertThrows(NullPointerException.class, () -> us.addUserToEvent(user1, event3));
-        String expectedMessage = "user or event can not be null";
-        String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
-    }
-    @Test
-    void testAddandRemoveUser() {
+    void addAndRemoveUser() {
         when(ur.save(user2)).thenReturn(user2);
         us.addUser(user2);
         when(ur.findByUsername("user2")).thenReturn(user2);
@@ -89,50 +76,6 @@ class UserServiceTest {
         String expectedMessage = "The user was not found";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
-    }
-    @Test
-    void removeUserThatDoesNotExist(){
-        List<Event> events = Arrays.asList(
-                event,
-                event2
-        );
-
-        us.addUserToEvent(user1, event);
-        us.addUserToEvent(user1, event);
-
-        Exception exception = assertThrows(NullPointerException.class, () -> us.removeUserFromEvent(user3, event));
-        String expectedMessage = "The user is not in the event";
-        String actualMessage = exception.getMessage();
-        assertTrue(actualMessage.contains(expectedMessage));
-    }
-
-    @Test
-    void addUserToEvent() {
-        List<Event> events = Arrays.asList(
-                event,
-                event2
-        );
-
-        us.addUserToEvent(user1, event);
-        us.addUserToEvent(user1, event2);
-
-
-        assertEquals(events.get(0).getId(), user1.getUserEvents().get(0).getEvent().getId());
-        assertEquals(events.get(1).getId(), user1.getUserEvents().get(1).getEvent().getId());
-    }
-    @Test
-    void addAndRemoveUserFromEvent(){
-        //Kaster en stackOverflowError
-        us.addUserToEvent(user1, event);
-        us.addUserToEvent(user2, event);
-
-        us.removeUserFromEvent(user1, event); // FIXME
-
-        List<User> users = userEventRepo.findAllByEvent(event).stream()
-                .map(UserEvent::getUser)
-                .collect(Collectors.toList());
-
-        assertFalse(users.contains(user1));
     }
     @Test
     void allUsers(){
