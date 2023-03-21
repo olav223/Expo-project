@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import no.hvl.dat109.expoproject.entities.Event;
 
 public interface IVoteController {
 
@@ -28,6 +29,7 @@ public interface IVoteController {
      * @return number of stars in vote
      */
     int getVote(String voterID, int standID);
+    boolean validVoterID(String voterId, Event event);
 
     /**
      * Hent alle stemmer for en event

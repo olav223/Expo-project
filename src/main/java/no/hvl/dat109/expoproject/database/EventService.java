@@ -47,6 +47,11 @@ public class EventService implements IEventService {
     }
 
     @Override
+    public Event findEventById(int id) {
+       return eventRepo.findById(id);
+    }
+
+    @Override
     public List<User> getAllUsersInEvent(int eventID) {
         Event eventWithUsers = eventRepo.findById(eventID);
         List<UserEvent>userEvents = eventWithUsers.getUserEvent();
