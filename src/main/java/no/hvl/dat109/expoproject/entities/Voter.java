@@ -22,6 +22,10 @@ public class Voter {
         this.event = event;
     }
 
+    public Voter(String voterId) {
+        this.id = voterId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
