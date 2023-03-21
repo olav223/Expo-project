@@ -11,6 +11,9 @@ import no.hvl.dat109.expoproject.interfaces.database.IUserService;
 import no.hvl.dat109.expoproject.interfaces.database.IVoteService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController implements IAdminController {
@@ -27,31 +30,32 @@ public class AdminController implements IAdminController {
 
     @Override
     @GetMapping("/generate")
-    public void generateVoteCodes(int nrOfCodes) {
-
+    public void generateVoteCodes(@RequestParam int nrOfCodes,  @RequestParam int eventID) {
+        List<String> voteCodes = vs.generateVoteCodes(nrOfCodes, eventID);
     }
 
     @Override
     @PostMapping("/user")
     public void postAddUser(User user, int eventID) {
+        as.addUser(user);
 
     }
 
     @Override
     @DeleteMapping("/user")
     public User deleteUser(String username) {
-        throw new UnsupportedOperationException();
+        return as.removeUser(username);
     }
 
     @Override
     @PostMapping("/event")
     public void postAddEvent(Event event) {
-
+        es.addEvent(event);
     }
 
     @Override
     @DeleteMapping("/event")
     public Event deleteEvent(int eventID) {
-        throw new UnsupportedOperationException();
+        return es.removeEvent(eventID);
     }
 }

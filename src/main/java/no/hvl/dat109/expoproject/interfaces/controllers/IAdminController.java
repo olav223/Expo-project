@@ -32,5 +32,5 @@ public interface IAdminController {
      * generate a number of vote codes and adds them to database
      * @param nrOfCodes
      */
-    void generateVoteCodes(int nrOfCodes);
+    void generateVoteCodes(int nrOfCodes, int eventID);
 }
