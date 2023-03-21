@@ -45,9 +45,9 @@ public class VoteServiceTest {
         voter1AtExpo1 = new Voter("1", expo1);
         voter2AtExpo1 = new Voter("2", expo1);
         voter3AtExpo2 = new Voter("3", expo2);
-        stand1AtExpo1 = new Stand(1, "Stand 1", "Stand 1", null, null, expo1);
-        stand2AtExpo1 = new Stand(2, "Stand 2", "Stand 2", null, null, expo1);
-        stand3AtExpo2 = new Stand(3, "Stand 3", "Stand 3", null, null, expo2);
+        stand1AtExpo1 = new Stand(1, "Stand 1", "Stand 1", null, null, expo1.getId());
+        stand2AtExpo1 = new Stand(2, "Stand 2", "Stand 2", null, null, expo1.getId());
+        stand3AtExpo2 = new Stand(3, "Stand 3", "Stand 3", null, null, expo2.getId());
         voter1Stand1PK = new VotePK(voter1AtExpo1.getId(), stand1AtExpo1.getId());
         voter1Stand2PK = new VotePK(voter1AtExpo1.getId(), stand2AtExpo1.getId());
         voter2Stand2PK = new VotePK(voter2AtExpo1.getId(), stand2AtExpo1.getId());
