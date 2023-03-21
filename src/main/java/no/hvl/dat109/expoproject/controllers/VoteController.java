@@ -4,7 +4,9 @@ import no.hvl.dat109.expoproject.database.VoteService;
 import no.hvl.dat109.expoproject.entities.Vote;
 import no.hvl.dat109.expoproject.interfaces.controllers.IVoteController;
 import no.hvl.dat109.expoproject.interfaces.database.IVoteService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class VoteController implements IVoteController {
     @PostMapping
     public void postVote(@RequestBody final Vote vote) {
         if (vote.getVotePK() == null) {
-            throw new NullPointerException("VotePK cannot be null");
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "VotePK cannot be null");
         }
         vs.registerVote(vote);
     }
@@ -36,7 +38,7 @@ public class VoteController implements IVoteController {
     @GetMapping("/all")
     public List<Vote> getVotes(@RequestParam(defaultValue = "0") int eventID) {
         if (eventID == 0) {
-            return null;
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "EventID cannot be 0");
         }
         return vs.getAllVotesInEvent(eventID);
     }

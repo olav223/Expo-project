@@ -6,7 +6,9 @@ import no.hvl.dat109.expoproject.entities.Voter;
 import no.hvl.dat109.expoproject.interfaces.database.IVoteService;
 import no.hvl.dat109.expoproject.primarykeys.VotePK;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +62,7 @@ public class VoteService implements IVoteService {
             voteRepo.save(vote);
         }
         catch (Exception e) {
-            throw new RuntimeException("Could not save vote: " + e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not save vote: " + e.getMessage());
         }
     }
 
