@@ -23,7 +23,7 @@ public interface IEventService {
      * removes an event with matching eventID from database
      * @param eventID
      */
-    void removeEvent(int eventID);
+    Event removeEvent(int eventID);
 
     /**
      * checks if an event is open

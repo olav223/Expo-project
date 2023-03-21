@@ -1,9 +1,6 @@
 package no.hvl.dat109.expoproject.interfaces.database;
 
-import no.hvl.dat109.expoproject.entities.Event;
-import no.hvl.dat109.expoproject.entities.Stand;
-import no.hvl.dat109.expoproject.entities.Vote;
-import no.hvl.dat109.expoproject.entities.Voter;
+import no.hvl.dat109.expoproject.entities.*;
 
 import java.util.List;
 
@@ -16,6 +13,8 @@ public interface IVoteService {
      * @return a list of all votes in event
      */
     List<Vote> getAllVotesInEvent(int eventID);
+
+    List<StandWithVote> getAllScoresInEvent(int eventID);
 
     /**
      * get the number of stars from the vote, given by given voter to given stand
