@@ -16,6 +16,9 @@ public class EventService implements IEventService {
     private EventRepo eventRepo;
     @Override
     public void addEvent(Event event) {
+        if(eventRepo.findById(event.getId())!=null){
+            throw new RuntimeException("Event already exists");
+        }
         eventRepo.save(event);
     }
 
@@ -31,9 +34,8 @@ public class EventService implements IEventService {
         eventRepo.save(updateEvent);
     }
     @Override
-    public void removeEvent(int eventID) {
-        Event deleteEvent=eventRepo.findById(eventID);
-        eventRepo.delete(deleteEvent);
+    public Event removeEvent(int eventID) {
+      return eventRepo.deleteById(eventID);
     }
 
     @Override
