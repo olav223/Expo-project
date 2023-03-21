@@ -2,6 +2,7 @@ package no.hvl.dat109.expoproject.database;
 
 import no.hvl.dat109.expoproject.entities.Event;
 import no.hvl.dat109.expoproject.entities.User;
+import no.hvl.dat109.expoproject.entities.UserEvent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,9 +12,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
-import static java.time.LocalDateTime.parse;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -22,11 +24,16 @@ class EventServiceTest {
     @InjectMocks
     private EventService eventService;
     @Mock
+    private UserService userService;
+    @Mock
     private EventRepo eventRepo;
+    @Mock
+    private UserRepo userRepo;
     @Mock
     private UserEventRepo userEventRepo;
     private Event event1, event2, event3, event4, eventNull;
     private User user1, user2, user3;
+    private UserEvent userEvent1, userEvent2;
     private LocalDateTime t1, t2, t3, t4;
     @BeforeEach
     void setup(){
@@ -42,10 +49,11 @@ class EventServiceTest {
         eventNull = null;
 
         user1 = new User("user1", new ArrayList<>());
-        user1 = new User("user2", new ArrayList<>());
-        user1 = new User("user3", new ArrayList<>());
+        user2 = new User("user2", new ArrayList<>());
+        user3 = new User("user3", new ArrayList<>());
 
-
+        userEvent1 = new UserEvent(user1, event1);
+        userEvent2 = new UserEvent(user2, event1);
     }
     @Test
     void addEvent() throws Exception {
@@ -82,7 +90,6 @@ class EventServiceTest {
 
     @Test
     void removeNotExistingEvent() throws Exception {
-        //when(eventService.removeEvent(3)).thenReturn(null);
         Exception exception = assertThrows(NullPointerException.class, () -> eventService.removeEvent(3));
         String expectedMessage = "The event was not found";
         String actualMessage = exception.getMessage();
@@ -92,10 +99,10 @@ class EventServiceTest {
 //    @Test
 //    void addAndRemoveEvent() throws Exception {
 //        when(eventRepo.save(event1)).thenReturn(event1);
- //       eventService.addEvent(event1);
-//        when(eventRepo.delete(event1)).thenReturn(event1);
-  //      assertEquals(event1, eventService.removeEvent(1));
- //   }
+//        eventService.addEvent(event1);
+//        when(eventRepo.delete(event1)).thenReturn(event1)
+//      assertEquals(event1, eventService.removeEvent(1));
+//   }
 
     @Test
     void isOpenEventOpen() throws Exception {
@@ -115,5 +122,10 @@ class EventServiceTest {
 
     @Test
     void getAllUsersInEvent() {
+        when(userEventRepo.findAllByEvent(event1)).thenReturn((List<UserEvent>) List.of(userEvent1, userEvent2));
+        when(eventRepo.findById(1)).thenReturn(event1);
+        List<User> actualUserList = eventService.getAllUsersInEvent(1);
+        List<User> expectedUserList = List.of(user1, user2);
+        assertEquals(expectedUserList, actualUserList);
     }
 }
