@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -78,7 +79,7 @@ public class VoteService implements IVoteService {
      * @param vote stemmen som skal registreres, skal inneholde en eksisterende standId og voterID.
      * @throws NullPointerException     hvis vote er null
      * @throws IllegalArgumentException hvis vote ikke er mellom 0 og 5
-     * @throws ResponseStatusException  hvis stemmen ikke kan lagres, f.eks. hvis id-er ikke finnes
+     * @throws PersistenceException  hvis stemmen ikke kan lagres, f.eks. hvis id-er ikke finnes
      */
     @Override
     public void registerVote(Vote vote) throws NullPointerException, IllegalArgumentException {
@@ -91,7 +92,7 @@ public class VoteService implements IVoteService {
             voteRepo.save(vote);
         }
         catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Could not save vote: " + e.getMessage());
+            throw new PersistenceException("Could not save vote: " + e.getMessage());
         }
     }
 

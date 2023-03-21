@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.PersistenceException;
 import java.util.List;
 
 @RestController
@@ -36,7 +37,7 @@ public class VoteController implements IVoteController {
         try {
             vs.registerVote(vote);
         }
-        catch (IllegalArgumentException | NullPointerException e) {
+        catch (IllegalArgumentException | NullPointerException | PersistenceException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
