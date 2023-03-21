@@ -1,6 +1,9 @@
 package no.hvl.dat109.expoproject.interfaces.controllers;
 
+import no.hvl.dat109.expoproject.entities.StandWithVote;
 import no.hvl.dat109.expoproject.entities.Vote;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -13,6 +16,9 @@ public interface IVoteController {
      * @return true if post of vote is OK
      */
     void postVote(Vote vote);
+
+    @GetMapping("/score")
+    List<StandWithVote> getScoresInEvent(@RequestParam int eventID);
 
     /**
      * get the number of stars in the vote from given voter for the given stand
