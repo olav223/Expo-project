@@ -7,6 +7,7 @@ const StandPage = () => {
     const url = window.location.href.split("?")[1];
     const params = new URLSearchParams(url);
 
+
     const getStandInfo = async() => {
         const result = await restApi({url: "/api/stand?id="+params.get("id"), method: "GET"});
         if (result.status === 200) {
