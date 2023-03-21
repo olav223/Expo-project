@@ -84,8 +84,19 @@ class EventServiceTest {
     }
 
     @Test
-    void updateEvent() {
+    void updateEvent() throws Exception {
+        when(eventRepo.save(event2)).thenReturn(event2);
+        eventService.addEvent(event2);
+        when(eventRepo.findById(2)).thenReturn(event2);
+        assertEquals(event2, eventRepo.findById(2));
+    }
 
+    @Test
+    void updateNullEvent(){
+        Exception exception = assertThrows(NullPointerException.class, () -> eventService.addEvent(eventNull));
+        String expectedMessage = "The event cannot be null";
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
     }
 
     @Test
@@ -96,13 +107,13 @@ class EventServiceTest {
         assertEquals(expectedMessage, actualMessage);
     }
 
-//    @Test
-//    void addAndRemoveEvent() throws Exception {
+//   @Test
+//   void addAndRemoveEvent() throws Exception {
 //        when(eventRepo.save(event1)).thenReturn(event1);
 //        eventService.addEvent(event1);
 //        when(eventRepo.delete(event1)).thenReturn(event1)
-//      assertEquals(event1, eventService.removeEvent(1));
-//   }
+//        assertEquals(event1, eventService.removeEvent(1));
+//    }
 
     @Test
     void isOpenEventOpen() throws Exception {
