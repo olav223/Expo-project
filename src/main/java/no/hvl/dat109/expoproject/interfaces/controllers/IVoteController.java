@@ -12,7 +12,7 @@ public interface IVoteController {
      * @param vote Stemmen som skal gis
      * @return true if post of vote is OK
      */
-    void postVote(Vote vote);
+    boolean postVote(Vote vote);
 
     /**
      * get the number of stars in the vote from given voter for the given stand

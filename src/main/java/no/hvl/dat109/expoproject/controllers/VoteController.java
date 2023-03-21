@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/vote")
 public class VoteController implements IVoteController {
@@ -21,11 +22,12 @@ public class VoteController implements IVoteController {
 
     @Override
     @PostMapping
-    public void postVote(@RequestBody final Vote vote) {
+    public boolean postVote(@RequestBody final Vote vote) {
         if (vote.getVotePK() == null) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "VotePK cannot be null");
         }
         vs.registerVote(vote);
+        return true;
     }
 
     @Override
