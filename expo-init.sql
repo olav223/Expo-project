@@ -66,3 +66,13 @@ CREATE TABLE exhibitor
     stand     INTEGER REFERENCES stand (id),
     phone     VARCHAR(15) NOT NULL
 );
+
+CREATE VIEW expo.total_votes AS
+(
+SELECT s.id, s.title, SUM(stars) AS total_stars
+FROM expo.vote v,
+     expo.stand s
+WHERE v.id_stand = s.id
+GROUP BY s.id
+ORDER BY s.id
+    );
