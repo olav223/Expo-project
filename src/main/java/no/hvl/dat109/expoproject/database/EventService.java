@@ -14,9 +14,10 @@ import java.util.stream.Collectors;
 public class EventService implements IEventService {
     @Autowired
     private EventRepo eventRepo;
+
     @Override
     public void addEvent(Event event) {
-        if(eventRepo.findById(event.getId())!=null){
+        if (eventRepo.findById(event.getId()) != null) {
             throw new RuntimeException("Event already exists");
         }
         eventRepo.save(event);
@@ -33,14 +34,15 @@ public class EventService implements IEventService {
         updateEvent.setVoters(event.getVoters());
         eventRepo.save(updateEvent);
     }
+
     @Override
     public Event removeEvent(int eventID) {
-      return eventRepo.deleteById(eventID);
+        return eventRepo.deleteById(eventID);
     }
 
     @Override
-    public boolean isOpen(int eventID) {
-        if(eventRepo.findById(eventID)!=null){
+    public boolean isOpen(int eventID) { // TODO isOpen skal hente en event fra databasen og sjekke om den er åpen, kan bruke LocalDateTime.now() for å sjekke om nåværende tidspunkt er mellom start og sluttidspunktet til eventen
+        if (eventRepo.findById(eventID) != null) {
             return true;
         }
         return false;
@@ -48,14 +50,14 @@ public class EventService implements IEventService {
 
     @Override
     public Event findEventById(int id) {
-       return eventRepo.findById(id);
+        return eventRepo.findById(id);
     }
 
     @Override
     public List<User> getAllUsersInEvent(int eventID) {
         Event eventWithUsers = eventRepo.findById(eventID);
-        List<UserEvent>userEvents = eventWithUsers.getUserEvent();
-        List<User> users = userEvents.stream().map(u->u.getUser()).collect(Collectors.toList());
+        List<UserEvent> userEvents = eventWithUsers.getUserEvent();
+        List<User> users = userEvents.stream().map(u -> u.getUser()).collect(Collectors.toList());
 
         return users;
     }
