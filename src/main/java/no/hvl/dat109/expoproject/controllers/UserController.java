@@ -24,7 +24,8 @@ public class UserController implements IUserController {
     @Override
     @GetMapping
     public User getUser(String username) {
-        return null;
+
+    return us.getUser(username);
     }
 
     @Override
