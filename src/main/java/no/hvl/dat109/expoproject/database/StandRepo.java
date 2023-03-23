@@ -1,14 +1,14 @@
 package no.hvl.dat109.expoproject.database;
 
-import no.hvl.dat109.expoproject.entities.Event;
 import no.hvl.dat109.expoproject.entities.Stand;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-interface StandRepo extends JpaRepository<Stand, Integer> {
+public interface StandRepo extends JpaRepository<Stand, Integer> {
 
     /**
      * @param id of the stand
@@ -16,5 +16,8 @@ interface StandRepo extends JpaRepository<Stand, Integer> {
      */
     Stand findById(int id);
 
-    List<Stand> findAllByEvent(Event event);
+    Stand deleteById(int id);
+
+    @Query("select s from Stand s join Event e on e.id = ?1")
+    List<Stand> findAllByEvent(Integer eventID);
 }

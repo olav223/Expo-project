@@ -1,14 +1,16 @@
 package no.hvl.dat109.expoproject.controllers;
 
 import no.hvl.dat109.expoproject.database.StandService;
-import no.hvl.dat109.expoproject.entities.Event;
 import no.hvl.dat109.expoproject.entities.Stand;
 import no.hvl.dat109.expoproject.interfaces.controllers.IStandController;
 import no.hvl.dat109.expoproject.interfaces.database.IStandService;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/stand")
 public class StandController implements IStandController {
@@ -34,14 +36,14 @@ public class StandController implements IStandController {
         if (eventID < 1) {
             return null;
         }
-        return ss.getAllStands(eventID);
+        return ss.findAllByEvent(eventID);
     }
 
     @Override
     @PostMapping("/update")
     public Boolean postUpdateStand(@RequestBody Stand stand) {
         if (stand == null) {
-            throw new IllegalArgumentException("Stand cannot be null");
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Stand cannot be null");
         }
 
         boolean isUpdated = false;
@@ -59,7 +61,7 @@ public class StandController implements IStandController {
     @PostMapping("/add")
     public Boolean postAddStand(@RequestBody Stand stand) {
         if (stand == null) {
-            throw new IllegalArgumentException("Stand cannot be null");
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Stand cannot be null");
         }
 
         boolean isAdded = false;

@@ -44,28 +44,6 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void addUserToEvent(User user, Event event) {
-        if(user == null || event == null)
-            throw new NullPointerException("user or event can not be null");
-        else
-            user.appendEvent(new UserEvent(user, event));
-    }
-
-    @Override
-    public void removeUserFromEvent(User user, Event event) {
-        List<UserEvent> allUsers = userEventRepo.findAllByEvent(event);
-
-        List<User> users = allUsers.stream()
-                .map(UserEvent::getUser)
-                .collect(Collectors.toList());
-
-        if(users.contains(user))
-            user.removeEvent(new UserEvent(user, event));
-        else
-            throw new NullPointerException("The user is not in the event");
-    }
-
-    @Override
     public List<User> getAllUsers() {
         return userRepo.findAll();
     }

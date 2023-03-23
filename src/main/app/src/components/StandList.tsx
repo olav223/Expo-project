@@ -6,7 +6,7 @@ export const StandList = () => {
     const [stands, setStands] = useState([]);
 
     const getStands = async() => {
-        const result = await restApi({url: "/api/demo", method: "GET"});
+        const result = await restApi({url: "/api/stand/all?eventID=1", method: "GET"});
         if (result.status === 200) {
             setStands(result.body)
         }
@@ -26,7 +26,10 @@ export const StandList = () => {
     return <div className="standList">
         {stands.length > 0 ? stands.map((item,i) => {
             return <div key={"stand-"+i} className="standItem">
-                <div>{item}</div>
+                <div>
+                    <h4>{item["title"]}</h4>
+                    <p>{item["description"]}</p>
+                </div>
                 <button onClick={() => vote(2)}>Stem på</button>
             </div>
         }) : <div>Ingen stands</div>}

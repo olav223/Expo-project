@@ -52,7 +52,7 @@ CREATE TABLE voter
 
 CREATE TABLE vote
 (
-    id_voter CHAR(7) REFERENCES voter (id)               NOT NULL,
+    id_voter CHAR(6) REFERENCES voter (id)               NOT NULL,
     id_stand INTEGER REFERENCES stand (id)               NOT NULL,
     stars    INTEGER CHECK ( stars >= 0 AND stars <= 5 ) NOT NULL,
     PRIMARY KEY (id_voter, id_stand)
@@ -66,3 +66,13 @@ CREATE TABLE exhibitor
     stand     INTEGER REFERENCES stand (id),
     phone     VARCHAR(15) NOT NULL
 );
+
+CREATE VIEW expo.total_votes AS
+(
+SELECT s.id, s.title, SUM(stars) AS total_stars
+FROM expo.vote v,
+     expo.stand s
+WHERE v.id_stand = s.id
+GROUP BY s.id
+ORDER BY s.id
+    );

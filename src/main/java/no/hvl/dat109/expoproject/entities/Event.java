@@ -1,9 +1,12 @@
 package no.hvl.dat109.expoproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(schema = "expo")
@@ -17,8 +20,10 @@ public class Event {
     private LocalDateTime eventEnd;
 
     @OneToMany(mappedBy = "event")
+    @JsonIgnore
     private List<UserEvent> userEvent;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "event")
     private List<Voter> voters;
 
@@ -92,8 +97,6 @@ public class Event {
                 ", name='" + name + '\'' +
                 ", eventStart=" + eventStart +
                 ", eventEnd=" + eventEnd +
-                ", userEvent=" + userEvent +
-                ", voters=" + voters +
                 '}';
     }
 }

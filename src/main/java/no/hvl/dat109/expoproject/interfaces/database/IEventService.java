@@ -33,5 +33,16 @@ public interface IEventService {
      * @return true if event is open, false if closed
      */
     boolean isOpen(int eventID);
+
+    /**
+     * @param id
+     * @return
+     */
+    Event findEventById(int id);
+
+    /**
+     * @param eventID
+     * @return
+     */
     List<User> getAllUsersInEvent(int eventID);
 }

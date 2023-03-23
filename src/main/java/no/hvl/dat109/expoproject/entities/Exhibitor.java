@@ -1,5 +1,7 @@
 package no.hvl.dat109.expoproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,12 +11,15 @@ public class Exhibitor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+    @Column(name = "firstname")
     private String firstName;
+    @Column(name = "lastname")
     private String lastName;
     private String phone;
 
     @ManyToOne
     @JoinColumn(name = "stand")
+    @JsonIgnore
     private Stand stand;
 
     public Exhibitor(String id, String firstName, String lastName, String phone, Stand stand) {

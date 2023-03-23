@@ -1,49 +1,46 @@
 package no.hvl.dat109.expoproject.entities;
 
-import no.hvl.dat109.expoproject.primarykeys.VotesPK;
+import no.hvl.dat109.expoproject.primarykeys.VotePK;
 
-import javax.persistence.*;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.util.Objects;
 
 @Entity
 @Table(schema = "expo")
-@IdClass(VotesPK.class)
+//@IdClass(VotePK.class)
 public class Vote {
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "id_stand")
-    private Voter voter;
-
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "id_voter")
-    private Stand stand;
+    @EmbeddedId
+    private VotePK votePK;
 
     private int stars;
 
-    public Vote(Voter voter, Stand stand, int stars) {
-        this.voter = voter;
-        this.stand = stand;
+    public Vote(VotePK votePK, int stars) {
+        this.votePK = votePK;
         this.stars = stars;
     }
 
     public Vote() {
     }
 
-    public Voter getVoter() {
-        return voter;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Vote vote = (Vote) o;
+
+        if (stars != vote.stars) return false;
+        return Objects.equals(votePK, vote.votePK);
     }
 
-    public void setVoter(Voter voter) {
-        this.voter = voter;
-    }
-
-    public Stand getStand() {
-        return stand;
-    }
-
-    public void setStand(Stand stand) {
-        this.stand = stand;
+    @Override
+    public int hashCode() {
+        int result = votePK != null ? votePK.hashCode() : 0;
+        result = 31 * result + stars;
+        return result;
     }
 
     public int getStars() {
@@ -52,5 +49,13 @@ public class Vote {
 
     public void setStars(int stars) {
         this.stars = stars;
+    }
+
+    public VotePK getVotePK() {
+        return votePK;
+    }
+
+    public void setVotePK(VotePK votePK) {
+        this.votePK = votePK;
     }
 }

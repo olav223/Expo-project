@@ -50,4 +50,18 @@ public class UserEvent {
                 ", event=" + event +
                 '}';
     }
+    @Override
+    public boolean equals(Object o){
+        if(o == this){
+            return true;
+        }
+
+        if(!(o instanceof UserEvent))
+            return false;
+
+        UserEvent u = (UserEvent) o;
+
+        return this.user.getUsername().equals(u.getUser().getUsername())
+                && this.event.getId() == u.getEvent().getId();
+    }
 }
