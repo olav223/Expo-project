@@ -23,7 +23,7 @@ public interface IEventService {
      * removes an event with matching eventID from database
      * @param eventID
      */
-    void removeEvent(int eventID);
+    Event removeEvent(int eventID);
 
     /**
      * checks if an event is open
@@ -31,5 +31,16 @@ public interface IEventService {
      * @return true if event is open, false if closed
      */
     boolean isOpen(int eventID);
+
+    /**
+     * @param id
+     * @return
+     */
+    Event findEventById(int id);
+
+    /**
+     * @param eventID
+     * @return
+     */
     List<User> getAllUsersInEvent(int eventID);
 }

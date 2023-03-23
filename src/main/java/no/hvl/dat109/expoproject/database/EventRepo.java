@@ -15,4 +15,5 @@ interface EventRepo extends JpaRepository<Event, Integer> {
      * @return Eventen til id, eller null
      */
     Event findById(int id);
+    Event deleteById(int id);
 }
