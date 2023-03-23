@@ -9,6 +9,12 @@ import java.util.List;
 
 @Service
 public class EventService implements IEventService {
+    private final EventRepo eventRepo;
+
+    public EventService(EventRepo eventRepo) {
+        this.eventRepo = eventRepo;
+    }
+
     @Override
     public void addEvent(Event event) {
 
@@ -17,6 +23,10 @@ public class EventService implements IEventService {
     @Override
     public void UpdateEvent(Event event) {
 
+    }
+
+    public Event getEvent(int id) {
+        return eventRepo.findById(id);
     }
 
     @Override
