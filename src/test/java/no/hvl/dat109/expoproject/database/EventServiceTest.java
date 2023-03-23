@@ -107,6 +107,12 @@ class EventServiceTest {
     }
 
     @Test
+    void findEventById() {
+        when(eventRepo.findById(1)).thenReturn(event1);
+        assertEquals(event1, eventService.findEventById(1));
+    }
+
+    @Test
     void isOpenEventOpen() throws Exception {
         when(eventRepo.save(event3)).thenReturn(event3);
         eventService.addEvent(event3);

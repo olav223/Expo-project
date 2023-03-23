@@ -55,6 +55,11 @@ public class EventService implements IEventService {
         return event.getEventStart().isBefore(LocalDateTime.now()) && event.getEventEnd().isAfter(LocalDateTime.now());
     }
 
+    @Override
+    public Event findEventById(int eventID) {
+        return eventRepo.findById(eventID);
+    }
+
     /*
      isOpenSetNow is for testing logic of isOpen()
      have to set NOW time for testing purposes
