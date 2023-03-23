@@ -1,12 +1,17 @@
 import {restApiResponseProps} from "../model/restApiRespone";
 
-interface restAPiProps {
-    url: string;
-    method: "POST" | "GET" | "DELETE" | "PUT" | "PATCH";
+interface RestApiProps {
+    url: String;
+    method: "POST" | "GET" | "PUT" | "PATCH" | "DELETE";
+    body?: Object;
 }
 
-const restApi = async(props:restAPiProps):Promise<restApiResponseProps> => {
-    return await fetch(process.env.REACT_APP_PROXY_HOST + props.url, {method: props.method})
+const restApi = async(props:RestApiProps):Promise<restApiResponseProps> => {
+    const url = (process.env.REACT_APP_PROXY_HOST ?? "") + props.url;
+    const headers = {'Accept': 'application/json','Content-Type': 'application/json'};
+    const config:RequestInit = {method: props.method, body: JSON.stringify(props.body), headers: headers};
+
+    return await fetch(url, config)
         .then((response) => response.json()
         .then((data) => {
             return {status: response.status, body: data}

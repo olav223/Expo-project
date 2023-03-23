@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.persistence.PersistenceException;
 import java.util.List;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/vote")
 public class VoteController implements IVoteController {
@@ -34,12 +35,14 @@ public class VoteController implements IVoteController {
      */
     @Override
     @PostMapping
-    public void postVote(@RequestBody final Vote vote) {
+    public boolean postVote(@RequestBody final Vote vote) {
         if (vote.getVotePK() == null) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "VotePK cannot be null");
         }
         try {
             vs.registerVote(vote);
+            return true;
+
         }
         catch (IllegalArgumentException | NullPointerException | PersistenceException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
