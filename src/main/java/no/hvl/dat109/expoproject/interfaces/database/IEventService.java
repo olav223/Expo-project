@@ -10,8 +10,9 @@ public interface IEventService {
     /**
      * adds event to database from event object
      * @param event
+     * @return added event, null if the event already exists or event object is null
      */
-    void addEvent(Event event);
+    Event addEvent(Event event) throws Exception;
 
     /**
      * update event from an updated event object
@@ -22,6 +23,7 @@ public interface IEventService {
     /**
      * removes an event with matching eventID from database
      * @param eventID
+     * @return removed event
      */
     Event removeEvent(int eventID);
 
