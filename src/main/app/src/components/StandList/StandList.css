@@ -12,10 +12,6 @@
     display: flex;
 }
 
-.standList .standItem button {
-    margin-left: 10px;
-}
-
 .standList .standItem div {
     flex: 1;
     text-align: left;

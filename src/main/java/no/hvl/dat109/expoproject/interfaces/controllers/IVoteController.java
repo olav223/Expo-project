@@ -16,7 +16,7 @@ public interface IVoteController {
      * @param vote Stemmen som skal gis
      * @return true if post of vote is OK
      */
-    void postVote(Vote vote);
+    boolean postVote(Vote vote);
 
     @GetMapping("/score")
     List<StandWithVote> getScoresInEvent(@RequestParam int eventID);
