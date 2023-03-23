@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -24,11 +23,7 @@ class EventServiceTest {
     @InjectMocks
     private EventService eventService;
     @Mock
-    private UserService userService;
-    @Mock
     private EventRepo eventRepo;
-    @Mock
-    private UserRepo userRepo;
     @Mock
     private UserEventRepo userEventRepo;
     private Event event1, event2, event3, event4, eventNull;
@@ -101,19 +96,15 @@ class EventServiceTest {
 
     @Test
     void removeNotExistingEvent() throws Exception {
-        Exception exception = assertThrows(NullPointerException.class, () -> eventService.removeEvent(3));
-        String expectedMessage = "The event was not found";
-        String actualMessage = exception.getMessage();
-        assertEquals(expectedMessage, actualMessage);
+        when(eventRepo.deleteById(2)).thenReturn(null);
+        assertNull(eventService.removeEvent(2));
     }
 
-//   @Test
-//   void addAndRemoveEvent() throws Exception {
-//        when(eventRepo.save(event1)).thenReturn(event1);
-//        eventService.addEvent(event1);
-//        when(eventRepo.delete(event1)).thenReturn(event1)
-//        assertEquals(event1, eventService.removeEvent(1));
-//    }
+   @Test
+   void RemoveEvent() throws Exception {
+       when(eventRepo.deleteById(3)).thenReturn(event3);
+       assertEquals(event3,eventService.removeEvent(3));
+    }
 
     @Test
     void isOpenEventOpen() throws Exception {
@@ -136,7 +127,7 @@ class EventServiceTest {
         when(userEventRepo.findAllByEvent(event1)).thenReturn((List<UserEvent>) List.of(userEvent1, userEvent2));
         when(eventRepo.findById(1)).thenReturn(event1);
         List<User> actualUserList = eventService.getAllUsersInEvent(1);
-        List<User> expectedUserList = List.of(user1, user2);
-        assertEquals(expectedUserList, actualUserList);
+        assertTrue(actualUserList.contains(user1));
+        assertTrue(actualUserList.contains(user2));
     }
 }

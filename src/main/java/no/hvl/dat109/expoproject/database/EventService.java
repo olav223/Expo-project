@@ -30,7 +30,7 @@ public class EventService implements IEventService {
                 eventRepo.save(event);
                 addedEvent = event;
         } else {
-                throw new Exception("Event already exists");
+                throw new RuntimeException("Event already exists");
             }
         return addedEvent;
     }
@@ -46,16 +46,7 @@ public class EventService implements IEventService {
 
     @Override
     public Event removeEvent(int eventID) {
-        Event event = eventRepo.findById(eventID);
-
-        if(event == null){
-            //Means the event is not in the database
-            throw new NullPointerException("The event was not found");
-        }
-        else {
-            eventRepo.delete(event);
-        }
-        return event;
+      return eventRepo.deleteById(eventID);
     }
 
     @Override
