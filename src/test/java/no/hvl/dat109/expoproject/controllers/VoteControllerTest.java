@@ -1,9 +1,6 @@
 package no.hvl.dat109.expoproject.controllers;
 
-import no.hvl.dat109.expoproject.database.EventService;
-import no.hvl.dat109.expoproject.database.StandService;
 import no.hvl.dat109.expoproject.database.VoteService;
-import no.hvl.dat109.expoproject.database.VoterRepo;
 import no.hvl.dat109.expoproject.entities.Event;
 import no.hvl.dat109.expoproject.entities.StandWithVote;
 import no.hvl.dat109.expoproject.entities.Vote;
@@ -24,14 +21,13 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
+
 @ExtendWith(MockitoExtension.class)
 class VoteControllerTest {
     @InjectMocks
     private VoteController controller;
     @Mock
     private VoteService service;
-    @Mock
-    VoterRepo vr;
 
     private String voter1, voter2, voter3, voter4;
     private Vote vote1_1_5stars, vote1_2_3stars, vote2_1_1star;
@@ -40,7 +36,7 @@ class VoteControllerTest {
     private List<Voter> voterList;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         voter1 = "123abc";
         voter2 = "321cba";
         voter3 = "213bac";
@@ -64,10 +60,16 @@ class VoteControllerTest {
 
     @Test
     void testValidVoterID() {
-        when(vr.findAllByEvent(event)).thenReturn(voterList);
-        assertTrue(controller.validVoterID("123abc", event));
-        assertTrue(controller.validVoterID("321cba", event));
-        assertFalse(controller.validVoterID("abc123", event));
+        when(service.voterExists(voter1)).thenReturn(true);
+        assertTrue(controller.validVoterID("123abc"));
+        when(service.voterExists(voter2)).thenReturn(true);
+        assertTrue(controller.validVoterID("321cba"));
+    }
+
+    @Test
+    void testInvalidVoterID() {
+        when(service.voterExists(voter1)).thenReturn(false);
+        assertFalse(controller.validVoterID("123abc"));
     }
 
 

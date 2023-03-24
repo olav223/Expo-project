@@ -28,9 +28,11 @@ public interface IVoteService {
     /**
      * register vote in database
      *
-     * @param vote
+     * @param vote Stemmen som skal registreres
      */
     void registerVote(Vote vote);
+
+    boolean voterExists(String voterID);
 
     /**
      * generate a number of codes to the event with macthing eventID
