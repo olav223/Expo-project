@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+
 import no.hvl.dat109.expoproject.entities.Event;
 
 public interface IVoteController {
@@ -29,13 +30,20 @@ public interface IVoteController {
      * @return number of stars in vote
      */
     int getVote(String voterID, int standID);
-    boolean validVoterID(String voterId, Event event);
 
     /**
      * Hent alle stemmer for en event
+     *
      * @param eventID Id til eventen
      * @return En liste over alle stemmer til eventen, ellers null
      */
     List<Vote> getVotes(int eventID);
 
+    /**
+     * Kontrollerer om en voterId er gyldig
+     *
+     * @param voterId Id til en voter
+     * @return true hvis voterId er gyldig, false hvis ikke
+     */
+    boolean validVoterID(String voterId);
 }

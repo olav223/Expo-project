@@ -1,11 +1,8 @@
 package no.hvl.dat109.expoproject.controllers;
 
 import no.hvl.dat109.expoproject.database.VoteService;
-import no.hvl.dat109.expoproject.database.VoterRepo;
-import no.hvl.dat109.expoproject.entities.Event;
 import no.hvl.dat109.expoproject.entities.StandWithVote;
 import no.hvl.dat109.expoproject.entities.Vote;
-import no.hvl.dat109.expoproject.entities.Voter;
 import no.hvl.dat109.expoproject.interfaces.controllers.IVoteController;
 import no.hvl.dat109.expoproject.interfaces.database.IVoteService;
 import org.springframework.http.HttpStatus;
@@ -19,12 +16,11 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/vote")
 public class VoteController implements IVoteController {
-    private final IVoteService vs;
-    private final VoterRepo vr; // TODO bør ikke bruke repo utenfor service
 
-    public VoteController(VoteService vs, VoterRepo vr) {
+    private final IVoteService vs;
+
+    public VoteController(VoteService vs) {
         this.vs = vs;
-        this.vr = vr;
     }
 
     /**
@@ -102,19 +98,14 @@ public class VoteController implements IVoteController {
      * Checking if the code passed for the voter is valid
      *
      * @param voterId the 6-digit code for the voter
-     * @param event   the event the code is assigned
      * @return true if the code exists, false otherwise
      */
-    @Override // TODO sett opp mapping, hvis det trengs
-    public boolean validVoterID(String voterId, Event event) {
-        List<Voter> voters = vr.findAllByEvent(event);
-        Voter voter = new Voter(voterId, event);
-
-        for (Voter voter1 : voters) {
-            if (voter.equals(voter1)) {
-                return true;
-            }
+    @Override
+    @GetMapping("/validate")
+    public boolean validVoterID(@RequestParam String voterId) {
+        if (voterId.equals("")) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "VoterID cannot be empty");
         }
-        return false;
+        return vs.voterExists(voterId);
     }
 }
