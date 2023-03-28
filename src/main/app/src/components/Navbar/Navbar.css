@@ -1,0 +1,45 @@
+nav {
+    padding: 0 35px;
+    background-color: white;
+    top:0;
+    left:0;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav .ui-menu {
+    list-style: none;
+}
+
+nav img {
+    height: 30px;
+    margin: auto 0;
+}
+
+nav .ui-menu li {
+    display: inline-block;
+    color: black;
+    font-size: 14px;
+    font-weight: 550;
+    margin-left: 20px;
+    text-decoration: none;
+}
+
+nav .ui-menu li:hover {
+    color: darkcyan;
+}
+
+.login-btn {
+    margin-left: 20px;
+    display: inline-block;
+    border-radius: 40px;
+    background-color: darkcyan;
+    padding: 10px 25px;
+    transition: .2s;
+    text-decoration: none;
+    color: white !important;
+}
+
+.login-btn:hover {
+    background-color: #137070;
+}
