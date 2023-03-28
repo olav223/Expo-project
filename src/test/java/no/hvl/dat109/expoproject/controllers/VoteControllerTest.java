@@ -14,8 +14,10 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.PersistenceException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -153,6 +155,29 @@ class VoteControllerTest {
         when(service.getAllVotesInEvent(2)).thenReturn(List.of());
         assertEquals(0, controller.getVotes(2).size());
         assertEquals(List.of(), controller.getVotes(2));
+    }
+
+    @Test
+    void generateNewVoterIdWhenIllegalInput() {
+        try {
+            controller.getNewVoterID(0);
+            fail();
+        }
+        catch (ResponseStatusException e) {
+            assertEquals(HttpStatus.NO_CONTENT, e.getStatus());
+        }
+    }
+
+    @Test
+    void generateVoterIdWhenDuplicate() {
+        when(service.saveVoter(anyString(), anyInt())).thenThrow(PersistenceException.class);
+        try {
+            controller.getNewVoterID(1);
+            fail();
+        }
+        catch (ResponseStatusException e) {
+            assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
+        }
     }
 
 }

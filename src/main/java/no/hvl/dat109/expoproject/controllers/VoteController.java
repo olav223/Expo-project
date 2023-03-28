@@ -3,8 +3,10 @@ package no.hvl.dat109.expoproject.controllers;
 import no.hvl.dat109.expoproject.database.VoteService;
 import no.hvl.dat109.expoproject.entities.StandWithVote;
 import no.hvl.dat109.expoproject.entities.Vote;
+import no.hvl.dat109.expoproject.entities.Voter;
 import no.hvl.dat109.expoproject.interfaces.controllers.IVoteController;
 import no.hvl.dat109.expoproject.interfaces.database.IVoteService;
+import no.hvl.dat109.expoproject.utils.VoteUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -92,6 +94,25 @@ public class VoteController implements IVoteController {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "EventID cannot be 0");
         }
         return vs.getAllVotesInEvent(eventID);
+    }
+
+    @Override
+    @GetMapping("/newvoter")
+    public String getNewVoterID(@RequestParam int eventID) {
+        if (eventID <= 0) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "EventID must be greater than 0");
+        }
+        String code = VoteUtils.generateVoterID();
+        try {
+            Voter voter = vs.saveVoter(code, 1);
+            if (voter != null) {
+                return voter.getId();
+            }
+        }
+        catch (PersistenceException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
+        return null;
     }
 
     /**
