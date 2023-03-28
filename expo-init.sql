@@ -41,7 +41,8 @@ CREATE TABLE stand
     image       VARCHAR(255), -- Link to image
     url         VARCHAR(255), -- Link to website
     event       INTEGER REFERENCES event (id) NOT NULL,
-    responsible VARCHAR(20) REFERENCES "user" (username)
+    responsible VARCHAR(20) REFERENCES "user" (username),
+    UNIQUE (title, event)
 );
 
 CREATE TABLE voter
