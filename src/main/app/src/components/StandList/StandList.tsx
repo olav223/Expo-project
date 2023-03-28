@@ -24,7 +24,7 @@ export const StandList = () => {
                     <h4>{item["title"]}</h4>
                     <p>{item["description"]}</p>
                 </div>
-                <Link to={"/stand?id="+item["id"]}>Mer info</Link>
+                <Link to={"/stand?id="+item["id"]+"&event="+item["eventID"]}>Mer info</Link>
             </div>
         }) : <div>Ingen stands</div>}
     </div>

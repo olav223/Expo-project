@@ -28,7 +28,7 @@ const StandPage = () => {
 
     return params.has("id") ?
         <div>
-            <VotingStars standId={parseInt(params.get("id") ?? "")} />
+            <VotingStars />
             <img src={stand?.image} />
             <h2>{stand?.title}</h2>
             <p>{stand?.description}</p>

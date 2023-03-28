@@ -81,7 +81,7 @@ public class VoteService implements IVoteService {
      * @param vote stemmen som skal registreres, skal inneholde en eksisterende standId og voterID.
      * @throws NullPointerException     hvis vote er null
      * @throws IllegalArgumentException hvis vote ikke er mellom 0 og 5
-     * @throws PersistenceException  hvis stemmen ikke kan lagres, f.eks. hvis id-er ikke finnes
+     * @throws PersistenceException     hvis stemmen ikke kan lagres, f.eks. hvis id-er ikke finnes
      */
     @Override
     public void registerVote(Vote vote) throws NullPointerException, IllegalArgumentException {
@@ -104,6 +104,20 @@ public class VoteService implements IVoteService {
     }
 
     @Override
+    public Voter saveVoter(final String code, int eventID) {
+        if (code == null) {
+            throw new NullPointerException("Code cannot be null");
+        }
+        try {
+            return voterRepo.save(new Voter(code, eventRepo.findById(eventID)));
+        }
+        catch (Exception e) {
+            throw new PersistenceException("Could not save voter: " + e.getMessage());
+        }
+    }
+
+    @Override
+    @Deprecated
     public List<String> generateVoteCodes(int nrOfCodes, int eventID) {
         List<Voter> codes = new ArrayList<>(nrOfCodes);
         Event event = eventRepo.findById(eventID);

@@ -47,7 +47,7 @@ CREATE TABLE stand
 
 CREATE TABLE voter
 (
-    id       CHAR(6) PRIMARY KEY,
+    id       CHAR(32) PRIMARY KEY,
     id_event INTEGER REFERENCES event (id) NOT NULL
 );
 
