@@ -8,9 +8,11 @@ import AdminPage from "./pages/admin/AdminPage";
 import AdminStandEdit from "./pages/admin/AdminStandEdit";
 import AdminEventEdit from "./pages/admin/AdminEventEdit";
 import JuryPage from "./pages/jury/JuryPage";
+import Navbar from "./components/Navbar/Navbar";
 
 function App() {
     return <BrowserRouter basename={ process.env.PUBLIC_URL }>
+        <Navbar />
         <Routes>
             <Route index element={ <FrontPage /> } />
             <Route path="/stand" element={ <StandPage /> } />
