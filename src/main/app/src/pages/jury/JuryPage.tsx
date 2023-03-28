@@ -7,7 +7,7 @@ const JuryPage = () => {
 
     const [scores, setScores] = useState<StandWithScore[] | null>(null);
 
-    useEffect(() => {
+    useEffect(() => { // TODO Sjekk om bruker er innlogget og jurymedlem
         async function getScores(): Promise<void> {
             const res = await restApi({ url: `/api/vote/score?eventID=${ 1 }`, method: "GET" }); // TODO hent id fra aktiv event
             if (res.status === 200) {
