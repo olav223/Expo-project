@@ -1,6 +1,7 @@
 import restApi from "../utils/restApi";
 import {useEffect, useState} from "react";
 import VotingStars from "../components/VotingStars/VotingStars";
+import { StandModel } from "../model/Stand";
 
 const StandPage = () => {
     const [stand, setStand] = useState<StandModel | null>(null);

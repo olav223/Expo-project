@@ -56,7 +56,9 @@ public class VoteService implements IVoteService {
     @Override
     public List<StandWithVote> getAllScoresInEvent(int eventID) {
         List<StandWithVote> allStandsWithVotes = standWithVoteRepo.findAllByEventId(eventID);
-        return allStandsWithVotes;
+        return allStandsWithVotes.stream()
+                .sorted((a1, a2) -> a2.getSumVotes() - a1.getSumVotes())
+                .collect(Collectors.toList());
     }
 
     /**
