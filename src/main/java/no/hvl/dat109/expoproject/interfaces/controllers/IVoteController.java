@@ -40,6 +40,14 @@ public interface IVoteController {
     List<Vote> getVotes(int eventID);
 
     /**
+     * Lager et nytt voter objekt med en unik id, basert på event.
+     *
+     * @param eventID Id til eventen
+     * @return En unik id
+     */
+    String getNewVoterID(int eventID);
+
+    /**
      * Kontrollerer om en voterId er gyldig
      *
      * @param voterId Id til en voter

@@ -2,6 +2,7 @@ package no.hvl.dat109.expoproject.interfaces.database;
 
 import no.hvl.dat109.expoproject.entities.*;
 
+import javax.persistence.PersistenceException;
 import java.util.List;
 
 public interface IVoteService {
@@ -33,6 +34,16 @@ public interface IVoteService {
     void registerVote(Vote vote);
 
     boolean voterExists(String voterID);
+
+    /**
+     * Lagrer en voterID i databasen
+     *
+     * @param code    Koden til stemmegiveren
+     * @param eventID Eventen stemmegiveren skal stemme på
+     * @return Voter-objektet som ble lagret, ellers null
+     * @throws PersistenceException Hvis databasen feiler
+     */
+    Voter saveVoter(String code, int eventID);
 
     /**
      * generate a number of codes to the event with macthing eventID

@@ -1,6 +1,7 @@
 import restApi from "../utils/restApi";
 import {useEffect, useState} from "react";
 import VotingStars from "../components/VotingStars/VotingStars";
+import { StandModel } from "../model/Stand";
 
 const StandPage = () => {
     const [stand, setStand] = useState<StandModel | null>(null);
@@ -27,7 +28,7 @@ const StandPage = () => {
 
     return params.has("id") ?
         <div>
-            <VotingStars standId={parseInt(params.get("id") ?? "")} />
+            <VotingStars />
             <img src={stand?.image} />
             <h2>{stand?.title}</h2>
             <p>{stand?.description}</p>
