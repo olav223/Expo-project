@@ -1,0 +1,3 @@
+interface Voter {
+    id: string;
+}
