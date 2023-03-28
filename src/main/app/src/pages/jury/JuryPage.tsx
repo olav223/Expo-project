@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import restApi from "../../utils/restApi";
 import { StandWithScore } from "../../model/Stand";
+import { Link } from "react-router-dom";
 
 const JuryPage = () => {
 
@@ -40,7 +41,7 @@ const JuryPage = () => {
                                 scores?.map(score => (
                                     <tr key={ score.id }>
                                         <td>{ score.id }</td>
-                                        <td>{ score.title }</td>
+                                        <td><Link to={ `/stand?id=${ score.id }` }>{ score.title }</Link></td>
                                         <td>{ score.sumVotes }</td>
                                     </tr>
                                 ))
