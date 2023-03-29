@@ -1,5 +1,17 @@
-.body {
+body,html {
     background-color: #f2f2f2;
     margin: 0;
     padding: 0;
+    font-family: Arial;
+}
+
+.box {
+    box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.05);
+}
+
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }

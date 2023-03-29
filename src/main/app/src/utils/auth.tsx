@@ -9,16 +9,16 @@ export default class Auth {
         if (result.status == 200 && result.body) {
             const expireDay = new Date();
             expireDay.setDate(expireDay.getDate() + 7);
-            cookies.set('user', result.body["id"], { path: '/', expires: expireDay });
+            cookies.set('user', result.body, { path: '/', expires: expireDay });
             return true;
         }
         return false;
     }
 
-    getUser():Voter | null {
+    getUser():Voter {
         const voter = cookies.get("user");
         if (voter) return {id: voter};
-        return null;
+        return {id: ""};
     }
 
     async verifyUser(id:string):Promise<boolean> {

@@ -53,7 +53,7 @@ CREATE TABLE voter
 
 CREATE TABLE vote
 (
-    id_voter CHAR(6) REFERENCES voter (id)               NOT NULL,
+    id_voter CHAR(32) REFERENCES voter (id)               NOT NULL,
     id_stand INTEGER REFERENCES stand (id)               NOT NULL,
     stars    INTEGER CHECK ( stars >= 0 AND stars <= 5 ) NOT NULL,
     PRIMARY KEY (id_voter, id_stand)
