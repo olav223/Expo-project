@@ -24,6 +24,9 @@ public class EventService implements IEventService {
     @Autowired
     private UserService us;
 
+    @Autowired
+    private UserRepo userRepo;
+
     @Override
     public Event addEvent(Event event) throws Exception {
         Event addedEvent = null;
@@ -81,7 +84,12 @@ public class EventService implements IEventService {
     }
     public List<Event> getEventsForUsername(String username){
         List<Event> events = new ArrayList<>();
-        User admin = us.findUser(username);
+        User admin = userRepo.findByUsername(username);
+
+        if(admin == null){
+            throw new NullPointerException("The user does not exits");
+        }
+
         for(UserEvent userEvent : admin.getUserEvents()){
             events.add(userEvent.getEvent());
         }

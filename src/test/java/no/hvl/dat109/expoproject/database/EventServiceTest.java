@@ -12,6 +12,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,6 +28,8 @@ class EventServiceTest {
     private EventRepo eventRepo;
     @Mock
     private UserEventRepo userEventRepo;
+    @Mock
+    private UserRepo ur;
     private Event event1, event2, event3, event4, eventNull;
     private User user1, user2, user3;
     private UserEvent userEvent1, userEvent2;
@@ -49,6 +53,9 @@ class EventServiceTest {
 
         userEvent1 = new UserEvent(user1, event1);
         userEvent2 = new UserEvent(user2, event1);
+
+        user1.getUserEvents().add(userEvent1);
+        user2.getUserEvents().add(userEvent2);
     }
     @Test
     void addEvent() throws Exception {
@@ -135,5 +142,18 @@ class EventServiceTest {
         List<User> actualUserList = eventService.getAllUsersInEvent(1);
         assertTrue(actualUserList.contains(user1));
         assertTrue(actualUserList.contains(user2));
+    }
+    @Test
+    void testGetEventsByUsername(){
+        when(ur.findByUsername("user1")).thenReturn(user1);
+        assertEquals(user1, ur.findByUsername("user1"));
+        List<Event> events = Collections.singletonList(event1);
+        assertEquals(events.size(), eventService.getEventsForUsername("user1").size());
+    }
+    @Test
+    void findEventsToNullUser(){
+        Exception exception = assertThrows(NullPointerException.class, () -> eventService.getEventsForUsername("user5"));
+        String message = "The user does not exits";
+        assertEquals(message, exception.getMessage());
     }
 }
