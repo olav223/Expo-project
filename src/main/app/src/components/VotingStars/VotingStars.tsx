@@ -46,10 +46,10 @@ const VotingStars = () => {
     }
 
     const getSavedVote = async() => {
-        if (auth.getUser().id === "") {
+        if (auth.getUser().username === "") {
             await auth.createVoter(params.get("event")??"");
         } else {
-            const result = await restApi({url: "/api/vote?standID="+params.get("id")+"&voterID="+auth.getUser().id, method: "GET"});
+            const result = await restApi({url: "/api/vote?standID="+params.get("id")+"&voterID="+auth.getUser().username, method: "GET"});
             if (result.status === 200) {
                 handleRating(result.body);
             }
@@ -59,7 +59,7 @@ const VotingStars = () => {
     const vote = async() => {
         const result = await restApi({url: "/api/vote", method: "POST", body: {
                 "votePK": {
-                    "id_voter": auth.getUser().id,
+                    "id_voter": auth.getUser().username,
                     "id_stand": params.get("id")
                 },
                 "stars": rating
