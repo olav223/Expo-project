@@ -52,4 +52,6 @@ public interface IEventService {
      * @return A list of events
      */
     List<Event> getEventsForUsername(String username);
+
+    List<Event> findAll();
 }
