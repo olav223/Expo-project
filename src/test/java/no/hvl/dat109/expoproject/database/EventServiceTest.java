@@ -30,6 +30,8 @@ class EventServiceTest {
     private UserEventRepo userEventRepo;
     @Mock
     private UserRepo ur;
+    @Mock
+    private UserService us;
     private Event event1, event2, event3, event4, eventNull;
     private User user1, user2, user3;
     private UserEvent userEvent1, userEvent2;
@@ -145,10 +147,9 @@ class EventServiceTest {
     }
     @Test
     void testGetEventsByUsername(){
-        when(ur.findByUsername("user1")).thenReturn(user1);
-        assertEquals(user1, ur.findByUsername("user1"));
-        List<Event> events = Collections.singletonList(event1);
-        assertEquals(events.size(), eventService.getEventsForUsername("user1").size());
+        when(userEventRepo.findAllByUser(user1.getUsername())).thenReturn(user1.getUserEvents());
+        when(us.findUser("user1")).thenReturn(user1);
+        assertEquals(user1.getUserEvents().size(), eventService.getEventsForUsername("user1").size());
     }
     @Test
     void findEventsToNullUser(){

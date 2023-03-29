@@ -37,6 +37,10 @@ public class AdminController implements IAdminController {
     public List<Event> getEventsByUsername(@RequestParam String username) {
         return es.getEventsForUsername(username);
     }
+    @GetMapping("/events/all")
+    public List<Event> getAllEvents(){
+        return es.findAll();
+    }
 
     @Override
     @PostMapping("/user")
