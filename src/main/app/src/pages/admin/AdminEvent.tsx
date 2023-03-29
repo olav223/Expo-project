@@ -1,15 +1,24 @@
 import { useEffect, useState } from "react";
 import restApi from "../../utils/restApi";
+import Event from "../../model/ExpoEvent"
+import { Link } from "react-router-dom";
 
 const AdminEvent = () => {
     
-    const [events, setEvents] = useState([]);
+    const [events, setEvents] = useState<Event [] | null>(null);
     
-    const getEvents =async () => {
-        const result = await restApi({url : "/api/event/admin?username=exhibitor1", method : "GET"})
+    const getEvents = async () => {
+        const result = await restApi({url : "/api/admin/events/all", method : "GET"})
         if(result.status === 200){
             setEvents(result.body)
         }
+    }
+    //TODO
+    //Denne kaster en PSQLException i backend (forventer en int)
+    const getEventByAdmin = async (username:string) => {
+        const result = await restApi({url : `/api/admin/events?username=${ username }`, method : "GET"})
+        if(result.status === 200)
+            setEvents(result.body)
     }
     
     useEffect(() => {
@@ -18,11 +27,13 @@ const AdminEvent = () => {
     
     return (
         <div className="standList">
-        {events.length > 0 ? events.map((item,i) => {
-            return <div key={"event-"+i} className="standItem">
+        {events != null ? events?.map((event) => {
+            return <div key={"event-"+event.id} className="standItem">
                 <div>
-                    <h4>{item["title"]}</h4>
-                    <p>{item["description"]}</p>
+                    <h4>
+                        <Link to={`/edit?id=${event.id}`} style={{textDecoration : 'none', color:'black'}}>{event.name}</Link>
+                    </h4>
+                    <p></p>
                 </div>
             </div>
         }) : <div>Ingen Arrengementer</div>}
