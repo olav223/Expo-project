@@ -16,6 +16,7 @@ public class UserEventService implements IUserEventService {
 
     @Override
     public void addUserToEvent(UserEvent userEvent) {
+
         User user = userEvent.getUser();
         Event event = userEvent.getEvent();
 
@@ -30,6 +31,7 @@ public class UserEventService implements IUserEventService {
                 throw new IllegalArgumentException("Duplicated users are not allowed");
             }
         }
+
         userEventRepo.save(userEvent);
     }
 

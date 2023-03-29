@@ -4,6 +4,7 @@ import no.hvl.dat109.expoproject.entities.Event;
 import no.hvl.dat109.expoproject.entities.UserEvent;
 import no.hvl.dat109.expoproject.primarykeys.UserEventPK;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

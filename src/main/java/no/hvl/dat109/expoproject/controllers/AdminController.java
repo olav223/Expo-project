@@ -48,7 +48,7 @@ public class AdminController implements IAdminController {
 
     @Override
     @PostMapping("/user")
-    public boolean postAddUser(@RequestBody User user, int eventID) {
+    public boolean postAddUser(@RequestBody User user, @RequestHeader int eventID) {
         as.addUser(user);
         Event event = es.getEvent(eventID);
         UserEvent userEvent = new UserEvent(user, event);
