@@ -12,11 +12,9 @@ import no.hvl.dat109.expoproject.interfaces.database.IEventService;
 import no.hvl.dat109.expoproject.interfaces.database.IUserEventService;
 import no.hvl.dat109.expoproject.interfaces.database.IUserService;
 import no.hvl.dat109.expoproject.interfaces.database.IVoteService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.ArrayList;
 
 @CrossOrigin
 @RestController
@@ -28,7 +26,7 @@ public class AdminController implements IAdminController {
     private final IVoteService vs;
     private final IUserEventService ues;
 
-    public AdminController(UserService as, EventService es, VoteService vs,UserEventService ues) {
+    public AdminController(UserService as, EventService es, VoteService vs, UserEventService ues) {
         this.as = as;
         this.es = es;
         this.vs = vs;
@@ -37,17 +35,19 @@ public class AdminController implements IAdminController {
 
     @Override
     @GetMapping("/generate")
-    public void generateVoteCodes(@RequestParam int nrOfCodes,  @RequestParam int eventID) {
+    public void generateVoteCodes(@RequestParam int nrOfCodes, @RequestParam int eventID) {
         List<String> voteCodes = vs.generateVoteCodes(nrOfCodes, eventID);
     }
 
-    }
+
+
     @GetMapping("/events")
     public List<Event> getEventsByUsername(@RequestParam String username) {
         return es.getEventsForUsername(username);
     }
+
     @GetMapping("/events/all")
-    public List<Event> getAllEvents(){
+    public List<Event> getAllEvents() {
         return es.findAll();
     }
 
@@ -68,7 +68,7 @@ public class AdminController implements IAdminController {
     }
 
     @GetMapping("/event")
-    public Event GetEventById(@RequestParam int eventID){
+    public Event GetEventById(@RequestParam int eventID) {
         return es.getEvent(eventID);
     }
 
@@ -76,12 +76,16 @@ public class AdminController implements IAdminController {
     @PostMapping("/event")
     public void postAddEvent(@RequestBody Event event) {
 
-        es.addEvent(event);
+        try {
+            es.addEvent(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     @DeleteMapping("/event")
-    public void deleteEvent(int eventID) {
+    public void deleteEvent(@RequestParam int eventID) {
         es.removeEvent(eventID);
     }
 }
