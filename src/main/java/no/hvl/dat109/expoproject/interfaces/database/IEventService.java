@@ -6,6 +6,7 @@ import no.hvl.dat109.expoproject.entities.User;
 import java.util.List;
 
 public interface IEventService {
+    Event getEvent(int id);
 
     /**
      * adds event to database from event object
