@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import restApi from "../../utils/restApi";
 import Event from "../../model/ExpoEvent"
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import "./Admin.css"
 
 const AdminEvent = () => {
     
     const [events, setEvents] = useState<Event [] | null>(null);
+    const {username} = useParams();
     
     const getEvents = async () => {
         const result = await restApi({url : "/api/admin/events/all", method : "GET"})
@@ -15,7 +17,7 @@ const AdminEvent = () => {
     }
     //TODO
     //Denne kaster en PSQLException i backend (forventer en int)
-    const getEventByAdmin = async (username:string) => {
+    const getEventByAdmin = async () => {
         const result = await restApi({url : `/api/admin/events?username=${ username }`, method : "GET"})
         if(result.status === 200)
             setEvents(result.body)
@@ -31,9 +33,14 @@ const AdminEvent = () => {
             return <div key={"event-"+event.id} className="standItem">
                 <div>
                     <h4>
-                        <Link to={`/edit?id=${event.id}`} style={{textDecoration : 'none', color:'black'}}>{event.name}</Link>
+                        <Link to={`/admin/event/edit?id=${event.id}`} style={{textDecoration : 'none', color:'black'}}>{event.name}</Link>
                     </h4>
-                    <p></p>
+                    <Link to={`/admin/events/${event.id}/stands`}>
+                    <button type="submit"className="stands-button">
+                    Show stands
+                    </button>
+                    </Link>
+
                 </div>
             </div>
         }) : <div>Ingen Arrengementer</div>}
