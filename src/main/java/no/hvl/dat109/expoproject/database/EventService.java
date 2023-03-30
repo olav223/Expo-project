@@ -30,12 +30,16 @@ public class EventService implements IEventService {
         if(event == null){
             throw new NullPointerException("The event cannot be null");
         }
-        else if(eventRepo.findById(event.getId()) == null) {
+        else {
                 eventRepo.save(event);
                 addedEvent = event;
-        } else {
+        }
+        /*
+        else {
                 throw new RuntimeException("Event already exists");
             }
+
+         */
         return addedEvent;
     }
 
@@ -46,6 +50,10 @@ public class EventService implements IEventService {
         }
         else
             eventRepo.save(event);
+    }
+
+    public Event getEvent(int id) {
+        return eventRepo.findById(id);
     }
 
     @Override
@@ -88,7 +96,7 @@ public class EventService implements IEventService {
             throw new NullPointerException("The user does not exits");
         }
 
-        List<UserEvent> userEvents = userEventRepo.findAllByUser(username);
+        List<UserEvent> userEvents = userEventRepo.findAllByUser(user);
         for(UserEvent userEvent : userEvents){
             events.add(userEvent.getEvent());
         }

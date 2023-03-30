@@ -11,12 +11,12 @@ public class UserEvent {
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "id_event")
+    @JoinColumn(name = "username")
     private User user;
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "username")
+    @JoinColumn(name = "id_event")
     private Event event;
 
     public UserEvent(User user, Event event) {

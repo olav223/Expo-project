@@ -147,7 +147,7 @@ class EventServiceTest {
     }
     @Test
     void testGetEventsByUsername(){
-        when(userEventRepo.findAllByUser(user1.getUsername())).thenReturn(user1.getUserEvents());
+        when(userEventRepo.findAllByUser(user1)).thenReturn(user1.getUserEvents());
         when(us.findUser("user1")).thenReturn(user1);
         assertEquals(user1.getUserEvents().size(), eventService.getEventsForUsername("user1").size());
     }
