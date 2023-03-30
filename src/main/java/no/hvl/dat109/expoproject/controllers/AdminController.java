@@ -15,10 +15,10 @@ import no.hvl.dat109.expoproject.interfaces.database.IVoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController implements IAdminController {
@@ -41,10 +41,15 @@ public class AdminController implements IAdminController {
         List<String> voteCodes = vs.generateVoteCodes(nrOfCodes, eventID);
     }
 
-    /*@PostMapping("/user")
-    public void postAddUser() {
-
-    }*/
+    }
+    @GetMapping("/events")
+    public List<Event> getEventsByUsername(@RequestParam String username) {
+        return es.getEventsForUsername(username);
+    }
+    @GetMapping("/events/all")
+    public List<Event> getAllEvents(){
+        return es.findAll();
+    }
 
     @Override
     @PostMapping("/user")

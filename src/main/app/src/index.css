@@ -1,3 +1,47 @@
-.body {
+body,html {
     background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+    font-family: Arial;
+}
+
+.box {
+    box-shadow: 0 0 12px 2px rgba(0, 0, 0, 0.05);
+}
+
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+input {
+    padding: 15px 25px;
+    font-size: 15px;
+    background-color: #f1f1f1;
+    border: 2px solid #dcdcdc;
+    display: block;
+    border-radius: 5px;
+    margin: 15px
+}
+
+button[type="submit"] {
+    border-radius: 5px;
+    background-color: darkcyan;
+    border: 0;
+    color: white;
+    cursor: pointer;
+    padding: 15px 25px;
+    font-weight: bold;
+    transition: .2s;
+}
+
+button[type="submit"]:hover {
+    background-color: #0c6565;
+}
+
+button[disabled] {
+    background-color: #969696;
+    pointer-events: none;
 }

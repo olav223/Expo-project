@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-interface VoterRepo extends JpaRepository<Voter, String> {
+public interface VoterRepo extends JpaRepository<Voter, String> {
 }

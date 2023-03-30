@@ -11,13 +11,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
-import static org.skyscreamer.jsonassert.JSONAssert.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
 public class StandServiceTest {
@@ -35,7 +33,7 @@ public class StandServiceTest {
     @BeforeEach
     void setUp() {
         event1 = new Event(1, "Event1", LocalDateTime.now(), LocalDateTime.now().plusMonths(1));
-        stand1 = new Stand(1, "DataGram", "DataGram", "Image", "URL", event1);
+        stand1 = new Stand(1, "DataGram", "DataGram", "Image", "URL", event1.getId());
         stand2 = new Stand();
     }
 

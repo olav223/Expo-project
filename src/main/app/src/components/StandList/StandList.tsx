@@ -1,6 +1,7 @@
-import restApi from "../utils/restApi";
+import restApi from "../../utils/restApi";
 import {useEffect, useState} from "react";
 import "./StandList.css";
+import {Link} from "react-router-dom";
 
 export const StandList = () => {
     const [stands, setStands] = useState([]);
@@ -12,25 +13,21 @@ export const StandList = () => {
         }
     }
 
-    const vote = async(id:number) => {
-        const result = await restApi({url: "/api/stand?id="+id, method: "POST"});
-        if (result.status === 200) {
-            window.alert("Stemme sendt inn!");
-        }
-    }
-
     useEffect(() => {
         getStands();
     }, []);
 
     return <div className="standList">
+        <h2>Stands</h2>
         {stands.length > 0 ? stands.map((item,i) => {
-            return <div key={"stand-"+i} className="standItem">
+            return <div key={"stand-"+i} className="standItem box">
                 <div>
                     <h4>{item["title"]}</h4>
                     <p>{item["description"]}</p>
                 </div>
-                <button onClick={() => vote(2)}>Stem på</button>
+                <Link to={"/stand?id="+item["id"]+"&event="+item["eventID"]}><div className={"stand-link"}>
+                    <div className={"center"}>INFO</div>
+                </div></Link>
             </div>
         }) : <div>Ingen stands</div>}
     </div>

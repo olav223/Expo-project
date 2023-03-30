@@ -1,10 +1,8 @@
 package no.hvl.dat109.expoproject.interfaces.database;
 
-import no.hvl.dat109.expoproject.entities.Event;
-import no.hvl.dat109.expoproject.entities.Stand;
-import no.hvl.dat109.expoproject.entities.Vote;
-import no.hvl.dat109.expoproject.entities.Voter;
+import no.hvl.dat109.expoproject.entities.*;
 
+import javax.persistence.PersistenceException;
 import java.util.List;
 
 public interface IVoteService {
@@ -16,6 +14,8 @@ public interface IVoteService {
      * @return a list of all votes in event
      */
     List<Vote> getAllVotesInEvent(int eventID);
+
+    List<StandWithVote> getAllScoresInEvent(int eventID);
 
     /**
      * get the number of stars from the vote, given by given voter to given stand
@@ -29,9 +29,21 @@ public interface IVoteService {
     /**
      * register vote in database
      *
-     * @param vote
+     * @param vote Stemmen som skal registreres
      */
     void registerVote(Vote vote);
+
+    boolean voterExists(String voterID);
+
+    /**
+     * Lagrer en voterID i databasen
+     *
+     * @param code    Koden til stemmegiveren
+     * @param eventID Eventen stemmegiveren skal stemme på
+     * @return Voter-objektet som ble lagret, ellers null
+     * @throws PersistenceException Hvis databasen feiler
+     */
+    Voter saveVoter(String code, int eventID);
 
     /**
      * generate a number of codes to the event with macthing eventID

@@ -1,15 +1,11 @@
 package no.hvl.dat109.expoproject.database;
 
-import no.hvl.dat109.expoproject.entities.Event;
 import no.hvl.dat109.expoproject.entities.User;
-import no.hvl.dat109.expoproject.entities.UserEvent;
 import no.hvl.dat109.expoproject.interfaces.database.IUserService;
-import no.hvl.dat109.expoproject.primarykeys.UserEventPK;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService implements IUserService {
@@ -42,6 +38,10 @@ public class UserService implements IUserService {
             userRepo.delete(user);
 
         return user;
+    }
+
+    public User findUser(String username){
+        return userRepo.findByUsername(username);
     }
 
     @Override

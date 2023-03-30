@@ -41,18 +41,19 @@ CREATE TABLE stand
     image       VARCHAR(255), -- Link to image
     url         VARCHAR(255), -- Link to website
     event       INTEGER REFERENCES event (id) NOT NULL,
-    responsible VARCHAR(20) REFERENCES "user" (username)
+    responsible VARCHAR(20) REFERENCES "user" (username),
+    UNIQUE (title, event)
 );
 
 CREATE TABLE voter
 (
-    id       CHAR(6) PRIMARY KEY,
+    id       CHAR(32) PRIMARY KEY,
     id_event INTEGER REFERENCES event (id) NOT NULL
 );
 
 CREATE TABLE vote
 (
-    id_voter CHAR(6) REFERENCES voter (id)               NOT NULL,
+    id_voter CHAR(32) REFERENCES voter (id)               NOT NULL,
     id_stand INTEGER REFERENCES stand (id)               NOT NULL,
     stars    INTEGER CHECK ( stars >= 0 AND stars <= 5 ) NOT NULL,
     PRIMARY KEY (id_voter, id_stand)
@@ -66,3 +67,13 @@ CREATE TABLE exhibitor
     stand     INTEGER REFERENCES stand (id),
     phone     VARCHAR(15) NOT NULL
 );
+
+CREATE VIEW expo.total_votes AS
+(
+SELECT s.id, s.title, SUM(stars) AS total_stars
+FROM expo.vote v,
+     expo.stand s
+WHERE v.id_stand = s.id
+GROUP BY s.id
+ORDER BY s.id
+    );

@@ -14,51 +14,31 @@ public class Stand {
     private String description;
     private String image;
     private String url;
+    @Column(name = "event")
+    private int eventID;
+    @Column(name = "responsible")
+    private String responsibleID;
 
-//    @ManyToOne
-//    @JoinColumn(name = "event")
-//    private Event event;
-//
-//    @OneToMany(mappedBy = "stand")
-//    private List<Vote> votes;
-
-    @OneToMany(mappedBy = "stand")
-    private List<Exhibitor> exhibitors;
-
-    @OneToOne
-    @JoinColumn(name = "responsible")
-    private User responsible;
-
-    public Stand(int id, String title, String description, String image, String url, Event event) {
+    public Stand(int id, String title, String description, String image, String url, int eventID, String responsibleID) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.image = image;
         this.url = url;
-//        this.event = event;
+        this.eventID = eventID;
+        this.responsibleID = responsibleID;
     }
-    public Stand(int id, String title, Event event){
+
+    public Stand(int id, String title, String description, String image, String url, int eventID) {
         this.id = id;
         this.title = title;
-//        this.event = event;
+        this.description = description;
+        this.image = image;
+        this.url = url;
+        this.eventID = eventID;
     }
 
     public Stand() {
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Stand stand = (Stand) o;
-
-        return id == stand.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return id;
     }
 
     public int getId() {
@@ -101,35 +81,32 @@ public class Stand {
         this.url = url;
     }
 
-//    public Event getEvent() {
-//        return event;
-//    }
-//
-//    public void setEvent(Event event) {
-//        this.event = event;
-//    }
-//
-//    public List<Vote> getVotes() {
-//        return votes;
-//    }
-//
-//    public void setVotes(List<Vote> votes) {
-//        this.votes = votes;
-//    }
-
-    public List<Exhibitor> getExhibitors() {
-        return exhibitors;
+    public int getEventID() {
+        return eventID;
     }
 
-    public void setExhibitors(List<Exhibitor> exhibitors) {
-        this.exhibitors = exhibitors;
+    public void setEventID(int eventID) {
+        this.eventID = eventID;
     }
 
-    public User getResponsible() {
-        return responsible;
+    public String getResponsibleID() {
+        return responsibleID;
     }
 
-    public void setResponsible(User responsible) {
-        this.responsible = responsible;
+    public void setResponsibleID(String responsibleID) {
+        this.responsibleID = responsibleID;
+    }
+
+    @Override
+    public String toString() {
+        return "Stand{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
+                ", url='" + url + '\'' +
+                ", eventID=" + eventID +
+                ", responsibleID='" + responsibleID + '\'' +
+                '}';
     }
 }

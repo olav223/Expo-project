@@ -1,0 +1,21 @@
+.submit-vote {
+    border: 0;
+    border-radius: 50%;
+    background: darkcyan;
+    height: 50px;
+    width: 50px;
+    color: white;
+    font-weight: bold;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+#partical-canvas {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 999;
+}
