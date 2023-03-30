@@ -97,6 +97,11 @@ public class VoteService implements IVoteService {
     }
 
     @Override
+    public boolean voterExists(String voterID) {
+        return voterRepo.existsById(voterID);
+    }
+
+    @Override
     public List<String> generateVoteCodes(int nrOfCodes, int eventID) {
         List<Voter> codes = new ArrayList<>(nrOfCodes);
         Event event = eventRepo.findById(eventID);

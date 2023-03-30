@@ -1,8 +1,10 @@
 package no.hvl.dat109.expoproject.controllers;
 
 import no.hvl.dat109.expoproject.database.VoteService;
+import no.hvl.dat109.expoproject.entities.Event;
 import no.hvl.dat109.expoproject.entities.StandWithVote;
 import no.hvl.dat109.expoproject.entities.Vote;
+import no.hvl.dat109.expoproject.entities.Voter;
 import no.hvl.dat109.expoproject.primarykeys.VotePK;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,32 +16,62 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-public class VoteControllerTest {
-
+class VoteControllerTest {
     @InjectMocks
     private VoteController controller;
     @Mock
     private VoteService service;
 
+    private String voter1, voter2, voter3, voter4;
     private Vote vote1_1_5stars, vote1_2_3stars, vote2_1_1star;
     private VotePK voter1Stand1, voter1Stand2, voter2Stand1;
+    private Event event;
+    private List<Voter> voterList;
 
     @BeforeEach
-    void setup() {
+    void setUp() {
+        voter1 = "123abc";
+        voter2 = "321cba";
+        voter3 = "213bac";
+        voter4 = null;
+
         voter1Stand1 = new VotePK("1", 1);
         voter1Stand2 = new VotePK("1", 2);
         voter2Stand1 = new VotePK("2", 1);
         vote1_1_5stars = new Vote(voter1Stand1, 5);
         vote1_2_3stars = new Vote(voter1Stand2, 3);
         vote2_1_1star = new Vote(voter2Stand1, 1);
+
+        event = new Event(1);
+        voterList = Arrays.asList(
+                new Voter(voter1, event),
+                new Voter(voter2, event),
+                new Voter(voter3, event),
+                new Voter(voter4, event)
+        );
     }
+
+    @Test
+    void testValidVoterID() {
+        when(service.voterExists(voter1)).thenReturn(true);
+        assertTrue(controller.validVoterID("123abc"));
+        when(service.voterExists(voter2)).thenReturn(true);
+        assertTrue(controller.validVoterID("321cba"));
+    }
+
+    @Test
+    void testInvalidVoterID() {
+        when(service.voterExists(voter1)).thenReturn(false);
+        assertFalse(controller.validVoterID("123abc"));
+    }
+
 
     @Test
     void registerLegalVote() {

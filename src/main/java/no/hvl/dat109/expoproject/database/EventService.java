@@ -7,32 +7,43 @@ import no.hvl.dat109.expoproject.interfaces.database.IEventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class EventService implements IEventService {
+
     @Autowired
     private EventRepo eventRepo;
+
+    @Autowired
+    private UserEventRepo userEventRepo;
+
     @Override
-    public void addEvent(Event event) {
-        if(eventRepo.findById(event.getId())!=null){
-            throw new RuntimeException("Event already exists");
+    public Event addEvent(Event event) throws Exception {
+        Event addedEvent = null;
+        if(event == null){
+            throw new NullPointerException("The event cannot be null");
         }
-        eventRepo.save(event);
+        else if(eventRepo.findById(event.getId()) == null) {
+                eventRepo.save(event);
+                addedEvent = event;
+        } else {
+                throw new RuntimeException("Event already exists");
+            }
+        return addedEvent;
     }
 
     @Override
     public void UpdateEvent(Event event) {
-        Event updateEvent = eventRepo.findById(event.getId());
-        updateEvent.setId(event.getId());
-        updateEvent.setName(event.getName());
-        updateEvent.setEventStart(event.getEventStart());
-        updateEvent.setEventEnd(event.getEventEnd());
-        updateEvent.setUserEvent(event.getUserEvent());
-        updateEvent.setVoters(event.getVoters());
-        eventRepo.save(updateEvent);
+        if(event == null){
+            throw new NullPointerException("The event cannot be null");
+        }
+        else
+            eventRepo.save(event);
     }
+
     @Override
     public Event removeEvent(int eventID) {
       return eventRepo.deleteById(eventID);
@@ -40,19 +51,28 @@ public class EventService implements IEventService {
 
     @Override
     public boolean isOpen(int eventID) {
-        if(eventRepo.findById(eventID)!=null){
-            return true;
-        }
-        return false;
+        Event event = eventRepo.findById(eventID);
+        return event.getEventStart().isBefore(LocalDateTime.now()) && event.getEventEnd().isAfter(LocalDateTime.now());
+    }
+
+    @Override
+    public Event findEventById(int eventID) {
+        return eventRepo.findById(eventID);
+    }
+
+    /*
+     isOpenSetNow is for testing logic of isOpen()
+     have to set NOW time for testing purposes
+     */
+    public boolean isOpenSetNow(int eventID, LocalDateTime time) {
+        Event event = eventRepo.findById(eventID);
+        return event.getEventStart().isBefore(time) && event.getEventEnd().isAfter(time);
     }
 
     @Override
     public List<User> getAllUsersInEvent(int eventID) {
-        Event eventWithUsers = eventRepo.findById(eventID);
-        List<UserEvent>userEvents = eventWithUsers.getUserEvent();
-        List<User> users = userEvents.stream().map(u->u.getUser()).collect(Collectors.toList());
-
-        return users;
+        Event event = eventRepo.findById(eventID);
+        List<UserEvent> userEvents = userEventRepo.findAllByEvent(event);
+        return userEvents.stream().map(x -> x.getUser()).collect(Collectors.toList());
     }
-
 }

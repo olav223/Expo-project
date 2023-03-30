@@ -1,6 +1,7 @@
-import restApi from "../utils/restApi";
+import restApi from "../../utils/restApi";
 import {useEffect, useState} from "react";
 import "./StandList.css";
+import {Link} from "react-router-dom";
 
 export const StandList = () => {
     const [stands, setStands] = useState([]);
@@ -9,13 +10,6 @@ export const StandList = () => {
         const result = await restApi({url: "/api/stand/all?eventID=1", method: "GET"});
         if (result.status === 200) {
             setStands(result.body)
-        }
-    }
-
-    const vote = async(id:number) => {
-        const result = await restApi({url: "/api/stand?id="+id, method: "POST"});
-        if (result.status === 200) {
-            window.alert("Stemme sendt inn!");
         }
     }
 
@@ -30,7 +24,7 @@ export const StandList = () => {
                     <h4>{item["title"]}</h4>
                     <p>{item["description"]}</p>
                 </div>
-                <button onClick={() => vote(2)}>Stem på</button>
+                <Link to={"/stand?id="+item["id"]}>Mer info</Link>
             </div>
         }) : <div>Ingen stands</div>}
     </div>
