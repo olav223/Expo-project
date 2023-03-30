@@ -3,6 +3,7 @@ import {Rating} from "react-simple-star-rating";
 import {useEffect, useState} from "react";
 import Auth from "../../utils/auth";
 import "./VotingStars.css";
+import notification from "../../utils/notification";
 const confetti = require('canvas-confetti');
 
 const VotingStars = () => {
@@ -46,10 +47,11 @@ const VotingStars = () => {
     }
 
     const getSavedVote = async() => {
-        if (auth.getUser().username === "") {
+        const user = auth.getUser();
+        if (user === null) {
             await auth.createVoter(params.get("event")??"");
         } else {
-            const result = await restApi({url: "/api/vote?standID="+params.get("id")+"&voterID="+auth.getUser().username, method: "GET"});
+            const result = await restApi({url: "/api/vote?standID="+params.get("id")+"&voterID="+auth.getUser()!.username, method: "GET"});
             if (result.status === 200) {
                 handleRating(result.body);
             }
@@ -57,17 +59,23 @@ const VotingStars = () => {
     }
 
     const vote = async() => {
-        const result = await restApi({url: "/api/vote", method: "POST", body: {
-                "votePK": {
-                    "id_voter": auth.getUser().username,
-                    "id_stand": params.get("id")
-                },
-                "stars": rating
-            }});
-        if (result.status === 200) {
-            setTimeout(particles, 0);
-            setTimeout(particles, 100);
-            setTimeout(particles, 200);
+        const user = auth.getUser();
+
+        if (user !== null) {
+            const result = await restApi({url: "/api/vote", method: "POST", body: {
+                    "votePK": {
+                        "id_voter": auth.getUser()!.username,
+                        "id_stand": params.get("id")
+                    },
+                    "stars": rating
+                }});
+            if (result.status === 200) {
+                setTimeout(particles, 0);
+                setTimeout(particles, 100);
+                setTimeout(particles, 200);
+            }
+        } else {
+            notification({text: "Fant ikke bruker", type: "error"})
         }
     }
 
