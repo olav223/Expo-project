@@ -12,6 +12,11 @@ import Navbar from "./components/Navbar/Navbar";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import StandsPage from "./pages/StandsPage";
+import Protected from "./utils/Protected";
+import adminRoutes from "./routes/adminRoutes";
+import Page404 from "./pages/Page404";
+import juryRoutes from "./routes/juryRoutes";
+import exhibitorRoutes from "./routes/exhibitorRoutes";
 
 function App() {
     return <BrowserRouter basename={ process.env.PUBLIC_URL }>
@@ -22,11 +27,10 @@ function App() {
             <Route path="/stands" element={ <StandsPage /> } />
             <Route path="/stand" element={ <StandPage /> } />
             <Route path="/login" element={ <LoginPage /> } />
-            <Route path="/admin" element={ <AdminPage /> } />
-            <Route path="/admin/event" element={ <AdminEvent /> } />
-            <Route path="/admin/event/edit" element={ <AdminEventEdit /> } />
-            <Route path="/admin/stand/edit" element={ <AdminStandEdit /> } />
-            <Route path={ "/jury" } element={ <JuryPage /> } />
+            <Route path="/admin/*" element={ <Protected accesslvl={1}>{adminRoutes}</Protected> } />
+            <Route path="/jury/*" element={ <Protected accesslvl={2}>{juryRoutes}</Protected> } />
+            <Route path="/exhibitor/*" element={ <Protected accesslvl={3}>{exhibitorRoutes}</Protected> } />
+            <Route path="*" element={<Page404 />} />
         </Routes>
     </BrowserRouter>
 }
