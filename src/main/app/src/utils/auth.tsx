@@ -29,13 +29,13 @@ export default class Auth {
         cookies.set('expo-user', user.username, { path: '/', expires: expireDay });
     }
 
-    getUser():UserModel {
+    getUser():UserModel | null {
         const userCookie = cookies.get("expo-user");
         const user:string = window.sessionStorage.getItem("expo-user") ?? "";
         if (userCookie && user) {
             return JSON.parse(user);
         }
-        return {username: ""};
+        return null;
     }
 
     async verifyVoter(id:string):Promise<boolean> {
