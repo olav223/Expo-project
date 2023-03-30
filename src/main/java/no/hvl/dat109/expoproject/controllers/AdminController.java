@@ -58,13 +58,19 @@ public class AdminController implements IAdminController {
 
     @Override
     @DeleteMapping("/user")
-    public User deleteUser(String username) {
+    public User deleteUser(@RequestHeader String username) {
         return as.removeUser(username);
+    }
+
+    @GetMapping("/event")
+    public Event GetEventById(@RequestParam int eventID){
+        return es.getEvent(eventID);
     }
 
     @Override
     @PostMapping("/event")
-    public void postAddEvent(Event event) {
+    public void postAddEvent(@RequestBody Event event) {
+
         es.addEvent(event);
     }
 
