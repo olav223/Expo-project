@@ -11,6 +11,9 @@ import no.hvl.dat109.expoproject.interfaces.database.IUserService;
 import no.hvl.dat109.expoproject.interfaces.database.IVoteService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@CrossOrigin
 @RestController
 @RequestMapping("/api/admin")
 public class AdminController implements IAdminController {
@@ -29,6 +32,14 @@ public class AdminController implements IAdminController {
     @GetMapping("/generate")
     public void generateVoteCodes(int nrOfCodes) {
 
+    }
+    @GetMapping("/events")
+    public List<Event> getEventsByUsername(@RequestParam String username) {
+        return es.getEventsForUsername(username);
+    }
+    @GetMapping("/events/all")
+    public List<Event> getAllEvents(){
+        return es.findAll();
     }
 
     @Override

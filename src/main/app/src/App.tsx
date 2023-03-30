@@ -1,9 +1,9 @@
 import React from "react";
+import AdminEvent from "./pages/admin/AdminEvent";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import FrontPage from "./pages/FontPage";
 import StandPage from "./pages/StandPage";
 import LoginPage from "./pages/LoginPage";
-import AdminEvent from "./pages/admin/AdminEvent";
 import AdminPage from "./pages/admin/AdminPage";
 import AdminStandEdit from "./pages/admin/AdminStandEdit";
 import AdminEventEdit from "./pages/admin/AdminEventEdit";
@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import StandsPage from "./pages/StandsPage";
 
 function App() {
+  
     return <BrowserRouter basename={ process.env.PUBLIC_URL }>
         <Navbar />
         <ToastContainer autoClose={3000} />

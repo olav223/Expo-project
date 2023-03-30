@@ -45,4 +45,13 @@ public interface IEventService {
      * @return
      */
     List<User> getAllUsersInEvent(int eventID);
+
+    /**
+     * Returns a list with all the events accossiated with the user
+     * @param username of the user we want to find
+     * @return A list of events
+     */
+    List<Event> getEventsForUsername(String username);
+
+    List<Event> findAll();
 }
