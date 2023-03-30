@@ -1,13 +1,8 @@
 import React from "react";
-import AdminEvent from "./pages/admin/AdminEvent";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import FrontPage from "./pages/FontPage";
 import StandPage from "./pages/StandPage";
 import LoginPage from "./pages/LoginPage";
-import AdminPage from "./pages/admin/AdminPage";
-import AdminStandEdit from "./pages/admin/AdminStandEdit";
-import AdminEventEdit from "./pages/admin/AdminEventEdit";
-import JuryPage from "./pages/jury/JuryPage";
 import Navbar from "./components/Navbar/Navbar";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
