@@ -27,9 +27,9 @@ function App() {
             <Route path="/stands" element={ <StandsPage /> } />
             <Route path="/stand" element={ <StandPage /> } />
             <Route path="/login" element={ <LoginPage /> } />
-            <Route path="/admin/*" element={ <Protected accesslvl={1}>{adminRoutes}</Protected> } />
-            <Route path="/jury/*" element={ <Protected accesslvl={2}>{juryRoutes}</Protected> } />
-            <Route path="/exhibitor/*" element={ <Protected accesslvl={3}>{exhibitorRoutes}</Protected> } />
+            <Route path="/admin/*" element={ <Protected accesslvl={0}>{adminRoutes}</Protected> } />
+            <Route path="/jury/*" element={ <Protected accesslvl={1}>{juryRoutes}</Protected> } />
+            <Route path="/exhibitor/*" element={ <Protected accesslvl={2}>{exhibitorRoutes}</Protected> } />
             <Route path="*" element={<Page404 />} />
         </Routes>
     </BrowserRouter>
