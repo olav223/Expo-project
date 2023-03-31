@@ -12,7 +12,10 @@ import no.hvl.dat109.expoproject.interfaces.database.IEventService;
 import no.hvl.dat109.expoproject.interfaces.database.IUserEventService;
 import no.hvl.dat109.expoproject.interfaces.database.IUserService;
 import no.hvl.dat109.expoproject.interfaces.database.IVoteService;
+import no.hvl.dat109.expoproject.utils.PasswordUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -39,8 +42,6 @@ public class AdminController implements IAdminController {
         List<String> voteCodes = vs.generateVoteCodes(nrOfCodes, eventID);
     }
 
-
-
     @GetMapping("/events")
     public List<Event> getEventsByUsername(@RequestParam String username) {
         return es.getEventsForUsername(username);
@@ -53,6 +54,25 @@ public class AdminController implements IAdminController {
 
     @Override
     @PostMapping("/user")
+    public User postAddUser(@RequestBody User user) {
+        if (as.userExists(user.getUsername())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "User already exists");
+        }
+        String salt = PasswordUtils.generateSalt();
+        String hash = PasswordUtils.hashWithSalt(user.getHash(), salt);
+        user.setHash(hash);
+        user.setSalt(salt);
+        try {
+            as.addUser(user);
+        }
+        catch (NullPointerException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+        return user;
+    }
+
+    @Override
+    @PostMapping("/event/user")
     public boolean postAddUser(@RequestBody User user, @RequestHeader int eventID) {
         as.addUser(user);
         Event event = es.getEvent(eventID);
@@ -78,7 +98,8 @@ public class AdminController implements IAdminController {
 
         try {
             es.addEvent(event);
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
     }

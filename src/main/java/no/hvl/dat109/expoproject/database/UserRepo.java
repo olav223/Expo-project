@@ -22,4 +22,6 @@ interface UserRepo extends JpaRepository<User, String> {
      * @return Brukeren til tilgangsnivået, eller null
      */
     User findByAccessLevel(int accessLevel);
+
+    boolean existsByUsername(String username);
 }

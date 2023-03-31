@@ -32,6 +32,16 @@ public class User {
         this.accessLevel = accessLevel;
         this.userEvents = userEvents;
     }
+
+    public User(String username, String phone, String email, String hash, String salt, Integer accessLevel) {
+        this.username = username;
+        this.phone = phone;
+        this.email = email;
+        this.hash = hash;
+        this.salt = salt;
+        this.accessLevel = accessLevel;
+    }
+
     public User(String username, List<UserEvent> userEvents){
         this.username = username;
         this.userEvents = userEvents;
