@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,18 +21,25 @@ public class EventService implements IEventService {
     @Autowired
     private UserEventRepo userEventRepo;
 
+    @Autowired
+    private UserService us;
+
     @Override
     public Event addEvent(Event event) throws Exception {
         Event addedEvent = null;
         if(event == null){
             throw new NullPointerException("The event cannot be null");
         }
-        else if(eventRepo.findById(event.getId()) == null) {
+        else {
                 eventRepo.save(event);
                 addedEvent = event;
-        } else {
+        }
+        /*
+        else {
                 throw new RuntimeException("Event already exists");
             }
+
+         */
         return addedEvent;
     }
 
@@ -42,6 +50,10 @@ public class EventService implements IEventService {
         }
         else
             eventRepo.save(event);
+    }
+
+    public Event getEvent(int id) {
+        return eventRepo.findById(id);
     }
 
     @Override
@@ -74,5 +86,25 @@ public class EventService implements IEventService {
         Event event = eventRepo.findById(eventID);
         List<UserEvent> userEvents = userEventRepo.findAllByEvent(event);
         return userEvents.stream().map(x -> x.getUser()).collect(Collectors.toList());
+    }
+    @Override
+    public List<Event> getEventsForUsername(String username){
+        List<Event> events = new ArrayList<>();
+        User user = us.findUser(username);
+
+        if(user == null){
+            throw new NullPointerException("The user does not exits");
+        }
+
+        List<UserEvent> userEvents = userEventRepo.findAllByUser(user);
+        for(UserEvent userEvent : userEvents){
+            events.add(userEvent.getEvent());
+        }
+
+        return events;
+    }
+    @Override
+    public List<Event> findAll(){
+        return eventRepo.findAll();
     }
 }

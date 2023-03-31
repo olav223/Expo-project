@@ -7,7 +7,7 @@ public interface IAdminController {
      * @param user
      * @param eventID
      */
-    void postAddUser(User user, int eventID);
+    boolean postAddUser(User user, int eventID);
 
     /**
      * deletes user with matching username
@@ -26,11 +26,11 @@ public interface IAdminController {
      * deletes event with maching eventID
      * @return deleted event
      */
-    Event deleteEvent(int eventID);
+    void deleteEvent(int eventID);
 
     /**
      * generate a number of vote codes and adds them to database
      * @param nrOfCodes
      */
-    void generateVoteCodes(int nrOfCodes);
+    void generateVoteCodes(int nrOfCodes, int eventID);
 }

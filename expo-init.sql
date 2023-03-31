@@ -23,38 +23,39 @@ CREATE TABLE "user" -- user is a reserved word in postgres
     email        VARCHAR(100),
     hash         VARCHAR(255) NOT NULL,
     salt         VARCHAR(255) NOT NULL,
-    access_level INTEGER REFERENCES access_level (id)
+    access_level INTEGER      REFERENCES access_level (id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 CREATE TABLE user_event
 (
-    id_event INTEGER REFERENCES event (id)            NOT NULL,
-    username VARCHAR(20) REFERENCES "user" (username) NOT NULL,
+    id_event INTEGER REFERENCES event (id) ON DELETE CASCADE            NOT NULL,
+    username VARCHAR(20) REFERENCES "user" (username) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
     PRIMARY KEY (id_event, username)
 );
 
 CREATE TABLE stand
 (
     id          SERIAL PRIMARY KEY,
-    title       VARCHAR(255)                  NOT NULL,
-    description TEXT                          NOT NULL,
+    title       VARCHAR(255)                                    NOT NULL,
+    description TEXT                                            NOT NULL,
     image       VARCHAR(255), -- Link to image
     url         VARCHAR(255), -- Link to website
-    event       INTEGER REFERENCES event (id) NOT NULL,
-    responsible VARCHAR(20) REFERENCES "user" (username)
+    event       INTEGER REFERENCES event (id) ON DELETE CASCADE NOT NULL,
+    responsible VARCHAR(20)                                     REFERENCES "user" (username) ON DELETE SET NULL,
+    UNIQUE (title, event)
 );
 
 CREATE TABLE voter
 (
-    id       CHAR(6) PRIMARY KEY,
-    id_event INTEGER REFERENCES event (id) NOT NULL
+    id       CHAR(32) PRIMARY KEY,
+    id_event INTEGER REFERENCES event (id) ON DELETE CASCADE NOT NULL
 );
 
 CREATE TABLE vote
 (
-    id_voter CHAR(6) REFERENCES voter (id)               NOT NULL,
-    id_stand INTEGER REFERENCES stand (id)               NOT NULL,
-    stars    INTEGER CHECK ( stars >= 0 AND stars <= 5 ) NOT NULL,
+    id_voter CHAR(32) REFERENCES voter (id) ON DELETE CASCADE NOT NULL,
+    id_stand INTEGER REFERENCES stand (id) ON DELETE CASCADE  NOT NULL,
+    stars    INTEGER CHECK ( stars >= 0 AND stars <= 5 )      NOT NULL,
     PRIMARY KEY (id_voter, id_stand)
 );
 
@@ -63,7 +64,7 @@ CREATE TABLE exhibitor
     id        SERIAL PRIMARY KEY,
     firstname VARCHAR(50) NOT NULL,
     lastname  VARCHAR(50) NOT NULL,
-    stand     INTEGER REFERENCES stand (id),
+    stand     INTEGER     REFERENCES stand (id) ON DELETE SET NULL,
     phone     VARCHAR(15) NOT NULL
 );
 

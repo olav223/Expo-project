@@ -18,13 +18,16 @@ export const StandList = () => {
     }, []);
 
     return <div className="standList">
+        <h2>Stands</h2>
         {stands.length > 0 ? stands.map((item,i) => {
-            return <div key={"stand-"+i} className="standItem">
+            return <div key={"stand-"+i} className="standItem box">
                 <div>
                     <h4>{item["title"]}</h4>
                     <p>{item["description"]}</p>
                 </div>
-                <Link to={"/stand?id="+item["id"]}>Mer info</Link>
+                <Link to={"/stand?id="+item["id"]+"&event="+item["eventID"]}><div className={"stand-link"}>
+                    <div className={"center"}>INFO</div>
+                </div></Link>
             </div>
         }) : <div>Ingen stands</div>}
     </div>

@@ -12,6 +12,7 @@ public interface IUserEventService {
      */
     void addUserToEvent(UserEvent userEvent);
 
+
     /**
      * @param userEvent the map we are deleting
      */

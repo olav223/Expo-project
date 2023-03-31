@@ -10,13 +10,15 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.PersistenceException;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class VoteServiceTest {
@@ -156,6 +158,23 @@ public class VoteServiceTest {
         List<StandWithVote> standsWithVotes = service.getAllScoresInEvent(expo1.getId());
         assertEquals(0, standsWithVotes.size());
         assertEquals(List.of(), standsWithVotes);
+    }
+
+    @Test
+    void saveVoterNullInput() {
+        assertThrows(NullPointerException.class, () -> service.saveVoter(null, 1));
+    }
+
+    @Test
+    void saveVoterExists() {
+        doThrow(PersistenceException.class).when(voterRepo).save(any());
+        assertThrows(PersistenceException.class, () -> service.saveVoter(voter1AtExpo1.getId(), voter1AtExpo1.getEvent().getId()));
+    }
+
+    @Test
+    void saveLegalVoter() {
+        doReturn(voter1AtExpo1).when(voterRepo).save(any());
+        assertEquals(voter1AtExpo1, service.saveVoter(voter1AtExpo1.getId(), voter1AtExpo1.getEvent().getId()));
     }
 
 }

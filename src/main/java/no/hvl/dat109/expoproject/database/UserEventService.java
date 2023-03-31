@@ -16,6 +16,7 @@ public class UserEventService implements IUserEventService {
 
     @Override
     public void addUserToEvent(UserEvent userEvent) {
+
         User user = userEvent.getUser();
         Event event = userEvent.getEvent();
 
@@ -23,13 +24,14 @@ public class UserEventService implements IUserEventService {
             throw new NullPointerException("Cannot add the user to event when the user or event is null");
         }
 
-        List<UserEvent> userEvents = userEventRepo.findAllByEvent(userEvent.getEvent());
+        List<UserEvent> userEvents = userEventRepo.findAllByEventId(event.getId());
 
         for(UserEvent users : userEvents){
             if(userEvent.equals(users)){
                 throw new IllegalArgumentException("Duplicated users are not allowed");
             }
         }
+
         userEventRepo.save(userEvent);
     }
 

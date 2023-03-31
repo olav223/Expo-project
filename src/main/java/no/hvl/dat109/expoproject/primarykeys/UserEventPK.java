@@ -6,10 +6,8 @@ import java.util.Objects;
 
 public class UserEventPK implements Serializable {
 
-    @Column(name = "username")
     private String user;
 
-    @Column(name = "id_event")
     private int event;
 
     public UserEventPK() {

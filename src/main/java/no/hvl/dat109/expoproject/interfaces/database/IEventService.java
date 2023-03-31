@@ -6,6 +6,7 @@ import no.hvl.dat109.expoproject.entities.User;
 import java.util.List;
 
 public interface IEventService {
+    Event getEvent(int id);
 
     /**
      * adds event to database from event object
@@ -45,4 +46,13 @@ public interface IEventService {
      * @return
      */
     List<User> getAllUsersInEvent(int eventID);
+
+    /**
+     * Returns a list with all the events accossiated with the user
+     * @param username of the user we want to find
+     * @return A list of events
+     */
+    List<Event> getEventsForUsername(String username);
+
+    List<Event> findAll();
 }
