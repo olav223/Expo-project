@@ -20,14 +20,14 @@ public class UserEventService implements IUserEventService {
         User user = userEvent.getUser();
         Event event = userEvent.getEvent();
 
-        if(user == null || event == null){
+        if (user == null || event == null) {
             throw new NullPointerException("Cannot add the user to event when the user or event is null");
         }
 
-        List<UserEvent> userEvents = userEventRepo.findAllByEventId(event.getId());
+        List<UserEvent> userEvents = userEventRepo.findAllByEvent(event);
 
-        for(UserEvent users : userEvents){
-            if(userEvent.equals(users)){
+        for (UserEvent users : userEvents) {
+            if (userEvent.equals(users)) {
                 throw new IllegalArgumentException("Duplicated users are not allowed");
             }
         }
@@ -39,9 +39,9 @@ public class UserEventService implements IUserEventService {
     public void removeUserFromEvent(UserEvent userEvent) {
         List<UserEvent> userEvents = userEventRepo.findAllByEvent(userEvent.getEvent());
 
-        if(userEvents.contains(userEvent)){
+        if (userEvents.contains(userEvent)) {
             userEventRepo.delete(userEvent);
-        }else
+        } else
             throw new NullPointerException("Cannot remove a user that does not exist");
     }
 }

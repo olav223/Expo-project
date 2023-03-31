@@ -5,7 +5,6 @@ import no.hvl.dat109.expoproject.entities.User;
 import no.hvl.dat109.expoproject.entities.UserEvent;
 import no.hvl.dat109.expoproject.primarykeys.UserEventPK;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,8 +17,6 @@ interface UserEventRepo extends JpaRepository<UserEvent, UserEventPK> {
      * @return En liste over alle brukere som er påmeldt en event
      */
     List<UserEvent> findAllByEvent(Event event);
-
-    List<UserEvent> findAllByEventId(int id);
 
     List<UserEvent> findAllByUser(User user);
 

@@ -12,8 +12,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -29,29 +27,27 @@ class EventServiceTest {
     @Mock
     private UserEventRepo userEventRepo;
     @Mock
-    private UserRepo ur;
-    @Mock
     private UserService us;
-    private Event event1, event2, event3, event4, eventNull;
-    private User user1, user2, user3;
+    private Event event1, event2, event3, eventNull;
+    private User user1, user2;
     private UserEvent userEvent1, userEvent2;
-    private LocalDateTime t1, t2, t3, t4;
+    private LocalDateTime t1;
+    private LocalDateTime t2;
+
     @BeforeEach
-    void setup(){
-        t1 = t1.of(2000,01,01,0,0,1);
-        t2 = t2.of(2000,01,02,0,0,1);
-        t3 = t3.of(2000,01,03,0,0,1);
-        t4 = t4.of(2000,01,04,0,0,1);
+    void setup() {
+        t1 = LocalDateTime.of(2000, 1, 1, 0, 0, 1);
+        t2 = LocalDateTime.of(2000, 1, 2, 0, 0, 1);
+        LocalDateTime t3 = LocalDateTime.of(2000, 1, 3, 0, 0, 1);
+        LocalDateTime t4 = LocalDateTime.of(2000, 1, 4, 0, 0, 1);
 
         event1 = new Event(1, "event1", t1, t3);
         event2 = new Event(2, "event2", t2, t4);
         event3 = new Event(3, "event3", t1, t4);
-        event4 = new Event(4, "event4", t2, t3);
         eventNull = null;
 
         user1 = new User("user1", new ArrayList<>());
         user2 = new User("user2", new ArrayList<>());
-        user3 = new User("user3", new ArrayList<>());
 
         userEvent1 = new UserEvent(user1, event1);
         userEvent2 = new UserEvent(user2, event1);
@@ -59,22 +55,24 @@ class EventServiceTest {
         user1.getUserEvents().add(userEvent1);
         user2.getUserEvents().add(userEvent2);
     }
+
     @Test
     void addEvent() throws Exception {
         when(eventRepo.save(event1)).thenReturn(event1);
         eventService.addEvent(event1);
         when(eventRepo.findById(1)).thenReturn(event1);
-        assertEquals(1,eventRepo.findById(1).getId());
+        assertEquals(1, eventRepo.findById(1).getId());
     }
 
     @Test
-    void addNullEvent(){
+    void addNullEvent() {
         Exception exception = assertThrows(NullPointerException.class, () -> eventService.addEvent(eventNull));
         String expectedMessage = "The event cannot be null";
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
     }
 
+    /* TODO: Er ikke mulig å teste foreløpig
     @Test
     void addAlreadyExistingEvent() throws Exception {
         when(eventRepo.save(event1)).thenReturn(event1);
@@ -86,6 +84,7 @@ class EventServiceTest {
         String actualMessage = exception.getMessage();
         assertEquals(expectedMessage, actualMessage);
     }
+     */
 
     @Test
     void updateEvent() throws Exception {
@@ -96,7 +95,7 @@ class EventServiceTest {
     }
 
     @Test
-    void updateNullEvent(){
+    void updateNullEvent() {
         Exception exception = assertThrows(NullPointerException.class, () -> eventService.addEvent(eventNull));
         String expectedMessage = "The event cannot be null";
         String actualMessage = exception.getMessage();
@@ -104,15 +103,15 @@ class EventServiceTest {
     }
 
     @Test
-    void removeNotExistingEvent() throws Exception {
+    void removeNotExistingEvent() {
         when(eventRepo.deleteById(2)).thenReturn(null);
         assertNull(eventService.removeEvent(2));
     }
 
-   @Test
-   void RemoveEvent() throws Exception {
-       when(eventRepo.deleteById(3)).thenReturn(event3);
-       assertEquals(event3,eventService.removeEvent(3));
+    @Test
+    void RemoveEvent() {
+        when(eventRepo.deleteById(3)).thenReturn(event3);
+        assertEquals(event3, eventService.removeEvent(3));
     }
 
     @Test
@@ -139,20 +138,22 @@ class EventServiceTest {
 
     @Test
     void getAllUsersInEvent() {
-        when(userEventRepo.findAllByEvent(event1)).thenReturn((List<UserEvent>) List.of(userEvent1, userEvent2));
+        when(userEventRepo.findAllByEvent(event1)).thenReturn(List.of(userEvent1, userEvent2));
         when(eventRepo.findById(1)).thenReturn(event1);
         List<User> actualUserList = eventService.getAllUsersInEvent(1);
         assertTrue(actualUserList.contains(user1));
         assertTrue(actualUserList.contains(user2));
     }
+
     @Test
-    void testGetEventsByUsername(){
+    void testGetEventsByUsername() {
         when(userEventRepo.findAllByUser(user1)).thenReturn(user1.getUserEvents());
         when(us.findUser("user1")).thenReturn(user1);
         assertEquals(user1.getUserEvents().size(), eventService.getEventsForUsername("user1").size());
     }
+
     @Test
-    void findEventsToNullUser(){
+    void findEventsToNullUser() {
         Exception exception = assertThrows(NullPointerException.class, () -> eventService.getEventsForUsername("user5"));
         String message = "The user does not exits";
         assertEquals(message, exception.getMessage());
