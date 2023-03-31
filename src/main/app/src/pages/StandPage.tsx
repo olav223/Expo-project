@@ -27,11 +27,14 @@ const StandPage = () => {
     }, []);
 
     return params.has("id") ?
-        <div>
-            <VotingStars />
-            <img src={stand?.image} />
+        <div style={{textAlign:"center"}}>
             <h2>{stand?.title}</h2>
-            <p>{stand?.description}</p>
+            <div style={{textAlign:"center", marginTop: '10px'}}>
+            <VotingStars />
+            </div>
+            <p style={{marginLeft: '50px', marginRight: '50px'}}>{stand?.description}</p>
+            <img style={{ width: '50%', height: 'auto', marginBottom: '100px'}}
+                 src={stand?.image} />
             <Link/>
         </div>
         :
