@@ -8,7 +8,7 @@ const LoginAuth = () => {
 
     const auth = new Auth();
 
-    const disableBtn = password == "" || email == "";
+    const disableBtn = password === "" || email === "";
 
     const login = async() => {
         if (disableBtn) {
