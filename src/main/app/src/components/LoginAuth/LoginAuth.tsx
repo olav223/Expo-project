@@ -1,6 +1,5 @@
 import {useState} from "react";
 import "./LoginAuth.css";
-import {useNavigate} from "react-router";
 import notification from "../../utils/notification";
 import Auth from "../../utils/auth";
 const LoginAuth = () => {
@@ -8,10 +7,6 @@ const LoginAuth = () => {
     const [password, setPassword] = useState("");
 
     const auth = new Auth();
-    const navigate = useNavigate();
-
-    const url = window.location.href.split("?")[1];
-    const params = new URLSearchParams(url);
 
     const disableBtn = password == "" || email == "";
 
@@ -22,19 +17,9 @@ const LoginAuth = () => {
             const res = await auth.login(email,password);
             if (res) {
                 notification({type: "success", text: "Logget inn!"});
-                redirect();
             } else {
                 notification({type: "error", text: "Logg inn feilet"});
             }
-        }
-    }
-
-    const redirect = () => {
-        const url = params.get("url") ?? "";
-        if (url !== "") {
-            navigate(url);
-        } else {
-            navigate("/");
         }
     }
 

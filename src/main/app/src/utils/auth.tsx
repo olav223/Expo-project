@@ -1,9 +1,11 @@
 import Cookies from "universal-cookie";
 import restApi from "./restApi";
+import notification from "./notification";
 
 const cookies = new Cookies();
 
 export default class Auth {
+
     async createVoter(eventId:string):Promise<boolean> {
         const result = await restApi({url:"/api/vote/newvoter?eventID="+eventId,method:"GET"});
         if (result.status === 200 && result.body) {
@@ -13,13 +15,23 @@ export default class Auth {
         return false;
     }
 
-    async login(username:string,password:string):Promise<boolean> {
+    async login(username:string,password:string):Promise<UserModel | null> {
         const result = await restApi({url: `/api/user/login?username=${username}&password=${password}`,method:"POST"});
         if (result.status === 200 && result.body) {
+            const user:UserModel = JSON.parse(result.body)
             this.storeUser(JSON.parse(result.body));
-            return true;
+            this.redirect(user);
+            return JSON.parse(result.body);
         }
-        return false;
+        return null;
+    }
+
+    redirect(user:UserModel) {
+        let url = "";
+        if (user.access === 0) url = "/admin";
+        else if (user.access === 1) url = "/jury";
+        else if (user.access === 2) url = "/exhibitor";
+        window.location.href = url;
     }
 
     storeUser(user:UserModel):void {
@@ -36,6 +48,13 @@ export default class Auth {
             return JSON.parse(user);
         }
         return null;
+    }
+
+    signOut():void {
+        cookies.remove("expo-user");
+        window.sessionStorage.removeItem("expo-user");
+        notification({text:"Logget ut", type: "success"});
+        window.location.href = "/";
     }
 
     async verifyVoter(id:string):Promise<boolean> {
