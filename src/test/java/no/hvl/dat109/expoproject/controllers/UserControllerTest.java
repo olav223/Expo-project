@@ -1,6 +1,5 @@
 package no.hvl.dat109.expoproject.controllers;
 
-import no.hvl.dat109.expoproject.database.UserRepo;
 import no.hvl.dat109.expoproject.database.UserService;
 import no.hvl.dat109.expoproject.entities.User;
 import no.hvl.dat109.expoproject.entities.UserEvent;
@@ -27,8 +26,6 @@ public class UserControllerTest {
 
     @Mock
     private UserService us;
-    @Mock
-    private UserRepo ur;
 
     private User user1, user2;
     private List<User> users;
@@ -60,19 +57,16 @@ public class UserControllerTest {
 
     @Test
     void getAllUsersTest() {
-        when(ur.findByUsername("user1")).thenReturn(user1);
-        when(ur.findByUsername("user2")).thenReturn(user2);
         users=Arrays.asList(user1,user2);
-        when(ur.findAll()).thenReturn(users);
-        us.addUser(user1);
-        us.addUser(user2);
+        when(us.getAllUsers()).thenReturn(users);
         assertTrue(uc.GetAllUsers().contains(user1));
         assertTrue(uc.GetAllUsers().contains(user2));
     }
 
     @Test
     void postLoginTest() {
-
+when(us.getUser("user1")).thenReturn(user1);
+assertEquals(user1.getAccessLevel(),(uc.postLogin("user1","Passord")));
     }
 
 }
