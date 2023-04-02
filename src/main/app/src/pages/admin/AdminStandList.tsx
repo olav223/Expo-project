@@ -3,7 +3,7 @@ import Popup from 'reactjs-popup';
 import { Link, useLocation, useParams } from "react-router-dom";
 import { StandModel } from "../../model/Stand";
 import restApi from "../../utils/restApi";
-import AddStand from "./AddStandButton";
+import AddStand from "../../components/AddStandButton";
 import './Admin.css'
 
 const AdminStandList = () => {
@@ -81,7 +81,7 @@ const AdminStandList = () => {
                     </label>
                     <input type="text" onChange={handleResponsible}/>
                 </form>
-                <AddStand title={title} description={desciption} image={image} url={url} eventID={numID} responsible={responsible}/>
+                <AddStand title={title} description={desciption} image={image} url={url} eventID={numID} responsibleID={responsible}/>
             </div>
         </Popup>
         {stands != null ? stands.map((stand,i) => {

@@ -10,29 +10,7 @@ const AdminStandEdit = () => {
 
     useEffect(() => {
         getStand();
-    });
-
-    const [title, setTitle] = useState(stand?.title)
-    const [desciption, setDesciption] = useState(stand?.description)
-    const [image, setImage] = useState(stand?.image)
-    const [url, setUrl] = useState(stand?.url)
-    const [responsible, setResponsible] = useState(stand?.responsibleID)
-
-    const updateTitle = (event : any) => {
-            setTitle(event.target.value)
-    }
-    const updateDesciption = (event : any) => {
-        setDesciption(event.target.value)
-    }
-    const updateImage = (event : any) => {
-        setImage(event.target.value)
-    }
-    const updateUrl = (event : any) => {
-        setUrl(event.target.value)
-    }
-    const updateResponsible = (event : any) => {
-        setResponsible(event.target.value)
-    }
+    }, []);
 
     const {id} = useParams()
     
@@ -41,12 +19,12 @@ const AdminStandEdit = () => {
         await restApi({url : `/api/stand/update`, method : "POST", body : 
         {
                 "id" : id,
-                "title" : title,
-                "description" : desciption,
-                "image" : image,
-                "url" : url,
-                "eventID" : stand?.eventID,
-                "responsibleID" : responsible
+                "title" : stand!.title,
+                "description" : stand!.description,
+                "image" : stand!.image,
+                "url" : stand!.url,
+                "eventID" : stand!.eventID,
+                "responsibleID" : stand!.responsibleID
         }
     })}
 
@@ -67,11 +45,11 @@ const AdminStandEdit = () => {
     return( 
     <div className="wrapper">
         <form>
-        <input type="text" placeholder={`${stand?.title}`} onChange={updateTitle}/>
-        <input type="text" placeholder={`${stand?.description}`} onChange={updateDesciption}/>
-        <input type="text" placeholder={`${stand?.image}`} onChange={updateImage}/>
-        <input type="text" placeholder={`${stand?.url}`} onChange={updateUrl}/>
-        <input type="text" placeholder={`${stand?.responsibleID}`} onChange={updateResponsible}/>
+        <input type="text" placeholder={`${stand?.title}`} onChange={(e) => stand!.title = e.target.value}/>
+        <input type="text" placeholder={`${stand?.description}`} onChange={(e) => stand!.description = e.target.value}/>
+        <input type="text" placeholder={`${stand?.image}`} onChange={(e) => stand!.image = e.target.value}/>
+        <input type="text" placeholder={`${stand?.url}`} onChange={(e) => stand!.url = e.target.value}/>
+        <input type="text" placeholder={`${stand?.responsibleID}`} onChange={(e) => stand!.responsibleID = e.target.value}/>
 
         <button type="submit" onClick={update} className="save-button">Save</button>
         </form>

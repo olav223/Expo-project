@@ -33,7 +33,7 @@ const AdminEvent = () => {
             return <div key={"event-"+event.id} className="standItem">
                 <div>
                     <h4>
-                        <Link to={`/admin/event/edit?id=${event.id}`} style={{textDecoration : 'none', color:'black'}}>{event.name}</Link>
+                        <Link to={`/admin/events/edit?id=${event.id}`} style={{textDecoration : 'none', color:'black'}}>{event.name}</Link>
                     </h4>
                     <Link to={`/admin/events/${event.id}/stands`}>
                     <button type="submit"className="stands-button">

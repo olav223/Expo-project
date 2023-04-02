@@ -1,15 +1,9 @@
-import restApi from "../../utils/restApi"
+import { StandModel } from "../model/Stand"
+import restApi from "../utils/restApi"
 
-const AddStand = (
-    props : {
-        title : string,
-        description : string,
-        image : string,
-        url : string,
-        eventID : number
-        responsible : string,
-    }
-) => {
+type OmitId = Omit<StandModel, "id">;
+
+const AddStand = (props : OmitId) => {
 
     const add = async() => {
         await restApi({url : '/api/stand/add', method : 'POST',
@@ -20,7 +14,7 @@ const AddStand = (
                 "image" : props.image,
                 "url"   : props.url,
                 "eventID" : props.eventID,
-                "responsibleID" : props.responsible 
+                "responsibleID" : props.responsibleID 
             }
         })
     }
