@@ -18,7 +18,7 @@ public class UserService implements IUserService {
 
     @Override
     public void addUser(User user) {
-        if(user == null){
+        if (user == null) {
             throw new NullPointerException("The user cannot be null");
         }
         else
@@ -30,7 +30,7 @@ public class UserService implements IUserService {
     public User removeUser(String userID) {
         User user = userRepo.findByUsername(userID);
 
-        if(user == null){
+        if (user == null) {
             //Means the user is not in the database
             throw new NullPointerException("The user was not found");
         }
@@ -40,12 +40,22 @@ public class UserService implements IUserService {
         return user;
     }
 
-    public User findUser(String username){
+    public User findUser(String username) {
         return userRepo.findByUsername(username);
     }
 
     @Override
     public List<User> getAllUsers() {
         return userRepo.findAll();
+    }
+
+    @Override
+    public User getUser(String username) {
+        return userRepo.findByUsername(username);
+    }
+
+    @Override
+    public boolean userExists(String username) {
+        return userRepo.existsByUsername(username);
     }
 }

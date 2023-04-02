@@ -26,4 +26,8 @@ public interface IUserService {
      * @return list of all users
      */
     List<User> getAllUsers();
+
+    User getUser(String username);
+
+    boolean userExists(String username);
 }
