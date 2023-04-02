@@ -4,7 +4,6 @@ import {useEffect, useState} from "react";
 import Auth from "../../utils/auth";
 import Cookies from "universal-cookie";
 const Navbar = () => {
-
     const [user,setUser] = useState<UserModel | null>(null);
 
     const auth = new Auth();
