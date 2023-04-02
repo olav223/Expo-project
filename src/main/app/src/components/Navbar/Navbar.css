@@ -54,7 +54,7 @@ nav .ui-menu li:hover {
     background-color: #137070;
 }
 
-@media only screen and (max-width: 500px) {
+@media only screen and (max-width: 700px) {
     .ui-menu {
         position: fixed;
         top: 0;

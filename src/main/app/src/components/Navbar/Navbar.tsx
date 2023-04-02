@@ -19,10 +19,10 @@ const Navbar = () => {
 
     const resize = () => {
         const width = window.screen.width;
-        if (width < 500) {
+        if (width < 700) {
             setIsmobile(true);
             toggleMenu(false);
-        } else if (width >= 500) {
+        } else if (width >= 700) {
             setIsmobile(false);
             toggleMenu(true);
         }
