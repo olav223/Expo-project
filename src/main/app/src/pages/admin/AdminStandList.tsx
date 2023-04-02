@@ -1,17 +1,47 @@
 import { useEffect, useState } from "react";
+import Popup from 'reactjs-popup';
 import { Link, useLocation, useParams } from "react-router-dom";
 import { StandModel } from "../../model/Stand";
 import restApi from "../../utils/restApi";
+import AddStand from "./AddStandButton";
+import './Admin.css'
 
 const AdminStandList = () => {
     
     const [stands, setStands] = useState<StandModel [] | null>(null);
-    const eventId = useLocation();
-    const query = new URLSearchParams(window.location.pathname);
+    const [title, setTitle] = useState("");
+    const [desciption, setDesciption] = useState("")
+    const [image, setImage] = useState("")
+    const [url, setUrl] = useState("")
+    const [responsible, setResponsible] = useState("")
 
-    //TODO Hente event id fra url og bruke denne til å gi stand listen
+    const {id} = useParams();
+
+    const numID = parseInt(`${id}`)
+    
+    const handleTitle = (event : any) => {
+        setTitle(event.target.value)
+    } 
+
+    const handleDescription = (event : any) => {
+        setDesciption(event.target.value)
+    } 
+
+    const handleImage = (event : any) => {
+        setImage(event.target.value)
+    } 
+
+    const handleUrl = (event : any) => {
+        setUrl(event.target.value)
+    }
+    const handleResponsible = (event : any) => {
+        setResponsible(event.target.value)
+    } 
+
+    //FIXME
+    //Uansett hvilken id som vi gir, blir alle standene vist uavhengig av iden
     const getStands = async() => {
-        const result = await restApi({url: `/api/stand/all?eventID=1`, method: "GET"});
+        const result = await restApi({url: `/api/stand/all?eventID=${id}`, method: "GET"});
         if (result.status === 200) {
             setStands(result.body)
         }
@@ -23,6 +53,37 @@ const AdminStandList = () => {
 
     return <div className="standList">
         <h2>Stands</h2>
+        <Popup trigger={<button>Add new stand</button>} position='bottom center' contentStyle={{
+            background: "lightgray",
+            padding: "5px",
+        }}>
+            <div>
+                Popup test
+                <form>
+                    <label>
+                        Title:
+                    </label>
+                    <input type="text" onChange={handleTitle}/>
+                    <label>
+                        Description:
+                    </label>
+                    <input type="desciption"onChange={handleDescription}/>
+                    <label>
+                        Image:
+                    </label>
+                    <input type="text" onChange={handleImage}/>
+                    <label>
+                        URL:
+                    </label>
+                    <input type="text" onChange={handleUrl}/>
+                    <label>
+                        Responsible: 
+                    </label>
+                    <input type="text" onChange={handleResponsible}/>
+                </form>
+                <AddStand title={title} description={desciption} image={image} url={url} eventID={numID} responsible={responsible}/>
+            </div>
+        </Popup>
         {stands != null ? stands.map((stand,i) => {
             return <div key={"stand-"+i} className="standItem box">
                 <div>
