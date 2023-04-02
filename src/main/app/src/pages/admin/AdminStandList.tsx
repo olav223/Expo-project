@@ -89,7 +89,7 @@ const AdminStandList = () => {
                 <div>
                     <h4>{stand.title}</h4>
                     <p>{stand.description}</p>
-                    <Link to={`/admin/stand/edit?id=${stand.id}`}>
+                    <Link to={`/admin/stand/edit/${stand.id}`}>
                         <button type="submit"className="stands-button">
                             Edit
                         </button>
