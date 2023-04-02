@@ -2,6 +2,7 @@ import restApi from "../../utils/restApi";
 import {useEffect, useState} from "react";
 import "./StandList.css";
 import {Link} from "react-router-dom";
+import shortenText from "../../utils/shortenText";
 
 export const StandList = () => {
     const [stands, setStands] = useState([]);
@@ -23,7 +24,7 @@ export const StandList = () => {
             return <div key={"stand-"+i} className="standItem box">
                 <div>
                     <h4>{item["title"]}</h4>
-                    <p>{item["description"]}</p>
+                    <p>{shortenText(item["description"], 275)}</p>
                 </div>
                 <Link to={"/stand?id="+item["id"]+"&event="+item["eventID"]}><div className={"stand-link"}>
                     <div className={"center"}>INFO</div>

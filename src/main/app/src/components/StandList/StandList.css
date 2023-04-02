@@ -6,20 +6,18 @@
     background-color: white;
     margin: 20px;
     border-radius: 5px;
-    display: flex;
     padding-left: 25px;
     overflow: hidden;
 }
 
 .standItem div {
-    flex: 1;
     text-align: left;
 }
 
 .stand-link {
-    height: 100%;
-    width: 90px;
     position: relative;
+    width: fit-content;
+    padding: 10px;
     background-color: darkcyan;
 }
 .stand-link div {
