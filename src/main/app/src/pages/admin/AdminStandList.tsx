@@ -81,7 +81,7 @@ const AdminStandList = () => {
                     </label>
                     <input type="text" onChange={handleResponsible}/>
                 </form>
-                <AddStand title={title} description={desciption} image={image} url={url} eventID={numID} responsibleID={responsible}/>
+                <AddStand id={0} title={title} description={desciption} image={image} url={url} eventID={numID} responsibleID={responsible}/>
             </div>
         </Popup>
         {stands != null ? stands.map((stand,i) => {

@@ -1,9 +1,7 @@
 import { StandModel } from "../model/Stand"
 import restApi from "../utils/restApi"
 
-type OmitId = Omit<StandModel, "id">;
-
-const AddStand = (props : OmitId) => {
+const AddStand = (props : StandModel) => {
 
     const add = async() => {
         await restApi({url : '/api/stand/add', method : 'POST',
