@@ -8,6 +8,7 @@ public interface IUserController {
 
     /**
      * get user from username
+     *
      * @param username
      * @return user matching with username
      */
@@ -15,15 +16,17 @@ public interface IUserController {
 
     /**
      * gets al user objects from database
+     *
      * @return a list of all users
      */
     List<User> GetAllUsers();
 
     /**
      * logs in user and returns the access level of user
-     * @param username
-     * @param password
-     * @return access level
+     *
+     * @param username username of the user
+     * @param password password of the user
+     * @return The user that was logged in, or null if the user was not found
      */
-    int postLogin(String username, String password);
+    User postLogin(String username, String password);
 }
