@@ -34,7 +34,7 @@ export default class Auth {
         if (user.access === 0) url = "/admin";
         else if (user.access === 1) url = "/jury";
         else if (user.access === 2) url = "/exhibitor";
-        window.location.href = process.env.REACT_APP_PROXY_HOST + url;
+        window.location.href = process.env.PUBLIC_URL + url;
     }
 
     storeUser(user:UserModel):void {
