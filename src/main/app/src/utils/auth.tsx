@@ -9,7 +9,7 @@ export default class Auth {
     async createVoter(eventId:string):Promise<boolean> {
         const result = await restApi({url:"/api/vote/newvoter?eventID="+eventId,method:"GET"});
         if (result.status === 200 && result.body) {
-            this.storeUser({username: result.body})
+            this.storeUser(result.body)
             return true;
         }
         return false;
@@ -21,19 +21,19 @@ export default class Auth {
                 "password": password
             }});
         if (result.status === 200 && result.body) {
-            const user:UserModel = JSON.parse(result.body)
-            this.storeUser(JSON.parse(result.body));
+            const user:UserModel = result.body
+            this.storeUser(user);
             this.redirect(user);
-            return JSON.parse(result.body);
+            return result.body;
         }
         return null;
     }
 
     redirect(user:UserModel) {
         let url = "";
-        if (user.access === 0) url = "/admin";
-        else if (user.access === 1) url = "/jury";
-        else if (user.access === 2) url = "/exhibitor";
+        if (user.accessLevel === 0) url = "/admin";
+        else if (user.accessLevel === 1) url = "/jury";
+        else if (user.accessLevel === 2) url = "/exhibitor";
         window.location.href = process.env.PUBLIC_URL + url;
     }
 

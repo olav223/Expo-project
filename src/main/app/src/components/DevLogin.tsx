@@ -16,7 +16,7 @@ const DevLogin = () => {
     }
 
     const login = (accessLvl:number) => {
-        const data:UserModel = {username: "Name", access: accessLvl};
+        const data:UserModel = {username: "Name", accessLevel: accessLvl};
         auth.storeUser(data);
         notification({text: "Logget inn", type: "success"});
         auth.redirect(data);
