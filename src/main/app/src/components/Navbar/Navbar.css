@@ -9,11 +9,14 @@ nav {
 
 nav .ui-menu {
     list-style: none;
+    transition: .2s;
+    overflow: hidden;
 }
 
 nav img {
     height: 30px;
     margin: auto 0;
+    padding: 20px 0;
 }
 
 nav .ui-menu li {
@@ -29,6 +32,13 @@ nav .ui-menu li:hover {
     color: darkcyan;
 }
 
+.close {
+    height: auto !important;
+    opacity: 0;
+    padding: 0 !important;
+    pointer-events: none;
+}
+
 .login-btn {
     margin-left: 20px;
     display: inline-block;
@@ -42,4 +52,27 @@ nav .ui-menu li:hover {
 
 .login-btn:hover {
     background-color: #137070;
+}
+
+@media only screen and (max-width: 700px) {
+    .ui-menu {
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin: 0;
+        margin-top: 70px;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        background-color: #c2c2c2;
+        height: fit-content;
+        padding: 20px 0;
+        width: 100vw;
+        z-index: 9;
+        flex-direction: column;
+    }
+    .ui-menu li {
+        margin: 10px;
+    }
 }

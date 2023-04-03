@@ -4,6 +4,7 @@ interface RestApiProps {
     url: String;
     method: "POST" | "GET" | "PUT" | "PATCH" | "DELETE";
     body?: Object;
+    header?: Object;
 }
 
 const restApi = async(props:RestApiProps):Promise<restApiResponseProps> => {

@@ -16,7 +16,10 @@ export default class Auth {
     }
 
     async login(username:string,password:string):Promise<UserModel | null> {
-        const result = await restApi({url: `/api/user/login?username=${username}&password=${password}`,method:"POST"});
+        const result = await restApi({url: `/api/user/login`,method:"POST", header: {
+                "username": username,
+                "password": password
+            }});
         if (result.status === 200 && result.body) {
             const user:UserModel = JSON.parse(result.body)
             this.storeUser(JSON.parse(result.body));
@@ -31,7 +34,7 @@ export default class Auth {
         if (user.access === 0) url = "/admin";
         else if (user.access === 1) url = "/jury";
         else if (user.access === 2) url = "/exhibitor";
-        window.location.href = url;
+        window.location.href = process.env.PUBLIC_URL + url;
     }
 
     storeUser(user:UserModel):void {
