@@ -4,6 +4,8 @@ export interface StandModel {
     description: string;
     image: string;
     url: string;
+    eventID : number;
+    responsibleID : string;
 }
 
 export interface StandWithScore {

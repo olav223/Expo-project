@@ -8,12 +8,6 @@ const StandPage = () => {
     const url = window.location.href.split("?")[1];
     const params = new URLSearchParams(url);
 
-    function Link(){
-        let url = 'https://api.qrserver.com/v1/create-qr-code/?data=http://ider-database.westeurope.cloudapp.azure.com:8080/Prosjekt-Expo-0.0.1-SNAPSHOT/stand?id='
-        return<div>
-            <a href={url + stand?.id}>QrCode</a>
-        </div>
-    }
     const getStandInfo = async() => {
         const result = await restApi({url: "/api/stand?id="+params.get("id"), method: "GET"});
         if (result.status === 200) {
@@ -35,7 +29,6 @@ const StandPage = () => {
             <p style={{marginLeft: '50px', marginRight: '50px'}}>{stand?.description}</p>
             <img style={{ width: '50%', height: 'auto', marginBottom: '100px'}}
                  src={stand?.image} />
-            <Link/>
         </div>
         :
         <div>Mangler stand id i url</div>
