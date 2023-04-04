@@ -1,0 +1,41 @@
+.eventlist-parent {
+    width: calc(100% - 80px);
+    padding: 0 40px;
+    white-space: nowrap;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    text-align: center;
+    -webkit-overflow-scrolling: touch;
+}
+
+.eventlist-parent .event-item .overlay {
+    background: black;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+}
+
+.eventlist-parent .event-item .content {
+    color: white;
+    text-align: center;
+    font-size: clamp(10px, 1vw, 14px);
+}
+
+.eventlist-parent .event-item {
+    height: 120px;
+    width: 300px;
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
+    margin: 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    cursor: pointer;
+    background-size: cover;
+    background-image: url("https://events.cipd.co.uk/events/wp-content/uploads/2017/11/ConferencesExhibitionsMasterSlider-1180x500.jpg");
+}
+
+.eventlist-parent .event-item:hover {
+    transform: scale(1.1);
+}
