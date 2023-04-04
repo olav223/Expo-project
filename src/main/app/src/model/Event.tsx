@@ -1,6 +1,7 @@
 interface EventModel {
     id: number;
     name: string;
-    event_start: Date;
-    event_end: Date;
+    eventStart: string;
+    eventEnd: string;
+    image: string;
 }

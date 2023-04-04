@@ -12,7 +12,11 @@
     background: black;
     width: 100%;
     height: 100%;
-    opacity: 0.3;
+    opacity: 0.5;
+}
+
+.eventlist-parent .event-item p {
+    font-size: 12px;
 }
 
 .eventlist-parent .event-item .content {
@@ -32,8 +36,8 @@
     transition: all 0.3s ease-in-out;
     -webkit-transition: all 0.3s ease-in-out;
     cursor: pointer;
+    background: black;
     background-size: cover;
-    background-image: url("https://events.cipd.co.uk/events/wp-content/uploads/2017/11/ConferencesExhibitionsMasterSlider-1180x500.jpg");
 }
 
 .eventlist-parent .event-item:hover {
