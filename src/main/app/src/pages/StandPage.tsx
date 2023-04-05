@@ -2,6 +2,8 @@ import restApi from "../utils/restApi";
 import {useEffect, useState} from "react";
 import VotingStars from "../components/VotingStars/VotingStars";
 import { StandModel } from "../model/Stand";
+import "./StandPage.css";
+import Backbtn from "../components/Backbtn/Backbtn";
 
 const StandPage = () => {
     const [stand, setStand] = useState<StandModel | null>(null);
@@ -21,14 +23,12 @@ const StandPage = () => {
     }, []);
 
     return params.has("id") ?
-        <div style={{textAlign:"center"}}>
+        <div className={"stand-info-parent box"}>
+            <Backbtn />
             <h2>{stand?.title}</h2>
-            <div style={{textAlign:"center", marginTop: '10px'}}>
             <VotingStars />
-            </div>
-            <p style={{marginLeft: '50px', marginRight: '50px'}}>{stand?.description}</p>
-            <img style={{ width: '50%', height: 'auto', marginBottom: '100px'}}
-                 src={stand?.image} />
+            <p>{stand?.description}</p>
+            <img src={stand?.image} />
         </div>
         :
         <div>Mangler stand id i url</div>
