@@ -9,7 +9,11 @@ interface RestApiProps {
 
 const restApi = async(props:RestApiProps):Promise<restApiResponseProps> => {
     const url = (process.env.REACT_APP_PROXY_HOST ?? "") + props.url;
-    const headers = {'Accept': 'application/json','Content-Type': 'application/json'};
+    let headers = {'Accept': 'application/json','Content-Type': 'application/json'};
+    if (props.header) {
+        headers = {...headers, ...props.header};
+    }
+
     const config:RequestInit = {method: props.method, body: JSON.stringify(props.body), headers: headers};
 
     return await fetch(url, config)

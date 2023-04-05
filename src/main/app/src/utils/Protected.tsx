@@ -11,7 +11,7 @@ const Protected = (props:ProtectedProps) => {
     const auth = new Auth();
 
     const user = auth.getUser();
-    if (user === null || props.accesslvl !== user.access) return <Navigate to={"/login"} />
+    if (user === null || props.accesslvl !== user.accessLevel) return <Navigate to={"/login"} />
 
     return <div>{props.children}</div>;
 }
