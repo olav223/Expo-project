@@ -2,7 +2,7 @@ interface UserModel {
     username: string;
     phone?: string;
     email?: string;
-    accessLevel: number;
+    accessLevel?: number;
     salt?: string;
     hash?: string;
 }

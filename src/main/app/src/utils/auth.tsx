@@ -9,7 +9,8 @@ export default class Auth {
     async createVoter(eventId:string):Promise<boolean> {
         const result = await restApi({url:"/api/vote/newvoter?eventID="+eventId,method:"GET"});
         if (result.status === 200 && result.body) {
-            this.storeUser(result.body)
+            const voterID: string = result.body;
+            this.storeUser({username: voterID })
             return true;
         }
         return false;
