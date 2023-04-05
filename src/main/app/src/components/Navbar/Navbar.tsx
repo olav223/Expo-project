@@ -41,10 +41,10 @@ const Navbar = () => {
         <ul id={"menu-dropdown"} onClick={() => ismobile ? toggleMenu(false) : null} className={"ui-menu"}>
             <Link to={"/"}><li>Hjem</li></Link>
             <Link to={"/stands"}><li>Stand</li></Link>
-            {user?.access === 0 && <Link to={"/admin"}><li>Admin</li></Link>}
-            {user?.access === 1 && <Link to={"/jury"}><li>Jury</li></Link>}
-            {user?.access === 2 && <Link to={"/exhibitor"}><li>Exhibitor</li></Link>}
-            {user && user.access !== undefined ? <><li>Hei, {user.username}</li><li><button onClick={auth.signOut} type={"submit"}>Logg ut</button></li></> : <Link to={"/login"}><li><button type={"submit"}>Logg inn</button></li></Link>}
+            {user?.accessLevel === 0 && <Link to={"/admin"}><li>Admin</li></Link>}
+            {user?.accessLevel === 1 && <Link to={"/jury"}><li>Jury</li></Link>}
+            {user?.accessLevel === 2 && <Link to={"/exhibitor"}><li>Exhibitor</li></Link>}
+            {user && user.accessLevel !== undefined ? <><li>Hei, {user.username}</li><li><button onClick={auth.signOut} type={"submit"}>Logg ut</button></li></> : <Link to={"/login"}><li><button type={"submit"}>Logg inn</button></li></Link>}
         </ul>
     </nav>
 }

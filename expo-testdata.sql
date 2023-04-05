@@ -1,7 +1,7 @@
 SET SEARCH_PATH TO expo;
 
-INSERT INTO event(name, event_start, event_end)
-VALUES ('Test Expo', now(), now() + INTERVAL '31 days');
+INSERT INTO event(name, event_start, event_end, image)
+VALUES ('Test Expo', now(), now() + INTERVAL '31 days', null);
 
 INSERT INTO access_level
 VALUES (0, 'admin'),
