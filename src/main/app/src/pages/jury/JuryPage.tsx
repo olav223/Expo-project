@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import restApi from "../../utils/restApi";
 import { StandWithScore } from "../../model/Stand";
 import { Link } from "react-router-dom";
@@ -8,15 +8,23 @@ import Dropdown from "../../components/Dropdown/Dropdown";
 const eventQuery = "eventID";
 const sortOptions = ["Resultat", "Alfabetisk"];
 
+/**
+ * Page for jury to see the results of an event, while the event is ongoing.
+ * @author Martin Berg Alstad
+ */
 const JuryPage = () => {
 
     const params = new URLSearchParams(window.location.search);
-    const eventId = params.has(eventQuery) ? params.get(eventQuery)! : "1";
+    const eventId = params.has(eventQuery) ? params.get(eventQuery) ?? "1" : "1";
 
     const [scores, setScores] = useState<StandWithScore[] | null>(null);
     const [event, setEvent] = useState<EventModel | null>(null);
 
-    function handleSort(value: string) {
+    /**
+     * Handles sorting of the list of stands.
+     * @param value The value of the selected option.
+     */
+    function handleSort(value: string): void {
         let list: StandWithScore[] | undefined;
         if (value === sortOptions[0]) {
             list = scores?.sort((a, b) => b.sumVotes - a.sumVotes);
@@ -30,28 +38,19 @@ const JuryPage = () => {
     }
 
     useEffect(() => {
-        async function getEvent() {
-            const res = await restApi({ url: `/api/admin/event?eventID=${ eventId }`, method: "GET" });
+
+        async function getData(setter: Dispatch<SetStateAction<any>>, url: string) {
+            const res = await restApi({ url, method: "GET" });
             if (res.status === 200) {
-                setEvent(res.body);
+                setter(res.body);
             }
             else {
                 console.error(res);
             }
         }
 
-        async function getScores(): Promise<void> {
-            const res = await restApi({ url: `/api/vote/score?eventID=${ eventId }`, method: "GET" });
-            if (res.status === 200) {
-                setScores(res.body);
-            }
-            else {
-                console.error(res);
-            }
-        }
-
-        getScores();
-        getEvent();
+        getData(setScores, `/api/vote/score?eventID=${ eventId }`);
+        getData(setEvent, `/api/admin/event?eventID=${ eventId }`);
     }, []);
 
     return (
