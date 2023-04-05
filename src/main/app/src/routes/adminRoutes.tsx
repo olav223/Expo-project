@@ -9,7 +9,7 @@ import React from "react";
 const adminRoutes = <Routes>
     <Route index element={ <AdminPage /> } />
     <Route path="/events" element={ <AdminEvent /> } />
-    <Route path="/events/edit" element={ <AdminEventEdit /> } />
+    <Route path="/events/edit/:id" element={ <AdminEventEdit /> } />
     <Route path="/stand/edit/:id" element={ <AdminStandEdit /> } />
     <Route path="/events/:id/stands" element={<AdminStandList/>}/>
 </Routes>
