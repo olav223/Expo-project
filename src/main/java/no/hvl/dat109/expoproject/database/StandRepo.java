@@ -18,6 +18,6 @@ public interface StandRepo extends JpaRepository<Stand, Integer> {
 
     Stand deleteById(int id);
 
-    @Query("select s from Stand s join Event e on e.id = ?1")
+    @Query("select s from Stand s where s.eventID= ?1")
     List<Stand> findAllByEvent(Integer eventID);
 }

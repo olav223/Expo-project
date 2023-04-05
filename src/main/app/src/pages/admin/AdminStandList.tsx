@@ -4,7 +4,7 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import { StandModel } from "../../model/Stand";
 import restApi from "../../utils/restApi";
 import AddStand from "../../components/AddStandButton";
-// import './Admin.css'
+import './Admin.css'
 
 const AdminStandList = () => {
     
