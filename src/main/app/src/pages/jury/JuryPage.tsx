@@ -12,7 +12,6 @@ const JuryPage = () => {
 
     const params = new URLSearchParams(window.location.search);
     const eventId = params.has(eventQuery) ? params.get(eventQuery)! : "1";
-    console.log(eventId, params)
 
     const [scores, setScores] = useState<StandWithScore[] | null>(null);
     const [event, setEvent] = useState<EventModel | null>(null);
