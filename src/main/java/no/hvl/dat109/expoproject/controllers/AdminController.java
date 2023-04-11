@@ -4,14 +4,9 @@ import no.hvl.dat109.expoproject.database.EventService;
 import no.hvl.dat109.expoproject.database.UserEventService;
 import no.hvl.dat109.expoproject.database.UserService;
 import no.hvl.dat109.expoproject.database.VoteService;
-import no.hvl.dat109.expoproject.entities.Event;
-import no.hvl.dat109.expoproject.entities.User;
-import no.hvl.dat109.expoproject.entities.UserEvent;
+import no.hvl.dat109.expoproject.entities.*;
 import no.hvl.dat109.expoproject.interfaces.controllers.IAdminController;
-import no.hvl.dat109.expoproject.interfaces.database.IEventService;
-import no.hvl.dat109.expoproject.interfaces.database.IUserEventService;
-import no.hvl.dat109.expoproject.interfaces.database.IUserService;
-import no.hvl.dat109.expoproject.interfaces.database.IVoteService;
+import no.hvl.dat109.expoproject.interfaces.database.*;
 import no.hvl.dat109.expoproject.utils.PasswordUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -24,12 +19,14 @@ import java.util.List;
 @RequestMapping("/api/admin")
 public class AdminController implements IAdminController {
 
+    private final IStandService ss;
     private final IUserService as;
     private final IEventService es;
     private final IVoteService vs;
     private final IUserEventService ues;
 
-    public AdminController(UserService as, EventService es, VoteService vs, UserEventService ues) {
+    public AdminController(IStandService ss, UserService as, EventService es, VoteService vs, UserEventService ues) {
+        this.ss = ss;
         this.as = as;
         this.es = es;
         this.vs = vs;
@@ -74,6 +71,11 @@ public class AdminController implements IAdminController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
         }
         return user;
+    }
+
+    @GetMapping("/exhibitor/stand")
+    public Stand findStandByExhibitor(@RequestParam String exhibitor){
+        return ss.findStandByExhibitor(exhibitor);
     }
 
     @Override

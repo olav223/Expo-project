@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface IStandService {
 
+    Stand findStandByExhibitor(String exhibitor);
+
     /**
      * adds stand from stand object to database
      * @param stand

@@ -1,6 +1,5 @@
 package no.hvl.dat109.expoproject.database;
 
-import no.hvl.dat109.expoproject.entities.Event;
 import no.hvl.dat109.expoproject.entities.Stand;
 import no.hvl.dat109.expoproject.interfaces.database.IStandService;
 import org.springframework.stereotype.Service;
@@ -15,6 +14,11 @@ public class StandService implements IStandService {
     public StandService(StandRepo standRepo, EventRepo eventRepo) {
         this.standRepo = standRepo;
         this.eventRepo = eventRepo;
+    }
+
+    @Override
+    public Stand findStandByExhibitor(String exhibitor){
+        return standRepo.findByResponsibleID(exhibitor);
     }
 
     @Override
