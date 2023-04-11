@@ -1,7 +1,12 @@
 package no.hvl.dat109.expoproject.controllers;
 
+import no.hvl.dat109.expoproject.database.EventService;
+import no.hvl.dat109.expoproject.database.UserEventService;
 import no.hvl.dat109.expoproject.database.UserService;
+import no.hvl.dat109.expoproject.entities.Event;
 import no.hvl.dat109.expoproject.entities.User;
+import no.hvl.dat109.expoproject.entities.UserEvent;
+import no.hvl.dat109.expoproject.interfaces.database.IUserService;
 import no.hvl.dat109.expoproject.utils.PasswordUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,7 +29,10 @@ public class AdminControllerTest {
 
     @Mock
     private UserService us;
-
+    @Mock
+    private EventService es;
+    private UserEvent userEvent1;
+    private Event event1;
     private User user1;
     private User hashedUser1;
     private String pass;
@@ -36,8 +44,11 @@ public class AdminControllerTest {
         salt = PasswordUtils.generateSalt();
         pass = "pass";
         user1 = new User("username", "12345678", "username@domain.com", pass, null, 0);
+        event1 = new Event(1);
+        userEvent1 = new UserEvent(user1, event1);
         hash = PasswordUtils.hashWithSalt(pass, salt);
         hashedUser1 = new User("username", "12345678", "username@domain.com", hash, salt, 0);
+
     }
 
     @Test
@@ -69,6 +80,43 @@ public class AdminControllerTest {
         catch (ResponseStatusException e) {
             assertEquals(HttpStatus.CONFLICT, e.getStatus());
         }
+    }
+
+    @Test
+    void deleteUser() {
+        doReturn(user1).when(us).removeUser(user1.getUsername());
+
+        User actualUser = ac.deleteUser(user1.getUsername());
+
+        assertEquals(user1, actualUser);
+    }
+
+    @Test
+    void deleteNotExistingUser() {
+        //Todo: Kan dette testes? Hans
+    }
+
+    @Test
+    void getEventById() {
+        doReturn(event1).when(es).getEvent(event1.getId());
+        Event actualEvent = ac.GetEventById(event1.getId());
+        assertEquals(event1, actualEvent);
+    }
+    @Test
+    void deleteNotExistingEvent() {
+        //Todo: Kan dette testes? Hans
+    }
+
+    @Test
+    void addEventLegal() {
+        Event returned = ac.postAddEvent(event1);
+        assertNotNull(returned);
+        assertEquals(event1, returned);
+    }
+
+    @Test
+    void addEventException() {
+        //Todo:
     }
 
 }

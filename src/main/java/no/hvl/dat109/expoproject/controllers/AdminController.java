@@ -94,7 +94,7 @@ public class AdminController implements IAdminController {
 
     @Override
     @PostMapping("/event")
-    public void postAddEvent(@RequestBody Event event) {
+    public Event postAddEvent(@RequestBody Event event) {
 
         try {
             es.addEvent(event);
@@ -102,6 +102,7 @@ public class AdminController implements IAdminController {
         catch (Exception e) {
             e.printStackTrace();
         }
+        return event;
     }
 
     @Override
