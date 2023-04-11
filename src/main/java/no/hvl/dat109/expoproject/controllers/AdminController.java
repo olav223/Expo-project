@@ -52,6 +52,11 @@ public class AdminController implements IAdminController {
         return es.findAll();
     }
 
+    @GetMapping("/events/newest")
+    public Event getNewestEvent() {
+        return es.findNewest();
+    }
+
     @Override
     @PostMapping("/user")
     public User postAddUser(@RequestBody User user) {

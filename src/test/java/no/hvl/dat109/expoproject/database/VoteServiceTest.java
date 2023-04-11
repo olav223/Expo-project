@@ -42,8 +42,8 @@ public class VoteServiceTest {
 
     @BeforeEach
     void setUp() {
-        expo1 = new Event(1, "Expo1", LocalDateTime.now(), LocalDateTime.now().plusMonths(1));
-        expo2 = new Event(2, "Expo2", LocalDateTime.now(), LocalDateTime.now().plusMonths(1));
+        expo1 = new Event(1, "Expo1", LocalDateTime.now(), LocalDateTime.now().plusMonths(1), null);
+        expo2 = new Event(2, "Expo2", LocalDateTime.now(), LocalDateTime.now().plusMonths(1), null);
         voter1AtExpo1 = new Voter("1", expo1);
         voter2AtExpo1 = new Voter("2", expo1);
         voter3AtExpo2 = new Voter("3", expo2);

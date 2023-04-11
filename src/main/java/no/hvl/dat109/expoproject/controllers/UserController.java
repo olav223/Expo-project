@@ -12,6 +12,7 @@ import java.util.List;
 
 import static no.hvl.dat109.expoproject.utils.PasswordUtils.validate;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/user")
 public class UserController implements IUserController {

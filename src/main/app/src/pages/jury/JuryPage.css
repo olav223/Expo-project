@@ -1,0 +1,53 @@
+.jury-page-parent h2, .table-container {
+    margin: 2rem auto 1rem auto;
+}
+
+.jury-page-parent h2 {
+    text-align: center;
+}
+
+.jury-page-parent table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.jury-page-parent th {
+    background-color: darkcyan;
+    color: white;
+    padding: 1rem;
+    text-align: start;
+}
+
+.jury-page-parent td {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+}
+
+.jury-page-parent tr:nth-child(even) {
+    background-color: lightgray;
+}
+
+.table-container {
+    position: relative;
+    width: 100%;
+}
+
+@media screen and (min-width: 700px) {
+    .table-container {
+        width: 50%;
+    }
+}
+
+.dropdown {
+    position: absolute;
+    top: -2rem;
+    right: 0;
+}
+
+a {
+    color: darkcyan;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}

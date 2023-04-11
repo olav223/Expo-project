@@ -19,8 +19,13 @@ public interface IVoteController {
      */
     boolean postVote(Vote vote);
 
-    @GetMapping("/score")
-    List<StandWithVote> getScoresInEvent(@RequestParam int eventID);
+    /**
+     * Get the scores for all stands in the given event
+     *
+     * @param eventID Id of the event
+     * @return List of all stands with their scores
+     */
+    List<StandWithVote> getScoresInEvent(int eventID);
 
     /**
      * get the number of stars in the vote from given voter for the given stand

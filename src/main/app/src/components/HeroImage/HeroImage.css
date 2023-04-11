@@ -1,0 +1,27 @@
+.heroimage-parent {
+    width: 100%;
+    position: relative;
+    height: clamp(16px, 40vh, 350px);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.heroimage-parent .overlay {
+    background: black;
+    width: 100%;
+    height: 100%;
+    opacity: 0.3;
+}
+
+.heroimage-parent .content {
+    color: white;
+    text-align: center;
+    font-size: clamp(16px, 3vw, 32px);
+}
+
+@media only screen and (max-width: 600px) {
+    .heroimage-parent {
+        height: 250px;
+    }
+}
