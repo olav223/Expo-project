@@ -21,15 +21,18 @@ const AdminEvents = () => {
         <div className={"admin-events-parent"}>
             <h2>Hendelser du administrerer</h2>
             {events.map((event) => {
-                return <Link to={"events/"+event.id+"/stands"}>
-                    <div className={"event-item box"} style={{backgroundImage:`url(${event.image})`}}>
+                return <div className={"event-item box"} >
+                    <div className={"image-layer"} style={{backgroundImage:`url(${event.image})`}}>
                         <div className={"overlay"}></div>
                         <div className={"content center"}>
                             <h2>{event.name}</h2>
                         </div>
-                        <Link className={"edit-btn"} to={"events/edit/"+event.id}>Rediger</Link>
                     </div>
-                </Link>
+                    <div style={{padding: "20px"}}>
+                        <Link className={"submit-btn"} to={"events/"+event.id+"/stands"}>Se stands</Link>
+                        <Link className={"submit-btn"} to={"events/edit/"+event.id}>Rediger</Link>
+                    </div>
+                </div>
             })}
         </div>
     </> : null;

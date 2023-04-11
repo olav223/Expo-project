@@ -29,7 +29,7 @@ input {
     margin: 15px
 }
 
-button[type="submit"] {
+button[type="submit"],.submit-btn {
     border-radius: 5px;
     background-color: darkcyan;
     border: 0;
