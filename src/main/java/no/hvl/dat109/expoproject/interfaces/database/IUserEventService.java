@@ -8,7 +8,6 @@ public interface IUserEventService {
 
     /**
      * @param userEvent the map between the user and the event that is added to the database
-     * @return the user
      */
     void addUserToEvent(UserEvent userEvent);
 

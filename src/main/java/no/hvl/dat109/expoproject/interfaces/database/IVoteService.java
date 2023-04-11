@@ -15,6 +15,12 @@ public interface IVoteService {
      */
     List<Vote> getAllVotesInEvent(int eventID);
 
+    /**
+     * Henter ut poengsummen til hver stand i en event
+     *
+     * @param eventID id til eventen
+     * @return en liste med alle stander i eventen, og deres poengsum, ellers en tom liste hvis det er ingen stemmer
+     */
     List<Score> getAllScoresInEvent(int eventID);
 
     /**
@@ -33,6 +39,11 @@ public interface IVoteService {
      */
     void registerVote(Vote vote);
 
+    /**
+     *
+     * @param voterID
+     * @return true if voter with matching voterID exists
+     */
     boolean voterExists(String voterID);
 
     /**

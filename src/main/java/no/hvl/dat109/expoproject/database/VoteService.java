@@ -35,24 +35,13 @@ public class VoteService implements IVoteService {
         this.scoreRepo = scoreRepo;
     }
 
-    /**
-     * Henter ut alle stemmer i en event
-     *
-     * @param eventID id til eventen
-     * @return en liste med alle stemmer i eventen, ellers en tom liste hvis det ikke er noen stemmer
-     */
+
     @Override
     public List<Vote> getAllVotesInEvent(int eventID) {
         List<Vote> allVotes = voteRepo.findByStand_Event_Id(eventID);
         return allVotes;
     }
 
-    /**
-     * Henter ut poengsummen til hver stand i en event
-     *
-     * @param eventID id til eventen
-     * @return en liste med alle stander i eventen, og deres poengsum, ellers en tom liste hvis det er ingen stemmer
-     */
     @Override
     public List<Score> getAllScoresInEvent(int eventID) {
         List<Score> allStandsWithVotes = scoreRepo.findAllByEventId(eventID);
@@ -61,28 +50,13 @@ public class VoteService implements IVoteService {
                 .collect(Collectors.toList());
     }
 
-    /**
-     * Henter en stemme basert på standID og voterID
-     *
-     * @param standID id til standen
-     * @param voterID id til stemmegiveren
-     * @return Antall stjerner stemmen har, ellers en feilmelding
-     * @throws ResponseStatusException hvis stemmen ikke finnes
-     */
+
     @Override
     public int getVote(int standID, String voterID) {
         Optional<Vote> vote = voteRepo.findById(new VotePK(voterID, standID));
         return vote.map(Vote::getStars).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vote not found"));
     }
 
-    /**
-     * Registerer en stemme i databasen, stemmen må være mellom 0 og 5.
-     *
-     * @param vote stemmen som skal registreres, skal inneholde en eksisterende standId og voterID.
-     * @throws NullPointerException     hvis vote er null
-     * @throws IllegalArgumentException hvis vote ikke er mellom 0 og 5
-     * @throws PersistenceException     hvis stemmen ikke kan lagres, f.eks. hvis id-er ikke finnes
-     */
     @Override
     public void registerVote(Vote vote) throws NullPointerException, IllegalArgumentException {
         if (vote == null)
