@@ -27,7 +27,15 @@ public interface IUserService {
      */
     List<User> getAllUsers();
 
+    /**
+     * @param username
+     * @return user with matching username
+     */
     User getUser(String username);
 
+    /**
+     * @param username
+     * @return true if user with matching username exists
+     */
     boolean userExists(String username);
 }
