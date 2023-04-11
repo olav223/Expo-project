@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface IStandService {
 
+    Stand findStandByExhibitor(String exhibitor);
+
     /**
      * adds stand from stand object to database
      * @param stand
@@ -21,13 +23,20 @@ public interface IStandService {
 
     /**
      * removes stand with matching standID from database
-     *
      * @param standID
      * @return the removed stand
      */
     Stand removeStand(int standID);
 
+    /**
+     * @param id
+     * @return stand with matching id
+     */
     Stand getStand(int id);
 
+    /**
+     * @param id
+     * @return a list of stands by event with matching id
+     */
     List<Stand> findAllByEvent(int id);
 }

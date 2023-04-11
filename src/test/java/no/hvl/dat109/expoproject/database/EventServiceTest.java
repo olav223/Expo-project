@@ -41,9 +41,9 @@ class EventServiceTest {
         LocalDateTime t3 = LocalDateTime.of(2000, 1, 3, 0, 0, 1);
         LocalDateTime t4 = LocalDateTime.of(2000, 1, 4, 0, 0, 1);
 
-        event1 = new Event(1, "event1", t1, t3);
-        event2 = new Event(2, "event2", t2, t4);
-        event3 = new Event(3, "event3", t1, t4);
+        event1 = new Event(1, "event1", t1, t3, null);
+        event2 = new Event(2, "event2", t2, t4, null);
+        event3 = new Event(3, "event3", t1, t4, null);
         eventNull = null;
 
         user1 = new User("user1", new ArrayList<>());

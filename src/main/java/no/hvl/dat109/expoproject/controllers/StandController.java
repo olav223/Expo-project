@@ -51,7 +51,8 @@ public class StandController implements IStandController {
             ss.updateStand(stand);
             isUpdated = true;
         }
-        catch (RuntimeException ignored) {
+        catch (Exception te) {
+            System.out.println(te);
         }
 
         return isUpdated;

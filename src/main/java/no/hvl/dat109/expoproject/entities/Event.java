@@ -18,6 +18,7 @@ public class Event {
     private String name;
     private LocalDateTime eventStart;
     private LocalDateTime eventEnd;
+    private String image;
 
     @OneToMany(mappedBy = "event")
     @JsonIgnore
@@ -27,13 +28,14 @@ public class Event {
     @OneToMany(mappedBy = "event")
     private List<Voter> voters;
 
-    public Event(int id, String name, LocalDateTime eventStart, LocalDateTime eventEnd) {
+    public Event(int id, String name, LocalDateTime eventStart, LocalDateTime eventEnd, String image) {
         this.id = id;
         this.name = name;
         this.eventStart = eventStart;
         this.eventEnd = eventEnd;
         this.userEvent = new ArrayList<>();
         this.voters = new ArrayList<>();
+        this.image = image;
     }
     public Event(int id){
         this.id = id;
@@ -53,6 +55,9 @@ public class Event {
     public String getName() {
         return name;
     }
+
+    public void setImage(String image) {this.image=image;}
+    public String getImage() {return image;}
 
     public void setName(String name) {
         this.name = name;

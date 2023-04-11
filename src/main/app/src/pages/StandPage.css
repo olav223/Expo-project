@@ -1,0 +1,19 @@
+.stand-info-parent {
+    text-align: center;
+    max-width: 800px;
+    background-color: white;
+    padding: 40px;
+    border-radius: 5px;
+    margin: 50px auto;
+    position: relative;
+}
+
+.stand-info-parent p {
+    line-height: 1.5;
+    margin: 40px 0;
+    color: #4d4d4d;
+}
+
+.stand-info-parent img {
+    width: 100%;
+}

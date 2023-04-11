@@ -5,6 +5,8 @@ import no.hvl.dat109.expoproject.entities.User;
 import no.hvl.dat109.expoproject.entities.UserEvent;
 import no.hvl.dat109.expoproject.interfaces.database.IEventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -106,5 +108,10 @@ public class EventService implements IEventService {
     @Override
     public List<Event> findAll(){
         return eventRepo.findAll();
+    }
+
+    @Override
+    public Event findNewest(){
+        return eventRepo.findAll().get(0);
     }
 }

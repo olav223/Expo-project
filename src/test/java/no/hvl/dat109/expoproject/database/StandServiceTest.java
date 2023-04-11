@@ -32,7 +32,7 @@ public class StandServiceTest {
 
     @BeforeEach
     void setUp() {
-        event1 = new Event(1, "Event1", LocalDateTime.now(), LocalDateTime.now().plusMonths(1));
+        event1 = new Event(1, "Event1", LocalDateTime.now(), LocalDateTime.now().plusMonths(1), null);
         stand1 = new Stand(1, "DataGram", "DataGram", "Image", "URL", event1.getId());
         stand2 = new Stand();
     }
