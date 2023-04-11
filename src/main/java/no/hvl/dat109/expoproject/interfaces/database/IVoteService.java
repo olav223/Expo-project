@@ -15,7 +15,7 @@ public interface IVoteService {
      */
     List<Vote> getAllVotesInEvent(int eventID);
 
-    List<StandWithVote> getAllScoresInEvent(int eventID);
+    List<Score> getAllScoresInEvent(int eventID);
 
     /**
      * get the number of stars from the vote, given by given voter to given stand

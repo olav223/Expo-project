@@ -1,13 +1,9 @@
 package no.hvl.dat109.expoproject.interfaces.controllers;
 
-import no.hvl.dat109.expoproject.entities.StandWithVote;
+import no.hvl.dat109.expoproject.entities.Score;
 import no.hvl.dat109.expoproject.entities.Vote;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
-
-import no.hvl.dat109.expoproject.entities.Event;
 
 public interface IVoteController {
 
@@ -25,7 +21,7 @@ public interface IVoteController {
      * @param eventID Id of the event
      * @return List of all stands with their scores
      */
-    List<StandWithVote> getScoresInEvent(int eventID);
+    List<Score> getScoresInEvent(int eventID);
 
     /**
      * get the number of stars in the vote from given voter for the given stand

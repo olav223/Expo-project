@@ -31,7 +31,7 @@ public class VoteServiceTest {
     @Mock
     private EventRepo eventRepo;
     @Mock
-    private StandWithVoteRepo standWithVoteRepo;
+    private ScoreRepo scoreRepo;
     @Mock
     private VoterRepo voterRepo; // Trengs slik at vi ikke får nullpointerexception
 
@@ -140,22 +140,22 @@ public class VoteServiceTest {
 
     @Test
     void getScoreByExistingEventID() {
-        List<StandWithVote> allStandsWithVotes = List.of(
-                new StandWithVote(stand1AtExpo1.getId(), stand1AtExpo1.getTitle(), 5),
-                new StandWithVote(stand2AtExpo1.getId(), stand2AtExpo1.getTitle(), 4));
+        List<Score> allStandsWithVotes = List.of(
+                new Score(stand1AtExpo1.getId(), stand1AtExpo1.getTitle(), 5),
+                new Score(stand2AtExpo1.getId(), stand2AtExpo1.getTitle(), 4));
 
-        when(standWithVoteRepo.findAllByEventId(expo1.getId())).thenReturn(allStandsWithVotes);
+        when(scoreRepo.findAllByEventId(expo1.getId())).thenReturn(allStandsWithVotes);
 
-        List<StandWithVote> standsWithVotes = service.getAllScoresInEvent(expo1.getId());
+        List<Score> standsWithVotes = service.getAllScoresInEvent(expo1.getId());
         assertEquals(2, standsWithVotes.size());
         assertEquals(allStandsWithVotes, standsWithVotes);
     }
 
     @Test
     void getScoreByNonExistingEventID() {
-        when(standWithVoteRepo.findAllByEventId(expo1.getId())).thenReturn(List.of());
+        when(scoreRepo.findAllByEventId(expo1.getId())).thenReturn(List.of());
 
-        List<StandWithVote> standsWithVotes = service.getAllScoresInEvent(expo1.getId());
+        List<Score> standsWithVotes = service.getAllScoresInEvent(expo1.getId());
         assertEquals(0, standsWithVotes.size());
         assertEquals(List.of(), standsWithVotes);
     }
