@@ -19,7 +19,7 @@ const AddStand = (props : StandModel) => {
 
     return (
         <div>
-            <button onClick={add}>Add</button>
+            <button type="submit" onClick={add}>Legg til stand</button>
         </div>
     )
 }
