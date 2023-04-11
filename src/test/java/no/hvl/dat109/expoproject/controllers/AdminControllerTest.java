@@ -92,19 +92,10 @@ public class AdminControllerTest {
     }
 
     @Test
-    void deleteNotExistingUser() {
-        //Todo: Kan dette testes? Hans
-    }
-
-    @Test
     void getEventById() {
         doReturn(event1).when(es).getEvent(event1.getId());
         Event actualEvent = ac.GetEventById(event1.getId());
         assertEquals(event1, actualEvent);
-    }
-    @Test
-    void deleteNotExistingEvent() {
-        //Todo: Kan dette testes? Hans
     }
 
     @Test
@@ -113,10 +104,4 @@ public class AdminControllerTest {
         assertNotNull(returned);
         assertEquals(event1, returned);
     }
-
-    @Test
-    void addEventException() {
-        //Todo:
-    }
-
 }
