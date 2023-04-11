@@ -11,6 +11,12 @@ import java.util.List;
 @Repository
 interface StandWithVoteRepo extends JpaRepository<StandWithVote, Stand> {
 
+    /**
+     * finds all stands from a given event, and returns a list of containing the stands and their current vote count.
+     *
+     * @param eventId
+     * @return a list of all stands with votes
+     */
     @Query("SELECT sv " +
             "FROM StandWithVote sv " +
             "JOIN Stand s ON sv.id = s.id " +

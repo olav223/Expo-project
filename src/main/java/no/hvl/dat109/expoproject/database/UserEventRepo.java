@@ -18,6 +18,12 @@ interface UserEventRepo extends JpaRepository<UserEvent, UserEventPK> {
      */
     List<UserEvent> findAllByEvent(Event event);
 
+    /**
+     * finds and returns a list of all the events a user is registered to attend
+     *
+     * @param user
+     * @return a list af all events for a given user
+     */
     List<UserEvent> findAllByUser(User user);
 
 }

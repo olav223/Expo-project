@@ -17,7 +17,20 @@ interface EventRepo extends JpaRepository<Event, Integer> {
      * @return Eventen til id, eller null
      */
     Event findById(int id);
+
+    /**
+     * deletes the event from the database with the given id (eventId)
+     *
+     * @param id
+     * @return deleted event
+     */
     Event deleteById(int id);
+
+    /**
+     * returns from the database, all events
+     *
+     * @return a list of all events
+     */
     @Query("select u from Event u order by u.eventStart desc")
     List<Event> findAll();
 }

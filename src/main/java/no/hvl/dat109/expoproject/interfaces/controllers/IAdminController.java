@@ -32,7 +32,7 @@ public interface IAdminController {
     void postAddEvent(Event event);
 
     /**
-     * deletes event with maching eventID
+     * deletes event with matching eventID
      *
      * @return deleted event
      */
