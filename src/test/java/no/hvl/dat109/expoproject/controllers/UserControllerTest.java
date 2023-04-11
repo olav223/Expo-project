@@ -10,6 +10,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -30,7 +32,6 @@ public class UserControllerTest {
     private User user1, user2;
     private List<User> users;
     private UserEvent userEvent1;
-
     private List<UserEvent> userEvents;
 
     @BeforeEach
@@ -57,16 +58,40 @@ public class UserControllerTest {
 
     @Test
     void getAllUsersTest() {
-        users=Arrays.asList(user1,user2);
+        users = Arrays.asList(user1, user2);
         when(us.getAllUsers()).thenReturn(users);
         assertTrue(uc.GetAllUsers().contains(user1));
         assertTrue(uc.GetAllUsers().contains(user2));
     }
 
     @Test
-    void postLoginTest() {
-when(us.getUser("user1")).thenReturn(user1);
-assertEquals(user1.getAccessLevel(),(uc.postLogin("user1","Passord")));
+    void legalLoginTest() {
+        when(us.getUser("user1")).thenReturn(user1);
+        assertEquals(user1, uc.postLogin("user1", "Passord"));
+    }
+
+    @Test
+    void usernameNotFoundTest() {
+        when(us.getUser("user1")).thenReturn(null);
+        try {
+            uc.postLogin("user1", "Passord");
+            fail("Should throw exception");
+        }
+        catch (ResponseStatusException e) {
+            assertEquals(HttpStatus.FORBIDDEN, e.getStatus());
+        }
+    }
+
+    @Test
+    void passwordWrongTest() {
+        when(us.getUser("user1")).thenReturn(user1);
+        try {
+            uc.postLogin("user1", "WrongPassword");
+            fail("Should throw exception");
+        }
+        catch (ResponseStatusException e) {
+            assertEquals(HttpStatus.FORBIDDEN, e.getStatus());
+        }
     }
 
 }

@@ -29,7 +29,7 @@ public class StandControllerTest {
 
     @BeforeEach
     void setUp() {
-        event1 = new Event(1, "Event 1", LocalDateTime.now(), LocalDateTime.now().plusMonths(1));
+        event1 = new Event(1, "Event 1", LocalDateTime.now(), LocalDateTime.now().plusMonths(1), null);
         stand1 = new Stand(1, "Stand 1", "Stand 1 description", null, null, event1.getId());
     }
 

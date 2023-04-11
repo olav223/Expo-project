@@ -1,12 +1,10 @@
 import {useState} from "react";
 import Auth from "../utils/auth";
 import notification from "../utils/notification";
-import {redirect, useNavigate} from "react-router";
 
 const DevLogin = () => {
     const [vis,setVis] = useState(false);
     const auth = new Auth();
-    const navigate = useNavigate();
 
     const Options = () => {
         return <>
@@ -18,7 +16,7 @@ const DevLogin = () => {
     }
 
     const login = (accessLvl:number) => {
-        const data:UserModel = {username: "Name", access: accessLvl};
+        const data:UserModel = {username: "Name", accessLevel: accessLvl};
         auth.storeUser(data);
         notification({text: "Logget inn", type: "success"});
         auth.redirect(data);

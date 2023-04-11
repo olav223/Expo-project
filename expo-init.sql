@@ -7,6 +7,7 @@ CREATE TABLE event
     id          SERIAL PRIMARY KEY,
     name        VARCHAR(255) NOT NULL,
     event_start TIMESTAMP    NOT NULL,
+    image       VARCHAR(255),
     event_end   TIMESTAMP    NOT NULL
 );
 

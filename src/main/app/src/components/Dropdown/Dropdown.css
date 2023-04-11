@@ -1,0 +1,7 @@
+select {
+    background-color: darkcyan;
+    color: white;
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
+}

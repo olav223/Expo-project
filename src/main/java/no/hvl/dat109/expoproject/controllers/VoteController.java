@@ -58,7 +58,7 @@ public class VoteController implements IVoteController {
     @GetMapping("/score")
     public List<StandWithVote> getScoresInEvent(@RequestParam int eventID) {
         if (eventID <= 0) {
-            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "EventID cannot be 0");
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "EventID must be greater than 0");
         }
         return vs.getAllScoresInEvent(eventID);
     }

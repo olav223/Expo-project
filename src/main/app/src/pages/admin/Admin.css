@@ -1,0 +1,23 @@
+.stands-button{
+    position: relative;
+    margin-left: 80%;
+    bottom: 25px;
+}
+
+.wrapper{
+    position: relative;
+    margin: auto 45%;
+    padding-top: 15px;
+}
+
+.save-button {
+    position: relative;
+    margin: auto 95px;
+    
+}
+
+.qr {
+    position: relative;
+    margin-top: 15px;
+    margin-left : 15px;
+}
