@@ -50,6 +50,7 @@ const AdminStandList = () => {
     const deleteStand = async(id : any) => {
         await restApi({url : `/api/stand`, method : 'DELETE', body : id
     });
+        getStands()
     }
 
     useEffect(() => {
@@ -58,23 +59,22 @@ const AdminStandList = () => {
 
     return <div className="standList">
         <h2>Stands</h2>
-        <Popup trigger={<button>Add new stand</button>} position='bottom center' contentStyle={{
+        <Popup trigger={<button type="submit">Legg til en ny stand</button>} position='bottom center' contentStyle={{
             background: "lightgray",
             padding: "5px",
         }}>
             <div>
-                Popup test
                 <form>
                     <label>
-                        Title:
+                        Tittel:
                     </label>
                     <input type="text" onChange={handleTitle}/>
                     <label>
-                        Description:
+                        Beskrivelse:
                     </label>
                     <input type="desciption"onChange={handleDescription}/>
                     <label>
-                        Image:
+                        Bilde:
                     </label>
                     <input type="text" onChange={handleImage}/>
                     <label>
@@ -82,7 +82,7 @@ const AdminStandList = () => {
                     </label>
                     <input type="text" onChange={handleUrl}/>
                     <label>
-                        Responsible: 
+                        Ansvarlig: 
                     </label>
                     <input type="text" onChange={handleResponsible}/>
                 </form>
@@ -95,13 +95,11 @@ const AdminStandList = () => {
                     <h4>{stand.title}</h4>
                     <p>{stand.description}</p>
                     <Link to={`/admin/stand/edit/${stand.id}`}>
-                        <button type="submit"className="stands-button">
-                            Edit
+                        <button type="submit"className="delete-button">
+                            Endre
                         </button>
                     </Link>
-                    <button onClick={() => deleteStand(stand.id)} className="stands-button">
-                        Slett stand    
-                    </button>
+                    <button type="submit" className="delete-button" onClick={() => deleteStand(stand.id)}>Slett</button> 
                 </div>
             </div>
         }) : <div>Ingen stands</div>}
