@@ -100,6 +100,7 @@ public class AdminControllerTest {
 
     @Test
     void addEventLegal() {
+        doReturn(event1).when(es).addEvent(event1);
         Event returned = ac.postAddEvent(event1);
         assertNotNull(returned);
         assertEquals(event1, returned);

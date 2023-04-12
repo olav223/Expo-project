@@ -101,13 +101,15 @@ public class AdminController implements IAdminController {
     @PostMapping("/event")
     public Event postAddEvent(@RequestBody Event event) {
 
+        Event addedEvent = null;
+
         try {
-            es.addEvent(event);
+            addedEvent = es.addEvent(event);
         }
         catch (Exception e) {
             e.printStackTrace();
         }
-        return event;
+        return addedEvent;
     }
 
     @Override
