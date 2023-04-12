@@ -10,9 +10,15 @@ public interface IStandController {
     /**
      * updates stand info from updated stand object
      * @param stand
+     * @return true if stand is updated
      */
     Boolean postUpdateStand(Stand stand);
 
+    /**
+     * adds new stand to standService
+     * @param stand
+     * @return true if stand is added
+     */
     Boolean postAddStand(Stand stand);
 
     /**
@@ -23,7 +29,17 @@ public interface IStandController {
 
     Stand getStand(int id);
 
+    /**
+     * get all stands with eventID
+     * @param eventID
+     * @return List of stands with matching eventID
+     */
     List<Stand> getAllStands(int eventID);
 
+    /**
+     * remove stand with standID
+     * @param standID
+     * @return true if stand is removed
+     */
     Boolean removeStand(int standID);
 }
