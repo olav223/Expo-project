@@ -60,20 +60,17 @@ public class StandController implements IStandController {
 
     @Override
     @PostMapping("/add")
-    public Boolean postAddStand(@RequestBody Stand stand) {
+    public void postAddStand(@RequestBody Stand stand) {
         if (stand == null) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Stand cannot be null");
         }
 
-        boolean isAdded = false;
         try {
             ss.addStand(stand);
-            isAdded = true;
         }
-        catch (RuntimeException ignored) {
+        catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
-
-        return isAdded;
     }
 
     @Override

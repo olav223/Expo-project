@@ -1,109 +1,133 @@
-import { useEffect, useState } from "react";
-import Popup from 'reactjs-popup';
-import { Link, useLocation, useParams } from "react-router-dom";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import Popup from "reactjs-popup";
+import { Link } from "react-router-dom";
 import { StandModel } from "../../model/Stand";
 import restApi from "../../utils/restApi";
 import AddStand from "../../components/AddStandButton";
-import './Admin.css'
+import "./Admin.css";
+import notification from "../../utils/notification";
+import { useParams } from "react-router";
 
+/**
+ * Viser en liste over alle stands som er registrert på et gitt event.
+ * Hvor man kan endre, legge til eller slette en stands.
+ * @author Torbjørn Vatnelid
+ */
 const AdminStandList = () => {
-    
+
     const [stands, setStands] = useState<StandModel [] | null>(null);
     const [title, setTitle] = useState("");
-    const [desciption, setDesciption] = useState("")
-    const [image, setImage] = useState("")
-    const [url, setUrl] = useState("")
-    const [responsible, setResponsible] = useState("")
+    const [desciption, setDesciption] = useState("");
+    const [image, setImage] = useState("");
+    const [url, setUrl] = useState("");
+    const [responsible, setResponsible] = useState("");
 
-    const {id} = useParams();
+    const sEventID = useParams();
+    const eventID = parseInt(sEventID.id ?? "1");
 
-    const numID = parseInt(`${id}`)
-    
-    const handleTitle = (event : any) => {
-        setTitle(event.target.value)
-    } 
+    const handleTitle = (event: ChangeEvent<HTMLInputElement>) => {
+        setTitle(event.target.value);
+    };
 
-    const handleDescription = (event : any) => {
-        setDesciption(event.target.value)
-    } 
+    const handleDescription = (event: ChangeEvent<HTMLInputElement>) => {
+        setDesciption(event.target.value);
+    };
 
-    const handleImage = (event : any) => {
-        setImage(event.target.value)
-    } 
+    const handleImage = (event: ChangeEvent<HTMLInputElement>) => {
+        setImage(event.target.value);
+    };
 
-    const handleUrl = (event : any) => {
-        setUrl(event.target.value)
-    }
-    const handleResponsible = (event : any) => {
-        setResponsible(event.target.value)
-    } 
+    const handleUrl = (event: ChangeEvent<HTMLInputElement>) => {
+        setUrl(event.target.value);
+    };
+    const handleResponsible = (event: ChangeEvent<HTMLInputElement>) => {
+        setResponsible(event.target.value);
+    };
 
-    //FIXME
-    //Uansett hvilken id som vi gir, blir alle standene vist uavhengig av iden
-    const getStands = async() => {
-        const result = await restApi({url: `/api/stand/all?eventID=${id}`, method: "GET"});
+    const getStands = async () => {
+        const result = await restApi({ url: `/api/stand/all?eventID=${ eventID }`, method: "GET" });
         if (result.status === 200) {
-            setStands(result.body)
+            setStands(result.body);
         }
-    }
+        else {
+            console.error(result);
+            notification({ type: "error", text: "Kunne ikke hente stands" });
+        }
+    };
 
-    const deleteStand = async(id : any) => {
-        await restApi({url : `/api/stand`, method : 'DELETE', body : id
-    });
-        getStands()
-    }
+    const deleteStand = async (id: number) => {
+        const result = await restApi({
+            url: `/api/stand`, method: "DELETE", body: id
+        });
+        if (result.status === 200) {
+            notification({ type: "success", text: "Stand slettet" });
+        }
+        else {
+            console.error(result);
+            notification({ type: "error", text: "Kunne ikke slette stand" });
+        }
+        getStands();
+    };
 
     useEffect(() => {
         getStands();
     }, []);
 
-    return <div className="standList">
-        <h2>Stands</h2>
-        <Popup trigger={<button type="submit">Legg til en ny stand</button>} position='bottom center' contentStyle={{
-            background: "lightgray",
-            padding: "5px",
-        }}>
-            <div>
-                <form>
-                    <label>
-                        Tittel:
-                    </label>
-                    <input type="text" onChange={handleTitle}/>
-                    <label>
-                        Beskrivelse:
-                    </label>
-                    <input type="desciption"onChange={handleDescription}/>
-                    <label>
-                        Bilde:
-                    </label>
-                    <input type="text" onChange={handleImage}/>
-                    <label>
-                        URL:
-                    </label>
-                    <input type="text" onChange={handleUrl}/>
-                    <label>
-                        Ansvarlig: 
-                    </label>
-                    <input type="text" onChange={handleResponsible}/>
-                </form>
-                <AddStand id={0} title={title} description={desciption} image={image} url={url} eventID={numID} responsibleID={responsible}/>
-            </div>
-        </Popup>
-        {stands != null ? stands.map((stand,i) => {
-            return <div key={"stand-"+i} className="standItem box">
-                <div>
-                    <h4>{stand.title}</h4>
-                    <p>{stand.description}</p>
-                    <Link to={`/admin/stand/edit/${stand.id}`}>
-                        <button type="submit"className="delete-button">
-                            Endre
+    return (
+        <div className="standList">
+            <h2>Stands</h2>
+            <Popup trigger={ <button type="submit">Legg til en ny stand</button> }
+                   position="bottom center"
+                   contentStyle={ {
+                       background: "lightgray",
+                       borderRadius: "10px",
+                       padding: "10px",
+                   } }>
+                <>
+                    <form id={ "add-stand-form" }>
+                        <label>
+                            Tittel:
+                            <input type="text" onChange={ handleTitle } minLength={ 3 } required />
+                        </label>
+                        <label>
+                            Beskrivelse:
+                            <input type="desciption" onChange={ handleDescription } minLength={ 5 } required />
+                        </label>
+                        <label>
+                            Bilde:
+                            <input type="text" onChange={ handleImage } />
+                        </label>
+                        <label>
+                            URL:
+                            <input type="text" onChange={ handleUrl } />
+                        </label>
+                        <label>
+                            Ansvarlig:
+                            <input type="text" onChange={ handleResponsible } required />
+                        </label>
+                    </form>
+                    <AddStand id={ 0 } title={ title } description={ desciption } image={ image } url={ url }
+                              eventID={ eventID } responsibleID={ responsible } onSubmit={ getStands } />
+                </>
+            </Popup>
+            { stands !== null ? stands.map((stand) =>
+                <div key={ stand.id } className="standItem box">
+                    <div>
+                        <h4>{ stand.title }</h4>
+                        <p>{ stand.description }</p>
+                        <Link to={ `/admin/stand/edit/${ stand.id }` }>
+                            <button type="submit" className="delete-button">
+                                Endre
+                            </button>
+                        </Link>
+                        <button type="submit" className="delete-button" onClick={ () => deleteStand(stand.id) }>
+                            Slett
                         </button>
-                    </Link>
-                    <button type="submit" className="delete-button" onClick={() => deleteStand(stand.id)}>Slett</button> 
+                    </div>
                 </div>
-            </div>
-        }) : <div>Ingen stands</div>}
-    </div>
-}
+            ) : <div>Ingen stands</div> }
+        </div>
+    );
+};
 
 export default AdminStandList;
