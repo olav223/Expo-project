@@ -1,7 +1,13 @@
-.stands-button{
-    position: relative;
+button {
+    position: relative;    
+}
+
+.stands-button{    
     margin-left: 80%;
-    bottom: 25px;
+}
+
+.delete-button {
+    margin: auto 10px;
 }
 
 .wrapper{
