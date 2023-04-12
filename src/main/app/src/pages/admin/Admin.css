@@ -8,6 +8,7 @@ button {
 
 .delete-button {
     margin: auto 10px;
+    background: darkred !important;
 }
 
 .wrapper{
