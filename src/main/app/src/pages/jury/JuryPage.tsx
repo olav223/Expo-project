@@ -1,6 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import restApi from "../../utils/restApi";
-import { StandWithScore } from "../../model/Stand";
+import { ScoreModel } from "../../model/Stand";
 import { Link } from "react-router-dom";
 import "./JuryPage.css";
 import Dropdown from "../../components/Dropdown/Dropdown";
@@ -17,7 +17,7 @@ const JuryPage = () => {
     const params = new URLSearchParams(window.location.search);
     const eventId = params.has(eventQuery) ? params.get(eventQuery) ?? "1" : "1";
 
-    const [scores, setScores] = useState<StandWithScore[] | null>(null);
+    const [scores, setScores] = useState<ScoreModel[] | null>(null);
     const [event, setEvent] = useState<EventModel | null>(null);
 
     /**
@@ -25,7 +25,7 @@ const JuryPage = () => {
      * @param value The value of the selected option.
      */
     function handleSort(value: string): void {
-        let list: StandWithScore[] | undefined;
+        let list: ScoreModel[] | undefined;
         if (value === sortOptions[0]) {
             list = scores?.sort((a, b) => b.sumVotes - a.sumVotes);
         }

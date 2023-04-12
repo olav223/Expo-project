@@ -1,7 +1,7 @@
 package no.hvl.dat109.expoproject.controllers;
 
 import no.hvl.dat109.expoproject.database.VoteService;
-import no.hvl.dat109.expoproject.entities.StandWithVote;
+import no.hvl.dat109.expoproject.entities.Score;
 import no.hvl.dat109.expoproject.entities.Vote;
 import no.hvl.dat109.expoproject.entities.Voter;
 import no.hvl.dat109.expoproject.interfaces.controllers.IVoteController;
@@ -56,7 +56,7 @@ public class VoteController implements IVoteController {
      */
     @Override
     @GetMapping("/score")
-    public List<StandWithVote> getScoresInEvent(@RequestParam int eventID) {
+    public List<Score> getScoresInEvent(@RequestParam int eventID) {
         if (eventID <= 0) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "EventID must be greater than 0");
         }

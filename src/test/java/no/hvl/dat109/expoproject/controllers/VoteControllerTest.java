@@ -2,7 +2,7 @@ package no.hvl.dat109.expoproject.controllers;
 
 import no.hvl.dat109.expoproject.database.VoteService;
 import no.hvl.dat109.expoproject.entities.Event;
-import no.hvl.dat109.expoproject.entities.StandWithVote;
+import no.hvl.dat109.expoproject.entities.Score;
 import no.hvl.dat109.expoproject.entities.Vote;
 import no.hvl.dat109.expoproject.entities.Voter;
 import no.hvl.dat109.expoproject.primarykeys.VotePK;
@@ -108,12 +108,12 @@ class VoteControllerTest {
 
     @Test
     void getScoresInExistingEvent() {
-        List<StandWithVote> allStandWithVotes = List.of(
-                new StandWithVote(1, "Stand1", 5),
-                new StandWithVote(2, "Stand2", 3));
+        List<Score> allScores = List.of(
+                new Score(1, "Stand1", 5),
+                new Score(2, "Stand2", 3));
 
-        when(service.getAllScoresInEvent(1)).thenReturn(allStandWithVotes);
-        assertEquals(allStandWithVotes, controller.getScoresInEvent(1));
+        when(service.getAllScoresInEvent(1)).thenReturn(allScores);
+        assertEquals(allScores, controller.getScoresInEvent(1));
     }
 
     @Test

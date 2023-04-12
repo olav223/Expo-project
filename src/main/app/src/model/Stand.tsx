@@ -8,7 +8,7 @@ export interface StandModel {
     responsibleID : string;
 }
 
-export interface StandWithScore {
+export interface ScoreModel {
     id: number,
     title: string,
     sumVotes: number

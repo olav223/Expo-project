@@ -1,7 +1,7 @@
 package no.hvl.dat109.expoproject.database;
 
 import no.hvl.dat109.expoproject.entities.Event;
-import no.hvl.dat109.expoproject.entities.StandWithVote;
+import no.hvl.dat109.expoproject.entities.Score;
 import no.hvl.dat109.expoproject.entities.Vote;
 import no.hvl.dat109.expoproject.entities.Voter;
 import no.hvl.dat109.expoproject.interfaces.database.IVoteService;
@@ -24,15 +24,15 @@ public class VoteService implements IVoteService {
     private final VoteRepo voteRepo;
     private final VoterRepo voterRepo;
     private final EventRepo eventRepo;
-    private final StandWithVoteRepo standWithVoteRepo;
+    private final ScoreRepo scoreRepo;
 
     private static final int CODE_LENGTH = 6;
 
-    public VoteService(VoteRepo voteRepo, VoterRepo voterRepo, EventRepo eventRepo, StandWithVoteRepo standWithVoteRepo) {
+    public VoteService(VoteRepo voteRepo, VoterRepo voterRepo, EventRepo eventRepo, ScoreRepo scoreRepo) {
         this.voteRepo = voteRepo;
         this.voterRepo = voterRepo;
         this.eventRepo = eventRepo;
-        this.standWithVoteRepo = standWithVoteRepo;
+        this.scoreRepo = scoreRepo;
     }
 
 
@@ -43,8 +43,8 @@ public class VoteService implements IVoteService {
     }
 
     @Override
-    public List<StandWithVote> getAllScoresInEvent(int eventID) {
-        List<StandWithVote> allStandsWithVotes = standWithVoteRepo.findAllByEventId(eventID);
+    public List<Score> getAllScoresInEvent(int eventID) {
+        List<Score> allStandsWithVotes = scoreRepo.findAllByEventId(eventID);
         return allStandsWithVotes.stream()
                 .sorted((a1, a2) -> a2.getSumVotes() - a1.getSumVotes())
                 .collect(Collectors.toList());

@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Immutable
 @Table(name = "total_votes", schema = "expo")
-public class StandWithVote {
+public class Score {
 
     @Id
     private int id;
@@ -15,10 +15,10 @@ public class StandWithVote {
     @Column(name = "total_stars")
     private int sumVotes;
 
-    public StandWithVote() {
+    public Score() {
     }
 
-    public StandWithVote(int id, String title, int sumVotes) {
+    public Score(int id, String title, int sumVotes) {
         this.id = id;
         this.title = title;
         this.sumVotes = sumVotes;

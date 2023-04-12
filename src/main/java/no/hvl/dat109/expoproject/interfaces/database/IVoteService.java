@@ -21,7 +21,7 @@ public interface IVoteService {
      * @param eventID id til eventen
      * @return en liste med alle stander i eventen, og deres poengsum, ellers en tom liste hvis det er ingen stemmer
      */
-    List<StandWithVote> getAllScoresInEvent(int eventID);
+    List<Score> getAllScoresInEvent(int eventID);
 
     /**
      * get the number of stars from the vote, given by given voter to given stand
