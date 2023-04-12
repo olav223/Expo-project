@@ -1,0 +1,40 @@
+.admin-events-parent {
+    text-align: center;
+}
+
+.admin-events-parent .event-item .overlay {
+    background: black;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+}
+
+.admin-events-parent .event-item .content {
+    color: white;
+    text-align: center;
+    font-size: clamp(10px, 1vw, 14px);
+}
+
+.admin-events-parent .event-item .submit-btn {
+    text-decoration: none;
+    font-size: 13px;
+    padding: 10px 20px;
+    margin: 10px;
+}
+
+.admin-events-parent .event-item {
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    border-radius: 5px;
+    background: white;
+    cursor: pointer;
+    margin: 15px;
+}
+
+.admin-events-parent .event-item .image-layer {
+    height: 125px;
+    width: 100%;
+    background: black;
+    background-size: cover;
+}
