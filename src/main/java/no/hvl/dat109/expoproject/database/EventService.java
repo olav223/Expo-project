@@ -27,21 +27,21 @@ public class EventService implements IEventService {
     private UserService us;
 
     @Override
-    public Event addEvent(Event event) throws Exception {
+    public Event addEvent(Event event) {
         Event addedEvent = null;
         if(event == null){
             throw new NullPointerException("The event cannot be null");
         }
         else {
-                eventRepo.save(event);
-                addedEvent = event;
-        }
-        /*
-        else {
-                throw new RuntimeException("Event already exists");
+            if (eventRepo.findById(event.getId()) == null) {
+                try {
+                    eventRepo.save(event);
+                    addedEvent = event;
+                } catch (RuntimeException e) {
+                    throw new RuntimeException("Event already exists");
+                }
             }
-
-         */
+        }
         return addedEvent;
     }
 

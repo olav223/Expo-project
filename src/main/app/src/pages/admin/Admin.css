@@ -8,12 +8,11 @@ button {
 
 .delete-button {
     margin: auto 10px;
+    background: darkred !important;
 }
 
 .wrapper{
-    position: relative;
-    margin: auto 45%;
-    padding-top: 15px;
+    text-align: center;
 }
 
 .save-button {

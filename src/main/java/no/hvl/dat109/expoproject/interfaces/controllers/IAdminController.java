@@ -2,8 +2,6 @@ package no.hvl.dat109.expoproject.interfaces.controllers;
 
 import no.hvl.dat109.expoproject.entities.Event;
 import no.hvl.dat109.expoproject.entities.User;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 public interface IAdminController {
     User postAddUser(User user);
@@ -28,8 +26,9 @@ public interface IAdminController {
      * adds new event to database??
      *
      * @param event
+     * @return
      */
-    void postAddEvent(Event event);
+    Event postAddEvent(Event event);
 
     /**
      * deletes event with matching eventID

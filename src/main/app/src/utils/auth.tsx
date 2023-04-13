@@ -58,7 +58,7 @@ export default class Auth {
         cookies.remove("expo-user");
         window.sessionStorage.removeItem("expo-user");
         notification({text:"Logget ut", type: "success"});
-        window.location.href = "/";
+        window.location.href = process.env.PUBLIC_URL ?? "/";
     }
 
     async verifyVoter(id:string):Promise<boolean> {
