@@ -1,11 +1,11 @@
 import LoginAuth from "../components/LoginAuth/LoginAuth";
 import DevLogin from "../components/DevLogin";
 
-const LoginPage = () => {
-    return <div>
+const LoginPage = () => (
+    <>
         <LoginAuth />
-        <DevLogin />
-    </div>
-}
+        { process.env.NODE_ENV === "development" && <DevLogin /> }
+    </>
+);
 
 export default LoginPage;
