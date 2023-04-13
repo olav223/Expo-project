@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
-import {StandModel} from "../model/Stand";
-import restApi from "../utils/restApi";
-import {useNavigate} from "react-router-dom";
+import {StandModel} from "../../model/Stand";
+import restApi from "../../utils/restApi";
+import "./EditStand.css";
 
 interface EditStandProps {
     getStandUrl: string;
@@ -11,7 +11,6 @@ interface EditStandProps {
 
 const EditStand = (props: EditStandProps) => {
     const [stand, setStand] = useState<StandModel | null>(null)
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (!props.isAdd) getStand();
@@ -51,9 +50,7 @@ const EditStand = (props: EditStandProps) => {
                     "responsibleID": stand!.responsibleID
                 }
         });
-        if (result.status == 200) {
-            navigate("/Exhibitor")
-        }
+        if (result.status == 200) window.history.back()
     }
 
     const add = async() => {
@@ -63,30 +60,29 @@ const EditStand = (props: EditStandProps) => {
                     "title" : stand!.title,
                     "description" : stand!.description,
                     "image" : stand!.image,
-                    "url"   : stand!.url,
+                    "url"       : stand!.url,
                     "eventID" : stand!.eventID,
                     "responsibleID" : stand!.responsibleID === "" ? null : stand!.responsibleID
                 }
         })
-        if (result.status == 200) window.location.reload();
+        if (result.status == 200) window.history.back();
     }
 
-    return <>
-        <input type="text" style={{border: "1px solid black", padding: "5px"}} defaultValue={stand?.title} placeholder={"Enter stand name here:"} onChange={(e) => stand!.title = e.target.value}/>
-        <br/>
+    return <div className={"modify-stand-parent"}>
+        <label>Stand navn</label>
+        <input type="text" defaultValue={stand?.title} onChange={(e) => stand!.title = e.target.value}/>
+        <label>Stand beskrivelse</label>
         <textarea
             rows={5}
             cols={50}
-            style={{border: "1px solid black", padding: "5px", height: "200px", width: "600px"}}
-            placeholder="Enter your stand description here:"
+            style={{height: "300px"}}
             onChange={(e) => stand!.description = e.target.value}
             defaultValue={stand?.description}
         ></textarea>
-        <br/>
+        <label>Stand bilde</label>
         <input type="file" onChange={handleImageUpload}/>
-        <br/>
-        <button style={{marginBottom:"10px"}} type="submit" onClick={props.isAdd ? add : update} className="save-button">Save</button>
-    </>
+        <button style={{marginBottom:"100px"}} type="submit" onClick={props.isAdd ? add : update} className="save-button">Save</button>
+    </div>
 }
 
 export default EditStand;

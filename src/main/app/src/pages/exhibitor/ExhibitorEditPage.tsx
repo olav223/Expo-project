@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import Auth from "../../utils/auth";
-import EditStand from "../../components/EditStand";
+import EditStand from "../../components/EditStand/EditStand";
 const ExhibitorEditPage = () => {
     const auth = new Auth();
 

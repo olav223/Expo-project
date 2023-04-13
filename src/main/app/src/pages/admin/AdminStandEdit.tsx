@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import './Admin.css'
-import EditStand from "../../components/EditStand";
+import EditStand from "../../components/EditStand/EditStand";
 import Backbtn from "../../components/Backbtn/Backbtn";
 
 const AdminStandEdit = () => {
@@ -17,8 +17,8 @@ const AdminStandEdit = () => {
     }*/
 
     return <>
-        <Backbtn />
-        <div style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
+        <div style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", position: "relative"}}>
+            <Backbtn />
             <h2>{id==="-1" ? "Lag stand" : "Rediger stand"}</h2>
             <EditStand isAdd={id==="-1"} eventId={params.get("eventId")} getStandUrl={`/api/stand?id=${id}`} />
         </div>
