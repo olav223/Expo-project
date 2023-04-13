@@ -1,108 +1,31 @@
 import { useEffect, useState } from "react";
-import Popup from 'reactjs-popup';
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { StandModel } from "../../model/Stand";
 import restApi from "../../utils/restApi";
-import AddStand from "../../components/AddStandButton";
 import './Admin.css'
+import {StandList} from "../../components/StandList/StandList";
 
 const AdminStandList = () => {
-    
-    const [stands, setStands] = useState<StandModel [] | null>(null);
-    const [title, setTitle] = useState("");
-    const [desciption, setDesciption] = useState("")
-    const [image, setImage] = useState("")
-    const [url, setUrl] = useState("")
-    const [responsible, setResponsible] = useState("")
-
     const {id} = useParams();
 
-    const numID = parseInt(`${id}`)
-    
-    const handleTitle = (event : any) => {
-        setTitle(event.target.value)
-    } 
-
-    const handleDescription = (event : any) => {
-        setDesciption(event.target.value)
-    } 
-
-    const handleImage = (event : any) => {
-        setImage(event.target.value)
-    } 
-
-    const handleUrl = (event : any) => {
-        setUrl(event.target.value)
-    }
-    const handleResponsible = (event : any) => {
-        setResponsible(event.target.value)
-    } 
-
-    //FIXME
-    //Uansett hvilken id som vi gir, blir alle standene vist uavhengig av iden
-    const getStands = async() => {
-        const result = await restApi({url: `/api/stand/all?eventID=${id}`, method: "GET"});
-        if (result.status === 200) {
-            setStands(result.body)
-        }
-    }
-
     const deleteStand = async(id : any) => {
-        await restApi({url : `/api/stand`, method : 'DELETE', body : id
-    });
-        getStands()
+        const result = await restApi({url : `/api/stand`, method : 'DELETE', body : id});
+        if (result.status == 200) window.location.reload();
     }
-
-    useEffect(() => {
-        getStands();
-    }, []);
 
     return <div className="standList">
         <h2>Stands</h2>
-        <Popup trigger={<button type="submit">Legg til en ny stand</button>} position='bottom center' contentStyle={{
-            background: "lightgray",
-            padding: "5px",
-        }}>
-            <div>
-                <form>
-                    <label>
-                        Tittel:
-                    </label>
-                    <input type="text" onChange={handleTitle}/>
-                    <label>
-                        Beskrivelse:
-                    </label>
-                    <input type="desciption"onChange={handleDescription}/>
-                    <label>
-                        Bilde:
-                    </label>
-                    <input type="text" onChange={handleImage}/>
-                    <label>
-                        URL:
-                    </label>
-                    <input type="text" onChange={handleUrl}/>
-                    <label>
-                        Ansvarlig: 
-                    </label>
-                    <input type="text" onChange={handleResponsible}/>
-                </form>
-                <AddStand id={0} title={title} description={desciption} image={image} url={url} eventID={numID} responsibleID={responsible}/>
+        <Link to={`/admin/stand/edit/-1?eventId=${id}`}><button className={"submit-btn"}>Legg til en ny stand</button></Link>
+        <StandList eventId={id} diableHeader components={(stand) =>
+            <div style={{textAlign: "left"}}>
+                <Link to={`/admin/stand/edit/${stand.id}`}>
+                    <button type="submit">
+                        Endre
+                    </button>
+                </Link>
+                <button type="submit" className="delete-button" onClick={() => deleteStand(stand.id)}>Slett</button>
             </div>
-        </Popup>
-        {stands != null ? stands.map((stand,i) => {
-            return <div key={"stand-"+i} className="standItem box">
-                <div>
-                    <h4>{stand.title}</h4>
-                    <p>{stand.description}</p>
-                    <Link to={`/admin/stand/edit/${stand.id}`}>
-                        <button type="submit"className="delete-button">
-                            Endre
-                        </button>
-                    </Link>
-                    <button type="submit" className="delete-button" onClick={() => deleteStand(stand.id)}>Slett</button> 
-                </div>
-            </div>
-        }) : <div>Ingen stands</div>}
+        } />
     </div>
 }
 
