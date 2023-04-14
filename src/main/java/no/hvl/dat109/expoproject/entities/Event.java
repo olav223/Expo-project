@@ -1,12 +1,12 @@
 package no.hvl.dat109.expoproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * En event er en samling av utstillere som har en felles åpningstid.
@@ -26,10 +26,12 @@ public class Event {
      * Navnet på eventen.
      */
     private String name;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     /**
      * Tidspunktet eventen starter.
      */
     private LocalDateTime eventStart;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     /**
      * Tidspunktet eventen slutter.
      */
