@@ -1,0 +1,9 @@
+.modify-stand-parent {
+    text-align: center;
+}
+
+input,textarea {
+    width: inherit;
+    margin: 20px auto;
+    background: white;
+}

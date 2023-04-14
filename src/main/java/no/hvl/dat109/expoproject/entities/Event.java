@@ -1,5 +1,6 @@
 package no.hvl.dat109.expoproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -16,7 +17,9 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private LocalDateTime eventStart;
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private LocalDateTime eventEnd;
     private String image;
 
