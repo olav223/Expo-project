@@ -4,19 +4,36 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
+/**
+ * En utstiller er en person som står på en stand i en event.
+ */
 @Entity
 @Table(schema = "expo")
 public class Exhibitor {
 
+    /**
+     * Den unike id-en til en utstiller.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
+    /**
+     * Fornavnet til utstilleren.
+     */
     @Column(name = "firstname")
     private String firstName;
+    /**
+     * Etternavnet til utstilleren.
+     */
     @Column(name = "lastname")
     private String lastName;
+    /**
+     * Telefonnummeret til utstilleren.
+     */
     private String phone;
-
+    /**
+     * Standen som utstilleren står på.
+     */
     @ManyToOne
     @JoinColumn(name = "stand")
     @JsonIgnore
