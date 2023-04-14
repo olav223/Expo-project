@@ -2,14 +2,12 @@ import { useEffect, useState } from "react";
 import restApi from "../../utils/restApi";
 import { Link } from "react-router-dom";
 import "./AdminEvents.css";
-import Auth from "../../utils/auth";
 
 const AdminEvents = () => {
     const [events, setEvents] = useState<Array<EventModel>>([]);
-    const auth = new Auth();
 
     const getEvents = async () => {
-        const result = await restApi({ url: "/api/admin/events?username="+auth.getUser()?.username, method: "GET" });
+        const result = await restApi({ url: "/api/admin/events/all", method: "GET" });
         if (result.status === 200) {
             setEvents(result.body);
         }
