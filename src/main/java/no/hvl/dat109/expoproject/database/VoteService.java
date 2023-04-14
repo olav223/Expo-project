@@ -18,6 +18,9 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+/**
+ * Metoder for å lage stemmer, fjerne og hente ut stemmer fra databasen
+ */
 @Service
 public class VoteService implements IVoteService {
 

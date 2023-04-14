@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Metoder for å hente ut informasjon fra databasen, eller legge til
+ */
 @Service
 public class EventService implements IEventService {
 

@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Metoder for å hente ut informasjon om Brukere som er lagt til i events fra databasen, fjerne eller legge til.
+ */
 @Service
 public class UserEventService implements IUserEventService {
     @Autowired
@@ -41,7 +44,8 @@ public class UserEventService implements IUserEventService {
 
         if (userEvents.contains(userEvent)) {
             userEventRepo.delete(userEvent);
-        } else
+        }
+        else
             throw new NullPointerException("Cannot remove a user that does not exist");
     }
 }
