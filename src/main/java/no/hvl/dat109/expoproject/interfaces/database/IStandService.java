@@ -1,11 +1,8 @@
 package no.hvl.dat109.expoproject.interfaces.database;
 
-import no.hvl.dat109.expoproject.database.StandRepo;
 import no.hvl.dat109.expoproject.entities.Stand;
-import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.dao.DataAccessException;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface IStandService {
