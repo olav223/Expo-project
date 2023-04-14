@@ -17,6 +17,11 @@ CREATE TABLE access_level
     description VARCHAR(20) NOT NULL
 );
 
+INSERT INTO access_level
+VALUES (0, 'admin'),
+       (1, 'jury'),
+       (2, 'exhibitor');
+
 CREATE TABLE "user" -- user is a reserved word in postgres
 (
     username     VARCHAR(20) PRIMARY KEY,
