@@ -23,6 +23,6 @@ button {
 
 .qr {
     position: relative;
-    margin-top: 15px;
-    margin-left : 15px;
+    margin: auto;
+    max-width: 300px;
 }

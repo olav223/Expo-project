@@ -3,11 +3,6 @@ SET SEARCH_PATH TO expo;
 INSERT INTO event(name, event_start, event_end, image)
 VALUES ('Test Expo', now(), now() + INTERVAL '31 days', null);
 
-INSERT INTO access_level
-VALUES (0, 'admin'),
-       (1, 'jury'),
-       (2, 'exhibitor');
-
 INSERT INTO "user"
 VALUES ('admin', '123445678', 'admin@admin.com', 'admin', '', 0),
        ('jury', '123445678', 'jury@jury.com', 'jury', '', 1),
