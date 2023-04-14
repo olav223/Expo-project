@@ -29,12 +29,12 @@ CREATE TABLE "user" -- user is a reserved word in postgres
     email        VARCHAR(100),
     hash         VARCHAR(255) NOT NULL,
     salt         VARCHAR(255) NOT NULL,
-    access_level INTEGER      REFERENCES access_level (id) ON DELETE SET NULL ON UPDATE CASCADE
+    access_level INTEGER REFERENCES access_level (id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 CREATE TABLE user_event
 (
-    id_event INTEGER REFERENCES event (id) ON DELETE CASCADE            NOT NULL,
+    id_event INTEGER REFERENCES event (id) ON DELETE CASCADE                              NOT NULL,
     username VARCHAR(20) REFERENCES "user" (username) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
     PRIMARY KEY (id_event, username)
 );
@@ -74,12 +74,11 @@ CREATE TABLE exhibitor
     phone     VARCHAR(15) NOT NULL
 );
 
-CREATE VIEW expo.total_votes AS
+CREATE VIEW total_votes AS
 (
-SELECT s.id, s.title, SUM(stars) AS total_stars
-FROM expo.vote v,
-     expo.stand s
-WHERE v.id_stand = s.id
-GROUP BY s.id
-ORDER BY s.id
-    );
+    SELECT s.id, s.title, COALESCE(SUM(stars), 0) AS total_stars
+    FROM stand s
+             LEFT JOIN vote v ON s.id = v.id_stand
+    GROUP BY s.id
+    ORDER BY s.id
+);
