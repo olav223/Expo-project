@@ -2,8 +2,11 @@ package no.hvl.dat109.expoproject.database;
 
 import no.hvl.dat109.expoproject.entities.Stand;
 import no.hvl.dat109.expoproject.interfaces.database.IStandService;
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Service
@@ -17,18 +20,16 @@ public class StandService implements IStandService {
     }
 
     @Override
-    public Stand findStandByExhibitor(String exhibitor){
+    public Stand findStandByExhibitor(String exhibitor) {
         return standRepo.findByResponsibleID(exhibitor);
     }
 
     @Override
-    public void addStand(Stand stand) {
+    public void addStand(Stand stand) throws DataAccessException {
         if (standRepo.findById(stand.getId()) != null) {
-            throw new RuntimeException("Stand exist already");
+            throw new RuntimeException("Stand already exists");
         }
-        else {
-            standRepo.save(stand);
-        }
+        standRepo.save(stand);
     }
 
     @Override

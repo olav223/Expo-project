@@ -12,7 +12,7 @@ const ExhibitorEditPage = () => {
         </div>
         <h1 style={{textAlign: "center", width: "fit-content"}}>Rediger stand</h1>
         <br/>
-        <EditStand isAdd={false} getStandUrl={`/api/admin/exhibitor/stand?exhibitor=${auth.getUser()?.username}`} />
+        <EditStand isAdd={false} eventId={-1} getStandUrl={`/api/admin/exhibitor/stand?exhibitor=${auth.getUser()?.username}`} />
     </div>
 }
 export default ExhibitorEditPage;

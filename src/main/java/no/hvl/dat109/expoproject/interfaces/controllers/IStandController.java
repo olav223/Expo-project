@@ -19,7 +19,7 @@ public interface IStandController {
      * @param stand
      * @return true if stand is added
      */
-    Boolean postAddStand(Stand stand);
+    void postAddStand(Stand stand);
 
     /**
      * get stand with id
