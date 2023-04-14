@@ -24,7 +24,9 @@ const AdminEvents = () => {
 
     return <div className={ "admin-events-parent" }>
             <h2>Hendelser du administrerer</h2>
-            { events.length > 0 ? events.map((event) =>
+            <Link to={`/admin/events/edit/-1`}><button className={"submit-btn"}>Lag ny event</button></Link>
+            <br />
+            { events.map((event) =>
                 <div className={ "event-item box" } key={ event.id }>
                     <div className={ "image-layer" } style={ { backgroundImage: `url(${ event.image })` } }>
                         <div className={ "overlay" } />

@@ -114,6 +114,24 @@ public class AdminController implements IAdminController {
         return addedEvent;
     }
 
+    @PatchMapping("/event")
+    public boolean updateEvent(@RequestBody Event event) {
+        boolean isUpdated = false;
+
+        if (event == null) {
+            throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Event cannot be null");
+        }
+
+        try {
+            es.UpdateEvent(event);
+            isUpdated = true;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isUpdated;
+    }
+
     @Override
     @DeleteMapping("/event")
     public void deleteEvent(@RequestParam int eventID) {
