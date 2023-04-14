@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import restApi from "../../utils/restApi";
 import { Link } from "react-router-dom";
 import "./AdminEvents.css";
+import Auth from "../../utils/auth";
 
 const AdminEvents = () => {
     const [events, setEvents] = useState<Array<EventModel>>([]);
+    const auth = new Auth();
 
     const getEvents = async () => {
-        const result = await restApi({ url: "/api/admin/events/all", method: "GET" });
+        const result = await restApi({ url: "/api/admin/events?username="+auth.getUser()?.username, method: "GET" });
         if (result.status === 200) {
             setEvents(result.body);
         }
@@ -20,8 +22,7 @@ const AdminEvents = () => {
         getEvents();
     }, []);
 
-    return events.length > 0 ? (
-        <div className={ "admin-events-parent" }>
+    return <div className={ "admin-events-parent" }>
             <h2>Hendelser du administrerer</h2>
             <Link to={`/admin/events/edit/-1`}><button className={"submit-btn"}>Lag ny event</button></Link>
             <br />
@@ -40,9 +41,8 @@ const AdminEvents = () => {
                         </div>
                         <Link className={ "submit-btn" } to={ `jury?eventID=${ event.id }` }>Se vurderinger</Link>
                     </div>
-                </div>) }
+                </div>) : "Ingen events" }
         </div>
-    ) : null;
 };
 
 export default AdminEvents;
