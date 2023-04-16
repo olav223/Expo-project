@@ -1,5 +1,6 @@
 package no.hvl.dat109.expoproject.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -29,10 +30,12 @@ public class Event {
     /**
      * Tidspunktet eventen starter.
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private LocalDateTime eventStart;
     /**
      * Tidspunktet eventen slutter.
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private LocalDateTime eventEnd;
     /**
      * Bilde til eventen.
