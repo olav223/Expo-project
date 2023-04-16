@@ -9,24 +9,47 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * En event er en samling av utstillere som har en felles åpningstid.
+ * Voters kan stemme på flere stands i en event, hvor det kan kåres en vinner.
+ */
 @Entity
 @Table(schema = "expo")
 public class Event {
 
+    /**
+     * Den unike id-en til en event.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    /**
+     * Navnet på eventen.
+     */
     private String name;
+    /**
+     * Tidspunktet eventen starter.
+     */
     @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private LocalDateTime eventStart;
+    /**
+     * Tidspunktet eventen slutter.
+     */
     @JsonFormat(pattern="yyyy-MM-dd HH:mm")
     private LocalDateTime eventEnd;
+    /**
+     * Bilde til eventen.
+     */
     private String image;
-
+    /**
+     * En liste over alle brukere som er lagt til i denne eventen.
+     */
     @OneToMany(mappedBy = "event")
     @JsonIgnore
     private List<UserEvent> userEvent;
-
+    /**
+     * En liste over alle stemmere som har stemt på stands i denne eventen.
+     */
     @JsonIgnore
     @OneToMany(mappedBy = "event")
     private List<Voter> voters;

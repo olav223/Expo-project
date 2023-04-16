@@ -1,19 +1,24 @@
 package no.hvl.dat109.expoproject.interfaces.database;
 
-import no.hvl.dat109.expoproject.entities.Event;
-import no.hvl.dat109.expoproject.entities.User;
 import no.hvl.dat109.expoproject.entities.UserEvent;
+import org.springframework.dao.DataAccessException;
 
 public interface IUserEventService {
 
     /**
-     * @param userEvent the map between the user and the event that is added to the database
+     * Add an existing user to an existing event
+     *
+     * @param userEvent The map between the user and the event that is added to the database
+     * @throws DataAccessException If database error
      */
     void addUserToEvent(UserEvent userEvent);
 
 
     /**
-     * @param userEvent the map we are deleting
+     * Remove an existing user from an existing event
+     *
+     * @param userEvent The map we are deleting
+     * @throws DataAccessException If database error
      */
     void removeUserFromEvent(UserEvent userEvent);
 }

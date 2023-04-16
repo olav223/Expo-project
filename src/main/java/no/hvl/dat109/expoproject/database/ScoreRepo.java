@@ -8,14 +8,17 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Repository for å håndtere scores i databasen.
+ */
 @Repository
 interface ScoreRepo extends JpaRepository<Score, Stand> {
 
     /**
-     * finds all stands from a given event, and returns a list of containing the stands and their current vote count.
+     * Finds all stands from a given event, and returns a list of containing the stands and their current vote count.
      *
-     * @param eventId
-     * @return a list of all stands with votes
+     * @param eventId Id of the event
+     * @return A list of all stands with votes, or an empty list if no stands were found.
      */
     @Query("SELECT sv " +
             "FROM Score sv " +

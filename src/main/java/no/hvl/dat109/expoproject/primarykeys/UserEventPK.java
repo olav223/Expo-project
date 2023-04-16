@@ -4,10 +4,18 @@ import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Primænøkkel for UserEvent
+ */
 public class UserEventPK implements Serializable {
 
+    /**
+     * Brukernavnet til brukeren som har meldt seg på en event.
+     */
     private String user;
-
+    /**
+     * Id-en til eventen som brukeren har meldt seg på.
+     */
     private int event;
 
     public UserEventPK() {

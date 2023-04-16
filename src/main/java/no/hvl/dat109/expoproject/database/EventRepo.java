@@ -9,27 +9,32 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Repository for å håndtere eventer i databasen.
+ */
 @Repository
 interface EventRepo extends JpaRepository<Event, Integer> {
 
     /**
-     * @param id ID til eventen
-     * @return Eventen til id, eller null
+     * Henter ut en Event fra databasen med gitt primærnøkkel.
+     *
+     * @param id Id til eventen
+     * @return Eventen til id, eller null hvis ingen ble funnet.
      */
     Event findById(int id);
 
     /**
-     * deletes the event from the database with the given id (eventId)
+     * Deletes the event from the database with the given id (eventId)
      *
-     * @param id
-     * @return deleted event
+     * @param id Id til eventen
+     * @return Eventen som ble slettet, eller null hvis ingen ble funnet.
      */
     Event deleteById(int id);
 
     /**
-     * returns from the database, all events
+     * Henter alle eventer fra databasen, og sorterer dem etter starttid synkende.
      *
-     * @return a list of all events
+     * @return Alle eventer
      */
     @Query("select u from Event u order by u.eventStart desc")
     List<Event> findAll();

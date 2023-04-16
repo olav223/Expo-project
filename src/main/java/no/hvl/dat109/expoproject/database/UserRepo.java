@@ -7,27 +7,33 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Repository for å håndtere brukere i databasen.
+ */
 @Repository
-
 interface UserRepo extends JpaRepository<User, String> {
 
     /**
+     * Henter ut en bruker fra databasen etter brukernavn.
+     *
      * @param username Brukernavn til brukeren
-     * @return Brukeren til brukernavnet, eller null
+     * @return Brukeren til brukernavnet, eller null hvis ingen ble funnet.
      */
     User findByUsername(String username);
 
     /**
-     * @param accessLevel Tilgangsnivået til brukeren, 0 for admin, 1 for jury og 2 for utstiller
-     * @return Brukeren til tilgangsnivået, eller null
+     * Henter en liste over alle brukere som har en gitt tilgangsnivå.
+     *
+     * @param accessLevel Tilgangsnivået til brukerne, 0 for admin, 1 for jury og 2 for utstiller
+     * @return Brukerne til tilgangsnivået, eller en tom liste hvis ingen ble funnet.
      */
-    User findByAccessLevel(int accessLevel);
+    List<User> findByAccessLevel(int accessLevel);
 
     /**
      * Checks if user with given username exists
      *
-     * @param username
-     * @return true if user exists
+     * @param username The users username
+     * @return true if user exists, otherwise false
      */
     boolean existsByUsername(String username);
 }

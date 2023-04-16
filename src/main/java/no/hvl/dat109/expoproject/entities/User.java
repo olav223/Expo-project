@@ -8,17 +8,44 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
 
+/**
+ * En bruker kan være en 'admin', 'jury' eller 'exhibitor'.
+ * En bruker skal kunne logge inn, og få tilgang til det brukeren har rettigheter til.
+ * accessLevel definerer hvilke rettigheter brukeren har.
+ */
 @Entity
 @Table(schema = "expo")
 public class User {
 
+    /**
+     * Brukernavnet til brukeren.
+     */
     @Id
     private String username;
+    /**
+     * Telefonnummeret til brukeren.
+     */
     private String phone;
+    /**
+     * Eposten til brukeren.
+     */
     private String email;
+    /**
+     * Passordet til brukeren, hashet.
+     */
     private String hash;
+    /**
+     * Saltet som er brukt til å hashe passordet.
+     */
     private String salt;
+    /**
+     * Tilgangsnivået til brukeren.
+     * Kan være 0: admin, 1: jury, 2: exhibitor.
+     */
     private Integer accessLevel;
+    /**
+     * En liste over events som brukeren er knyttet til.
+     */
     @OneToMany(mappedBy = "user")
     @JsonIgnore
     private List<UserEvent> userEvents;

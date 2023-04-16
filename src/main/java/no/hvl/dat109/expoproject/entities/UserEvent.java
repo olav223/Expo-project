@@ -4,16 +4,24 @@ import no.hvl.dat109.expoproject.primarykeys.UserEventPK;
 
 import javax.persistence.*;
 
+/**
+ * En koblingstabell mellom bruker og event, som inneholder alle brukere som har meldt seg på en event.
+ */
 @Entity
 @Table(schema = "expo", name = "user_event")
 @IdClass(UserEventPK.class)
 public class UserEvent {
 
+    /**
+     * Brukeren som har meldt seg på en event.
+     */
     @Id
     @ManyToOne
     @JoinColumn(name = "username")
     private User user;
-
+    /**
+     * Eventen som brukeren har meldt seg på.
+     */
     @Id
     @ManyToOne
     @JoinColumn(name = "id_event")

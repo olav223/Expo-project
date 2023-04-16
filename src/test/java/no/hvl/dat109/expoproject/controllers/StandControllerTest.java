@@ -9,6 +9,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 
@@ -58,13 +60,19 @@ public class StandControllerTest {
     @Test
     void addStandWhenNotSuccessful() {
         doThrow(RuntimeException.class).when(ss).addStand(stand1);
-        sc.postAddStand(stand1);
+        try {
+            sc.postAddStand(stand1);
+            fail("Should throw exception");
+        }
+        catch (ResponseStatusException e) {
+            assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
+        }
     }
 
     @Test
     void updateStandSuccessful() {
         doNothing().when(ss).updateStand(stand1);
-        sc.postUpdateStand(stand1);
+        assertDoesNotThrow(() -> sc.postUpdateStand(stand1));
     }
 
     @Test
