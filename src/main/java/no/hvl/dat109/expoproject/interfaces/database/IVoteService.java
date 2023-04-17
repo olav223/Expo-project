@@ -8,60 +8,66 @@ import java.util.List;
 public interface IVoteService {
 
     /**
-     * gets all votes registered in event with matching eventID
+     * Gets all votes registered in event with matching eventID
      *
-     * @param eventID
-     * @return a list of all votes in event
+     * @param eventID The id of event
+     * @return A list of all votes in event
      */
     List<Vote> getAllVotesInEvent(int eventID);
 
     /**
-     * Henter ut poengsummen til hver stand i en event
+     * Gets all scores registered in event with matching eventID
      *
-     * @param eventID id til eventen
-     * @return en liste med alle stander i eventen, og deres poengsum, ellers en tom liste hvis det er ingen stemmer
+     * @param eventID The id of event
+     * @return A list of all scores in event
      */
     List<Score> getAllScoresInEvent(int eventID);
 
     /**
-     * get the number of stars from the vote, given by given voter to given stand
+     * Gets the number of stars from the vote, given by given voter to given stand
      *
-     * @param voterID
-     * @param standID
-     * @return number of stars in vote
+     * @param voterID The id of the voter
+     * @param standID The id of the stand
+     * @return The number of stars the voter has given to the stand (0-5)
      */
     int getVote(int standID, String voterID);
 
     /**
-     * register vote in database
+     * Register vote in database
      *
      * @param vote Stemmen som skal registreres
+     * @throws NullPointerException     If vote is null
+     * @throws IllegalArgumentException If vote.stars is less than 0 or greater than 5
+     * @throws PersistenceException     If database error
      */
     void registerVote(Vote vote);
 
     /**
+     * Checks if a voter with matching voterID exists
      *
-     * @param voterID
-     * @return true if voter with matching voterID exists
+     * @param voterID The id of the voter
+     * @return true if voter with matching voterID exists, otherwise false
      */
     boolean voterExists(String voterID);
 
     /**
      * Lagrer en voterID i databasen
      *
-     * @param code    Koden til stemmegiveren
-     * @param eventID Eventen stemmegiveren skal stemme på
+     * @param code    Id til stemmegiveren
+     * @param eventID Eventen stemmegiveren tilhører
      * @return Voter-objektet som ble lagret, ellers null
+     * @throws NullPointerException Hvis code er null
      * @throws PersistenceException Hvis databasen feiler
      */
     Voter saveVoter(String code, int eventID);
 
     /**
-     * generate a number of codes to the event with macthing eventID
+     * Generate a number of codes to the event with macthing eventID
      *
      * @param nrOfCodes
      * @param eventID
      */
+    @Deprecated
     List<String> generateVoteCodes(int nrOfCodes, int eventID);
 
 }
