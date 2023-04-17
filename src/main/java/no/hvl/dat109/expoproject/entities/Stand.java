@@ -3,19 +3,44 @@ package no.hvl.dat109.expoproject.entities;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * En stand har info om et prosjekt, hvor 1 eller flere utsillere(exhibitor) står.
+ * En stand er knyttet til en event.
+ */
 @Entity
 @Table(schema = "expo")
 public class Stand {
 
+    /**
+     * Den unike id-en til en stand.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    /**
+     * Tittelen til prosjektet.
+     */
     private String title;
+    /**
+     * Beskrivelsen av prosjektet.
+     */
     private String description;
+    /**
+     * Bilde til prosjektet.
+     */
     private String image;
+    /**
+     * URL til prosjektet.
+     */
     private String url;
+    /**
+     * Id til eventen som standen er knyttet til.
+     */
     @Column(name = "event")
     private int eventID;
+    /**
+     * Id til brukeren som er ansvarlig for standen.
+     */
     @Column(name = "responsible")
     private String responsibleID;
 

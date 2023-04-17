@@ -11,32 +11,35 @@ public interface IEventService {
     Event getEvent(int id);
 
     /**
-     * adds event to database from event object
+     * Adds event to database from event object
      *
-     * @param event
-     * @return added event, null if the event already exists or event object is null
+     * @param event The event to be added to the database
+     * @return Added event, null if the event already exists or event object is null
+     * @throws NullPointerException if event is null
+     * @throws RuntimeException     if event already exists or database error
      */
-    Event addEvent(Event event) throws Exception;
+    Event addEvent(Event event);
 
     /**
      * update event from an updated event object
      *
      * @param event
      */
+    @Deprecated
     void UpdateEvent(Event event);
 
     /**
-     * removes an event with matching eventID from database
+     * Removes an event with matching eventID from database
      *
-     * @param eventID
-     * @return removed event
+     * @param eventID The id of the event to be removed
+     * @return The removed event, null if event was not found
      */
     Event removeEvent(int eventID);
 
     /**
-     * checks if an event is open
+     * Checks if an event is open
      *
-     * @param eventID
+     * @param eventID The id of the event to be checked
      * @return true if event is open, false if closed
      */
     boolean isOpen(int eventID);
@@ -44,38 +47,38 @@ public interface IEventService {
     /**
      * finds and return an event with a given id
      *
-     * @param id
-     * @return event with the given id
+     * @param id The id of the event to be found
+     * @return The event with the given id, or null if not found
      */
     Event findEventById(int id);
 
     /**
-     * finds and returns all users in the event with the corresponding eventId
+     * Finds and returns all users in the event with the corresponding eventId
      *
-     * @param eventID
-     * @return a list of users in a given event
+     * @param eventID The id of the event
+     * @return A list of users in a given event, or an empty list if no users are found
      */
     List<User> getAllUsersInEvent(int eventID);
 
     /**
      * Returns a list with all the events associated with the user
      *
-     * @param username of the user we want to find
-     * @return A list of events
+     * @param username The username of the user we want to find
+     * @return A list of events, or an empty list if no events are found
      */
     List<Event> getEventsForUsername(String username);
 
     /**
-     * finds and returns all events in the database
+     * Finds and returns all events in the database
      *
-     * @return list of all events
+     * @return List of all events, or an empty list if no events are found
      */
     List<Event> findAll();
 
     /**
-     * finds and returns the event, from all events with the earliest starting time
+     * Finds and returns the event, from all events with the earliest starting time
      *
-     * @return Earliest event
+     * @return Newest event, or null if no events are found
      */
     Event findNewest();
 }

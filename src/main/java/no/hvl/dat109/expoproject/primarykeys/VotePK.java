@@ -4,11 +4,19 @@ import javax.persistence.Embeddable;
 import java.io.Serializable;
 import java.util.Objects;
 
+/**
+ * Primænøkkel for Vote.
+ */
 @Embeddable
 public class VotePK implements Serializable {
 
+    /**
+     * Id til stemmer som gir stemmen
+     */
     private String id_voter;
-
+    /**
+     * Id til standen som stemmen blir gitt til.
+     */
     private int id_stand;
 
     public VotePK() {

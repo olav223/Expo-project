@@ -7,14 +7,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * Metoder for å legge til, fjerne eller hente ut informasjon om Brukere fra databasen
+ */
 @Service
 public class UserService implements IUserService {
     @Autowired
     private UserRepo userRepo;
-    @Autowired
-    private EventRepo eventRepo;
-    @Autowired
-    private UserEventRepo userEventRepo;
 
     @Override
     public void addUser(User user) {

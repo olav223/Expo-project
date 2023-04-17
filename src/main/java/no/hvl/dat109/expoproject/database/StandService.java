@@ -9,14 +9,15 @@ import org.springframework.stereotype.Service;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Inneholder metoder for å legge til, fjerne og hente ut info om stands fra databasen
+ */
 @Service
 public class StandService implements IStandService {
     private final StandRepo standRepo;
-    private final EventRepo eventRepo;
 
-    public StandService(StandRepo standRepo, EventRepo eventRepo) {
+    public StandService(StandRepo standRepo) {
         this.standRepo = standRepo;
-        this.eventRepo = eventRepo;
     }
 
     @Override

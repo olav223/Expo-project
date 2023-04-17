@@ -3,13 +3,21 @@ package no.hvl.dat109.expoproject.entities;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * En stemmer som kan stemme på stands.
+ */
 @Entity
 @Table(schema = "expo")
 public class Voter {
 
+    /**
+     * En unik id for stemmeren
+     */
     @Id
     private String id;
-
+    /**
+     * Eventen som stemmeren hører til.
+     */
     @ManyToOne
     @JoinColumn(name = "id_event")
     private Event event;

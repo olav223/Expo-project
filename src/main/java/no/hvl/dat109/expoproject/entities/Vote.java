@@ -7,14 +7,22 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Objects;
 
+/**
+ * En stemme som er gitt til en stand.
+ */
 @Entity
 @Table(schema = "expo")
-//@IdClass(VotePK.class)
 public class Vote {
 
+    /**
+     * Id til stemmer og stand.
+     */
     @EmbeddedId
     private VotePK votePK;
-
+    /**
+     * Antall stjerner som er gitt til standen.
+     * Kan være i intervallet [0,5]
+     */
     private int stars;
 
     public Vote(VotePK votePK, int stars) {

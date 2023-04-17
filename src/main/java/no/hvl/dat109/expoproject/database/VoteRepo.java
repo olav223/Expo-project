@@ -8,6 +8,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * Repository for å håndtere stemmer i databasen.
+ */
 @Repository
 interface VoteRepo extends JpaRepository<Vote, VotePK> {
 

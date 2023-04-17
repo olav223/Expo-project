@@ -4,14 +4,26 @@ import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 
+/**
+ * En score inneholder den totale summen av stemmer en stand har fått.
+ */
 @Entity
 @Immutable
 @Table(name = "total_votes", schema = "expo")
 public class Score {
 
+    /**
+     * Den unike id-en til en stand.
+     */
     @Id
     private int id;
+    /**
+     * Navnet på standen.
+     */
     private String title;
+    /**
+     * Den totale summen av stemmer en stand har fått.
+     */
     @Column(name = "total_stars")
     private int sumVotes;
 
