@@ -1,20 +1,28 @@
-Standard Use
+**Standard Use**
 1) På forsiden velger bruker hvilken EXPO som er aktuell. 
 2) Velg Stand.
 3) Velg antall stjerner og trykk Stem.
-4) Trykk tilbake eller lukk Brwoser vindu.
+4) Trykk tilbake eller lukk Browser vindu.
 
-For Exhibitors
-Dersom det ikke er tilegnet en Stand til vedkommende Exhibitor, kontakt admin. Dette gjenkjennes ved feilmelding.
-
-Trykk Exhibitor edit page. 
+**Exhibitors**
+Logg inn med brukernavn og passord.
+Trykk Exhibitor (meny valg øverst på siden ved siden av "Logg Inn") 
+Trykk Rediger.
 Fyll inn tittel, ønsket informasjon til de som skal lese og et bilde for å vise frem standen.
 
-
-For Jury
-
+Ved feilmelding / ikke tildelt Stand til Exhibitor: kontakt admin.
 
 
-For Admin
+**Jury**
+Logg inn med Brukernavn og Passord
+
+For å se resultat: Trykk "Jury" øverst på siden.
 
 
+**Admin**
+
+Logg inn
+Lage ny EXPO; Trykk Lag ny event
+Redigere eksisterende EXPO: Trykk "Rediger" på ønsket EXPO
+Se stands som allerede er i systemet: "Se Stands" på aktuell EXPO
+Se stemmegiving til stands: "Se Vurderinger" på aktuell EXPO
