@@ -34,6 +34,9 @@ const AdminEvents = () => {
 
     return <div className={ "admin-events-parent" }>
             <h2>Hendelser du administrerer</h2>
+            <div className={"box"} style={{background: "white", padding: "1px 35px", width: "fit-content", borderRadius: "5px",cursor:"pointer"}}>
+                <h3>Create user</h3>
+            </div>
             <Link to={`/admin/events/edit/-1`}><button className={"submit-btn"}>Lag ny event</button></Link>
             <br />
             { events.length > 0 ? events.map((event) =>

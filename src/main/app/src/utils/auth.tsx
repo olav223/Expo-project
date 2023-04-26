@@ -41,13 +41,13 @@ export default class Auth {
     storeUser(user:UserModel):void {
         const expireDay = new Date();
         expireDay.setDate(expireDay.getDate() + 7);
-        window.sessionStorage.setItem("expo-user",JSON.stringify(user));
+        window.localStorage.setItem("expo-user",JSON.stringify(user));
         cookies.set('expo-user', user.username, { path: '/', expires: expireDay });
     }
 
     getUser():UserModel | null {
         const userCookie = cookies.get("expo-user");
-        const user:string = window.sessionStorage.getItem("expo-user") ?? "";
+        const user:string = window.localStorage.getItem("expo-user") ?? "";
         if (userCookie && user) {
             return JSON.parse(user);
         }
@@ -56,7 +56,7 @@ export default class Auth {
 
     signOut():void {
         cookies.remove("expo-user");
-        window.sessionStorage.removeItem("expo-user");
+        window.localStorage .removeItem("expo-user");
         notification({text:"Logget ut", type: "success"});
         window.location.href = process.env.PUBLIC_URL ?? "/";
     }
