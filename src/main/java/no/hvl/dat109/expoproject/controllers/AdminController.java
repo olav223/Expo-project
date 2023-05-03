@@ -137,4 +137,13 @@ public class AdminController implements IAdminController {
     public void deleteEvent(@RequestParam int eventID) {
         es.removeEvent(eventID);
     }
+
+    @Override
+    @GetMapping("/event/isopen")
+    public boolean isEventOpen(@RequestParam int eventID) {
+        if (eventID <= 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "EventID must be greater than 0");
+        }
+        return es.isOpen(eventID);
+    }
 }

@@ -105,4 +105,29 @@ public class AdminControllerTest {
         assertNotNull(returned);
         assertEquals(event1, returned);
     }
+
+    @Test
+    void isOpenLegalTrue() {
+        doReturn(true).when(es).isOpen(event1.getId());
+        boolean actual = ac.isEventOpen(event1.getId());
+        assertTrue(actual);
+    }
+
+    @Test
+    void isOpenLegalFalse() {
+        doReturn(false).when(es).isOpen(event1.getId());
+        boolean actual = ac.isEventOpen(event1.getId());
+        assertFalse(actual);
+    }
+
+    @Test
+    void isOpenIllegal() {
+        try {
+            ac.isEventOpen(-1);
+            fail();
+        }
+        catch (ResponseStatusException e) {
+            assertEquals(HttpStatus.BAD_REQUEST, e.getStatus());
+        }
+    }
 }

@@ -1,10 +1,12 @@
 package no.hvl.dat109.expoproject.controllers;
 
+import no.hvl.dat109.expoproject.database.EventService;
+import no.hvl.dat109.expoproject.database.StandService;
 import no.hvl.dat109.expoproject.database.VoteService;
-import no.hvl.dat109.expoproject.entities.Score;
-import no.hvl.dat109.expoproject.entities.Vote;
-import no.hvl.dat109.expoproject.entities.Voter;
+import no.hvl.dat109.expoproject.entities.*;
 import no.hvl.dat109.expoproject.interfaces.controllers.IVoteController;
+import no.hvl.dat109.expoproject.interfaces.database.IEventService;
+import no.hvl.dat109.expoproject.interfaces.database.IStandService;
 import no.hvl.dat109.expoproject.interfaces.database.IVoteService;
 import no.hvl.dat109.expoproject.utils.VoteUtils;
 import org.springframework.http.HttpStatus;
@@ -20,9 +22,13 @@ import java.util.List;
 public class VoteController implements IVoteController {
 
     private final IVoteService vs;
+    private final IEventService es;
+    private final IStandService ss;
 
-    public VoteController(VoteService vs) {
+    public VoteController(VoteService vs, EventService es, StandService ss) {
         this.vs = vs;
+        this.es = es;
+        this.ss = ss;
     }
 
     /**
@@ -33,18 +39,25 @@ public class VoteController implements IVoteController {
      */
     @Override
     @PostMapping
-    public boolean postVote(@RequestBody final Vote vote) {
+    public void postVote(@RequestBody final Vote vote) {
         if (vote.getVotePK() == null) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "VotePK cannot be null");
         }
         try {
-            vs.registerVote(vote);
-            return true;
+            Stand stand = ss.getStand(vote.getVotePK().getId_stand());
+            if (stand == null) {
+                throw new IllegalArgumentException("Stand does not exist");
+            }
 
+            if (es.isOpen(stand.getEventID())) {
+                vs.registerVote(vote);
+                return;
+            }
         }
         catch (IllegalArgumentException | NullPointerException | PersistenceException e) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage());
         }
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event is not open");
     }
 
     /**
