@@ -27,6 +27,7 @@ const EditStand = (props: EditEventProps) => {
         const result = await restApi({
             url: `/api/admin/event`, method: "PATCH", body:
                 {
+                    "id": event!.id,
                     "name": event!.name,
                     "eventStart": event!.eventStart.replace("T"," "),
                     "image": event!.image,
