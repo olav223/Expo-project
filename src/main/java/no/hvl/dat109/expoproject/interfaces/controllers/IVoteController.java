@@ -11,9 +11,8 @@ public interface IVoteController {
      * post the given vote
      *
      * @param vote Stemmen som skal gis
-     * @return true if post of vote is OK
      */
-    boolean postVote(Vote vote);
+    void postVote(Vote vote);
 
     /**
      * Get the scores for all stands in the given event

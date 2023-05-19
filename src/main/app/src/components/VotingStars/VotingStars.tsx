@@ -7,7 +7,8 @@ import notification from "../../utils/notification";
 const confetti = require('canvas-confetti');
 
 const VotingStars = () => {
-    const [rating, setRating] = useState(0)
+    const [rating, setRating] = useState(0);
+    const [isOpen, setIsOpen] = useState(false);
     const auth = new Auth();
 
     const url = window.location.href.split("?")[1];
@@ -79,11 +80,25 @@ const VotingStars = () => {
         }
     }
 
+    async function isEventOpen() {
+        const result = await restApi({url: `/api/admin/event/isopen?eventID=${params.get("event")}`, method: "GET"});
+        if (result.status === 200) {
+            setIsOpen(result.body);
+        }
+        return result.body;
+    }
+
     useEffect(() => {
-        if (urlRequired) getSavedVote();
+        async function getDate() {
+            if (urlRequired) {
+                const _isOpen = await isEventOpen();
+                if (_isOpen) await getSavedVote();
+            }
+        }
+        getDate();
     }, [])
 
-    if (urlRequired) {
+    if (urlRequired && isOpen) {
         return <div>
             <canvas id="partical-canvas"></canvas>
             <Rating size={35} initialValue={rating} onClick={handleRating} />

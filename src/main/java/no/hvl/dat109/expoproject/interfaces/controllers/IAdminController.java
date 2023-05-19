@@ -2,6 +2,8 @@ package no.hvl.dat109.expoproject.interfaces.controllers;
 
 import no.hvl.dat109.expoproject.entities.Event;
 import no.hvl.dat109.expoproject.entities.User;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public interface IAdminController {
     User postAddUser(User user);
@@ -43,4 +45,6 @@ public interface IAdminController {
      * @param nrOfCodes
      */
     void generateVoteCodes(int nrOfCodes, int eventID);
+
+    boolean isEventOpen(int eventID);
 }
