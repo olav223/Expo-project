@@ -24,6 +24,7 @@ input, textarea {
     font-size: 15px;
     background-color: #f1f1f1;
     border: 2px solid #dcdcdc;
+    min-width: 500px;
     display: block;
     border-radius: 5px;
     margin: 15px
@@ -51,4 +52,10 @@ button[type="submit"]:hover,.submit-btn:hover {
 button[disabled] {
     background-color: #969696;
     pointer-events: none;
+}
+
+@media screen and (max-width: 800px) {
+    input, textarea {
+        min-width: 80vw;
+    }
 }
