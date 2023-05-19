@@ -18,13 +18,15 @@ const AdminEvents = () => {
     };
 
     const deleteEvent = async (id:number) => {
-        const result = await restApi({ url: "/api/admin/event?eventID="+id, method: "DELETE" });
-        if (result.status === 200) {
-            Notification({type: "success", text: "Event slettet"});
-            getEvents()
-        }
-        else {
-            Notification({type: "error", text: "Sletting feilet!"});
+        if (window.confirm("Er du sikker på at du vil slette?")) {
+            const result = await restApi({ url: "/api/admin/event?eventID="+id, method: "DELETE" });
+            if (result.status === 200) {
+                Notification({type: "success", text: "Event slettet"});
+                getEvents()
+            }
+            else {
+                Notification({type: "error", text: "Sletting feilet!"});
+            }
         }
     }
 

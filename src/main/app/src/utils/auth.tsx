@@ -56,7 +56,7 @@ export default class Auth {
 
     signOut():void {
         cookies.remove("expo-user");
-        window.localStorage .removeItem("expo-user");
+        window.localStorage.removeItem("expo-user");
         notification({text:"Logget ut", type: "success"});
         window.location.href = process.env.PUBLIC_URL ?? "/";
     }
