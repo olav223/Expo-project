@@ -35,7 +35,7 @@ const ExhibitorPage = () => {
     };
 
     function QRCode() {
-        const url = "https://api.qrserver.com/v1/create-qr-code/?data=http://ider-database.westeurope.cloudapp.azure.com:8080/Prosjekt-Expo-0.0.1-SNAPSHOT/stand?id=";
+        const url = "https://api.qrserver.com/v1/create-qr-code/?data="+ process.env.REACT_APP_PROXY_HOST + "/stand?id=";
         return (
             <div className="qr">
                 <img src={ url + stand?.id } alt="QrCode" />

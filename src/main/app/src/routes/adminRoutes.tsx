@@ -6,6 +6,7 @@ import AdminStandEdit from "../pages/admin/AdminStandEdit";
 import AdminStandList from "../pages/admin/AdminStandList";
 import React from "react";
 import JuryPage from "../pages/jury/JuryPage";
+import QrCodePage from "../pages/admin/QrCodePage";
 
 const adminRoutes = <Routes>
     <Route index element={ <AdminPage /> } />
@@ -14,6 +15,7 @@ const adminRoutes = <Routes>
     <Route path="/stand/edit/:id" element={ <AdminStandEdit /> } />
     <Route path="/events/:id/stands" element={ <AdminStandList /> } />
     <Route path={ "/jury" } element={ <JuryPage /> } />
+    <Route path={"/qr/:eventId"} element={<QrCodePage />} />
 </Routes>;
 
 export default adminRoutes;

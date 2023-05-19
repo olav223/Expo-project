@@ -7,12 +7,12 @@ const DevLogin = () => {
     const auth = new Auth();
 
     const Options = () => {
-        return <>
+        return <div>
             <h3>Velg logg inn type</h3>
-            <button type={"submit"} onClick={() => login(0)}>Admin</button>
-            <button type={"submit"} onClick={() => login(1)}>Jury</button>
-            <button type={"submit"} onClick={() => login(2)}>Exhibitor</button>
-        </>
+            <button type={"submit"} onClick={() => login(0)} >Admin</button>
+            <button type={"submit"} onClick={() => login(1)} style={{marginLeft:"10px"}}>Jury</button>
+            <button type={"submit"} onClick={() => login(2)} style={{marginLeft:"10px"}}>Exhibitor</button>
+            </div>
     }
 
     const login = (accessLvl:number) => {
@@ -22,10 +22,10 @@ const DevLogin = () => {
         auth.redirect(data);
     }
 
-    return <>
+    return <div style={{marginLeft:"10px"}}>
         {vis && (<Options />)}
         <button onClick={() => setVis(!vis)}>{vis ? "Lukk" : "DEV Login"}</button>
-    </>
+    </div>
 }
 
 export default DevLogin;
