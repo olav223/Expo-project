@@ -35,9 +35,9 @@ const AdminStandList = () => {
             <Link to={ `/admin/stand/edit/-1?eventId=${ id }` }>
                 <button className={ "submit-btn" }>Legg til en ny stand</button>
             </Link>
-            <Link to={`/admin/qr/${ id }`}>
-            <button className={"submit-btn"}>Alle QR-Koder</button>
-            </Link>
+            {/*<Link to={`/admin/qr/${ id }`}>*/}
+            {/*<button className={"submit-btn"}>Alle QR-Koder</button>*/}
+            {/*</Link>*/}
             <ReactToPrint content={() => qrCodesRef.current}
                           trigger={() =>
                               <button className={"submit-btn"}>Skriv ut alle QR-koder</button>
