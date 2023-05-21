@@ -19,7 +19,7 @@ const QRCode  = ({ standId }: {standId?: number | string }) => {
 };
 
 export const OneQrCode = forwardRef(
-    (props: { standId?: number}, ref: React.ForwardedRef<HTMLDivElement>) => {
+    (props: { standId?: number, id:string}) => {
         const [stand, setStand] = useState<StandModel>();
 
         useEffect(() => {
@@ -41,8 +41,8 @@ export const OneQrCode = forwardRef(
         if (!props.standId) return null;
 
         return (
-            <div ref={ref} className={"a4-div"}>
-                <h2>{stand?.title}</h2>
+            <div id={props.id} className={"a4-div"}>
+                <h1 style={{textAlign:"center"}}>{stand?.title}</h1>
                 <QRCode standId={stand?.id}/>
             </div>
         )
@@ -75,7 +75,7 @@ export const AllQrCodes = forwardRef(
         <div ref={ref}>
             {stands?.map(stand => (
                 <div className={"a4-div"}  key={stand.id}>
-                    <h2 style={{textAlign: "center"}}>{stand.title}</h2>
+                    <h1 style={{textAlign: "center"}}>{stand.title}</h1>
                     <QRCode standId={ stand.id} />
                 </div>
             ))}

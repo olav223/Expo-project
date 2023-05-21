@@ -15,7 +15,6 @@ import {AllQrCodes, OneQrCode} from "../exhibitor/QrCode";
 const AdminStandList = () => {
     const { id } = useParams();
     const qrCodesRef = useRef(null);
-    const qrCodeRef = useRef(null);
 
     const deleteStand = async (id: number) => {
         const result = await restApi({ url: `/api/stand`, method: "DELETE", body: id });
@@ -35,9 +34,6 @@ const AdminStandList = () => {
             <Link to={ `/admin/stand/edit/-1?eventId=${ id }` }>
                 <button className={ "submit-btn" }>Legg til en ny stand</button>
             </Link>
-            {/*<Link to={`/admin/qr/${ id }`}>*/}
-            {/*<button className={"submit-btn"}>Alle QR-Koder</button>*/}
-            {/*</Link>*/}
             <ReactToPrint content={() => qrCodesRef.current}
                           trigger={() =>
                               <button className={"submit-btn"}>Skriv ut alle QR-koder</button>
@@ -59,10 +55,10 @@ const AdminStandList = () => {
                             Skriv ut QR-Kode
                         </button>
                     )}
-                    content={() => qrCodeRef.current}
+                    content={() => window.document.getElementById("qr-code-"+stand.id)}
                 />
                 <div style={{display:"none"}}>
-                    <OneQrCode ref={qrCodeRef} standId={stand.id} /> {/* Pass the ref to the QRCode component */}
+                    <OneQrCode id={"qr-code-"+stand.id} standId={stand.id} /> {/* Pass the ref to the QRCode component */}
                 </div>
                 <button type="submit" className="delete-button" onClick={ () => deleteStand(stand.id) }>Slett</button>
             </div>
