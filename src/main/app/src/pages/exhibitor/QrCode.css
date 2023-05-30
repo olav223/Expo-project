@@ -1,0 +1,9 @@
+.a4-div {
+    width: 21cm;
+    height: 29.7cm;
+    background-color: white;
+    border:none;
+    margin: 0 auto;
+    padding: 2cm;
+    box-sizing: border-box;
+}
