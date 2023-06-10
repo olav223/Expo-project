@@ -1,9 +1,11 @@
 spring:
+    config:
+        import:
+            env.properties
     datasource:
         hikari:
             connection-timeout: '200000'
-            maximum-pool-size: '5'
             max-lifetime: '1800000'
-        password: SteinIsTheKey
-        username: h594760
-        url: jdbc:postgresql://ider-database.westeurope.cloudapp.azure.com:5432/h594760
+        password: ${DB_PASSWORD}
+        username: ${DB_USER}
+        url: jdbc:postgresql://${DB_URL}
