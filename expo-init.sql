@@ -7,7 +7,7 @@ CREATE TABLE event
     id          SERIAL PRIMARY KEY,
     name        VARCHAR(255) NOT NULL,
     event_start TIMESTAMP    NOT NULL,
-    image       VARCHAR(255),
+    image       TEXT,
     event_end   TIMESTAMP    NOT NULL
 );
 
@@ -43,7 +43,7 @@ CREATE TABLE stand
 (
     id          SERIAL PRIMARY KEY,
     title       VARCHAR(255)                                    NOT NULL,
-    description TEXT                                            NOT NULL,
+    description TEXT,
     image       VARCHAR(255), -- Link to image
     url         VARCHAR(255), -- Link to website
     event       INTEGER REFERENCES event (id) ON DELETE CASCADE NOT NULL,
@@ -76,9 +76,9 @@ CREATE TABLE exhibitor
 
 CREATE VIEW total_votes AS
 (
-    SELECT s.id, s.title, COALESCE(SUM(stars), 0) AS total_stars
-    FROM stand s
-             LEFT JOIN vote v ON s.id = v.id_stand
-    GROUP BY s.id
-    ORDER BY s.id
-);
+SELECT s.id, s.title, COALESCE(SUM(stars), 0) AS total_stars
+FROM stand s
+         LEFT JOIN vote v ON s.id = v.id_stand
+GROUP BY s.id
+ORDER BY s.id
+    );
