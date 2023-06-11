@@ -17,7 +17,7 @@ const EditStand = (props: EditStandProps) => {
 
     useEffect(() => {
         if (!props.isAdd) getStand();
-        setStand({...stand, eventID: props.eventId})
+        setStand({ ...stand, eventID: props.eventId });
     }, []);
 
     const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
@@ -107,8 +107,7 @@ const EditStand = (props: EditStandProps) => {
                     cols={ 50 }
                     style={ { height: "300px" } }
                     onChange={ (e) => setStand({ ...stand, description: e.target.value }) }
-                    defaultValue={ stand.description }
-                    required />
+                    defaultValue={ stand.description } />
             </label>
             <label>Stand bilde
                 <input type="file" onChange={ handleImageUpload } />
