@@ -44,6 +44,6 @@ interface StandRepo extends JpaRepository<Stand, Integer> {
      * @param eventID The id of the event
      * @return A list af all stands from a given event, or an empty list if no stands were found.
      */
-    @Query("select s from Stand s where s.eventID= ?1")
+    @Query("select s from Stand s where s.eventID= ?1 order by s.title")
     List<Stand> findAllByEvent(Integer eventID);
 }
