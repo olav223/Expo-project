@@ -4,6 +4,7 @@ import VotingStars from "../components/VotingStars/VotingStars";
 import { StandModel } from "../model/Stand";
 import "./StandPage.css";
 import Backbtn from "../components/Backbtn/Backbtn";
+import logo from "./exhibitor/logoer.jpg";
 
 const StandPage = () => {
     const [stand, setStand] = useState<StandModel | null>(null);
@@ -28,7 +29,7 @@ const StandPage = () => {
             <h2>{stand?.title}</h2>
             <VotingStars />
             <p>{stand?.description}</p>
-            <img src={stand?.image} />
+            <img src={logo} alt={"logo"} style={{width:"80%"}} />
         </div>
         :
         <div>Mangler stand id i url</div>
