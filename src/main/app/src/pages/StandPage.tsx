@@ -1,5 +1,5 @@
 import restApi from "../utils/restApi";
-import {useEffect, useState} from "react";
+import {useLayoutEffect, useState} from "react";
 import VotingStars from "../components/VotingStars/VotingStars";
 import { StandModel } from "../model/Stand";
 import "./StandPage.css";
@@ -12,14 +12,23 @@ const StandPage = () => {
     const params = new URLSearchParams(url);
 
     const getStandInfo = async() => {
+
         const result = await restApi({url: "/api/stand?id="+params.get("id"), method: "GET"});
         if (result.status === 200) {
+
             const stand:StandModel = result.body as StandModel;
-            setStand(stand);
+            //TODO StandPage
+            if(params.get('event') != stand?.eventID.toString()){
+                //const url = (`/stand?id=${params.get("id")}&event=${stand?.eventID.toString()}`);
+                params.append("event", stand?.eventID.toString())
+                //document.location.href = url;
+            }else {
+                setStand(stand);
+            }
         }
     }
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         getStandInfo();
     }, []);
 

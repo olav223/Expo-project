@@ -14,6 +14,7 @@ const VotingStars = () => {
     const url = window.location.href.split("?")[1];
     const params = new URLSearchParams(url);
 
+    params.append("event", "1"); //TODO VotingStar
     const urlRequired:boolean = params.has("id") && params.has("event");
 
     const handleRating = (rate: number) => {
