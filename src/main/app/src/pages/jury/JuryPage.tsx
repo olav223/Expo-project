@@ -1,9 +1,10 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, {Dispatch, SetStateAction, useEffect, useRef, useState} from "react";
 import restApi from "../../utils/restApi";
 import { ScoreModel } from "../../model/Stand";
 import { Link } from "react-router-dom";
 import "./JuryPage.css";
 import Dropdown from "../../components/Dropdown/Dropdown";
+import ReactToPrint from "react-to-print";
 
 const eventQuery = "eventID";
 const sortOptions = ["Resultat", "Alfabetisk"];
@@ -19,6 +20,8 @@ const JuryPage = () => {
 
     const [scores, setScores] = useState<ScoreModel[] | null>(null);
     const [event, setEvent] = useState<EventModel | null>(null);
+    const ref = useRef(null);
+    let place = 1;
 
     /**
      * Handles sorting of the list of stands.
@@ -55,7 +58,14 @@ const JuryPage = () => {
 
     return (
         <div className={ "jury-page-parent" }>
-            <h2>Resultat for { event?.name ?? "event" }</h2>
+            <div className={"table-container"}>
+                <ReactToPrint content={() => ref.current}
+                              trigger={() =>
+                                  <button className={"submit-btn"}>Print resultat</button> }
+                />
+            </div>
+            <div ref={ref}>
+            <h2 className={"title"}>Resultat for { event?.name ?? "event" }</h2>
             {
                 scores === null ?
                     <p>Laster inn...</p>
@@ -67,7 +77,7 @@ const JuryPage = () => {
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Id</th>
+                                    <th>Plassering</th>
                                     <th>Navn</th>
                                     <th>Resultat</th>
                                 </tr>
@@ -75,18 +85,21 @@ const JuryPage = () => {
                             <tbody>{
                                 scores.map(score => (
                                     <tr key={ score.id }>
-                                        <td>{ score.id }</td>
+                                        <td>{ place }</td>
                                         <td><Link to={ `/stand?id=${ score.id }` } title={ "Les mer" }>
                                             { score.title }
                                         </Link></td>
                                         <td>{ score.sumVotes }</td>
+                                        <td style={{display: "none"}}>{place +=1}</td>
                                     </tr>
                                 )) }
                             </tbody>
                         </table>
                     </div>
             }
+            </div>
         </div>
+
     );
 };
 
