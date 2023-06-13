@@ -22,9 +22,8 @@ const StandPage = () => {
                 //const url = (`/stand?id=${params.get("id")}&event=${stand?.eventID.toString()}`);
                 params.append("event", stand?.eventID.toString())
                 //document.location.href = url;
-            }else {
-                setStand(stand);
             }
+            setStand(stand);
         }
     }
 
