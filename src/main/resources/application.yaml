@@ -4,6 +4,6 @@ spring:
             connection-timeout: '200000'
             maximum-pool-size: '5'
             max-lifetime: '1800000'
-        password: SteinIsTheKey
-        username: h594760
-        url: jdbc:postgresql://ider-database.westeurope.cloudapp.azure.com:5432/h594760
+        password: <Password> # the password should not be commited 
+        username: <Username>
+        url: <DatabaseUrl>
