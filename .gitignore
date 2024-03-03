@@ -35,3 +35,5 @@ build/
 
 .attach*
 /src/main/resources/static/
+
+/src/main/resources/env.properties

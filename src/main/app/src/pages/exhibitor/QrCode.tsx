@@ -3,6 +3,7 @@ import type {StandModel} from "../../model/Stand";
 import restApi from "../../utils/restApi";
 import notification from "../../utils/notification";
 import "./QrCode.css";
+import logo from './logoer.jpg';
 
 
 const QRCode  = ({ standId }: {standId?: number | string }) => {
@@ -42,8 +43,10 @@ export const OneQrCode = forwardRef(
 
         return (
             <div id={props.id} className={"a4-div"}>
+                <h2 style={{textAlign: "center"}}>Skann meg og stem på</h2>
                 <h1 style={{textAlign:"center"}}>{stand?.title}</h1>
                 <QRCode standId={stand?.id}/>
+                <img src={logo} alt={logo} style={{width: "100%"}}/>
             </div>
         )
     }
@@ -75,8 +78,11 @@ export const AllQrCodes = forwardRef(
         <div ref={ref}>
             {stands?.map(stand => (
                 <div className={"a4-div"}  key={stand.id}>
+                    <h2 style={{textAlign: "center"}}>Skann meg og stem på</h2>
                     <h1 style={{textAlign: "center"}}>{stand.title}</h1>
+                    <br />
                     <QRCode standId={ stand.id} />
+                    <img src={logo} alt={logo} style={{width: "100%"}}/>
                 </div>
             ))}
         </div>

@@ -14,6 +14,7 @@ const VotingStars = () => {
     const url = window.location.href.split("?")[1];
     const params = new URLSearchParams(url);
 
+    params.append("event", "1"); //TODO VotingStar
     const urlRequired:boolean = params.has("id") && params.has("event");
 
     const handleRating = (rate: number) => {
@@ -100,12 +101,15 @@ const VotingStars = () => {
 
     if (urlRequired && isOpen) {
         return <div>
+            <p>Velg antall stjerner og stem. Siste steme som teller</p>
             <canvas id="partical-canvas"></canvas>
             <Rating size={35} initialValue={rating} onClick={handleRating} />
             <button className={"submit-vote"} onClick={vote}>Stem</button>
         </div>
     } else {
-        return null;
+        return <div>
+            <h3>Stemming er stengt</h3>
+        </div>;
     }
 }
 

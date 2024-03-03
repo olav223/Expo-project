@@ -37,7 +37,9 @@ export const StandList = (props:StandListProps) => {
             return <div key={"stand-"+i} className="standItem box">
                 <div>
                     <h4 style={{marginTop: 0}}>{item["title"]}</h4>
-                    <p>{shortenText(item["description"], 275)}</p>
+                    { item["description"] &&
+                        <p>{shortenText(item.description, 275)}</p>
+                    }
                 </div>
                 {props.components ? props.components(item) : <Link to={"/stand?id="+item["id"]+"&event="+item["eventID"]}>
                     <button type={"submit"} style={{fontSize: "12px",padding: "12px 25px",float:"left"}}>INFO</button>

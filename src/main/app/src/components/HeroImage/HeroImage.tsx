@@ -16,7 +16,7 @@ const HeroImage = () => {
         getEvent();
     }, []);
 
-    return <div className={"heroimage-parent"} style={{backgroundImage: `url(${event?.image})`}}>
+    return <div className={"heroimage-parent"} style={{backgroundImage: `url(${event?.image})`, backgroundPosition: "bottom"}}>
         <div className={"overlay"}></div>
         <div className={"content center"}>
             <h1>{event?.name}</h1>

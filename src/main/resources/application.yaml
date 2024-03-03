@@ -1,9 +1,11 @@
 spring:
+    config:
+        import:
+            env.properties
     datasource:
         hikari:
             connection-timeout: '200000'
-            maximum-pool-size: '5'
             max-lifetime: '1800000'
-        password: <Password> # the password should not be commited 
-        username: <Username>
-        url: <DatabaseUrl>
+        password: ${DB_PASSWORD}
+        username: ${DB_USER}
+        url: jdbc:postgresql://${DB_URL}

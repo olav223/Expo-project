@@ -2,6 +2,8 @@ import "./Navbar.css"
 import {Link} from "react-router-dom";
 import {useEffect, useState} from "react";
 import Auth from "../../utils/auth";
+import {Bars3Icon} from "@heroicons/react/20/solid";
+import {XMarkIcon} from "@heroicons/react/24/solid";
 const Navbar = () => {
     const [user,setUser] = useState<UserModel | null>(null);
     const [isopen,setIsopen] = useState(true);
@@ -37,7 +39,7 @@ const Navbar = () => {
 
     return <nav className={"box"}>
         <Link to={"/"}><img alt="logo" src="https://www.hvl.no/globalassets/hvl-internett/it/logo/hvl_logo.png" /></Link>
-        {ismobile && (<img style={{maxHeight: "20px"}} onClick={() => toggleMenu(!isopen)} src={isopen ? "/assets/close-menu.png" : "/assets/menu.png"} />)}
+        {ismobile && (<div style={{ margin: "auto 0", height: "fit-content" }} onClick={() => toggleMenu(!isopen)}>{isopen ? <XMarkIcon style={{ height: "38px" }} /> : <Bars3Icon style={{ height: "38px" }} />}</div>)}
         <ul id={"menu-dropdown"} onClick={() => ismobile ? toggleMenu(false) : null} className={"ui-menu"}>
             <Link to={"/"}><li>Hjem</li></Link>
             <Link to={"/stands"}><li>Stand</li></Link>
