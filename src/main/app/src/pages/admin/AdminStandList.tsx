@@ -3,7 +3,7 @@ import restApi from "../../utils/restApi";
 import "./Admin.css";
 import { StandList } from "../../components/StandList/StandList";
 import notification from "../../utils/notification";
-import React, {createRef, useRef, useState} from "react";
+import React, {useRef} from "react";
 import ReactToPrint from "react-to-print";
 import {AllQrCodes, OneQrCode} from "../exhibitor/QrCode";
 
@@ -14,7 +14,8 @@ import {AllQrCodes, OneQrCode} from "../exhibitor/QrCode";
  */
 const AdminStandList = () => {
     const { id } = useParams();
-    const qrCodesRef = useRef(null);
+    const qrCodesRefA4 = useRef(null);
+    const qrCodesRefSmall = useRef(null)
 
     const deleteStand = async (id: number) => {
         const result = await restApi({ url: `/api/stand`, method: "DELETE", body: id });
@@ -34,13 +35,20 @@ const AdminStandList = () => {
             <Link to={ `/admin/stand/edit/-1?eventId=${ id }` }>
                 <button className={ "submit-btn" }>Legg til en ny stand</button>
             </Link>
-            <ReactToPrint content={() => qrCodesRef.current}
+            <ReactToPrint content={() => qrCodesRefA4.current}
                           trigger={() =>
-                              <button className={"submit-btn"}>Skriv ut alle QR-koder</button>
+                              <button className={"submit-btn"}>Skriv ut alle QR-koder A4</button>
+            } />
+            <ReactToPrint content={() => qrCodesRefSmall.current}
+                          trigger = {() =>
+                            <button className={"submit-btn"}>Skriv ut alle QR-koder klisterlappe</button>
             } />
         </div>
         <div style={{display: "none"}}>
-            <AllQrCodes ref={qrCodesRef} eventId={id}/>
+            <AllQrCodes ref={qrCodesRefA4} eventId={id}/>
+        </div>
+        <div style={{display: "none"}}>
+            <AllQrCodes ref={qrCodesRefSmall} eventId={id} small={true}/>
         </div>
         <StandList eventId={ id } diableHeader components={ (stand) =>
             <div style={ { textAlign: "left" } }>
@@ -52,13 +60,22 @@ const AdminStandList = () => {
                 <ReactToPrint
                     trigger={() => (
                         <button style={{marginLeft:"10px"}} type={"submit"} >
-                            Skriv ut QR-Kode
+                            Skriv ut QR-Kode A4
                         </button>
                     )}
                     content={() => window.document.getElementById("qr-code-"+stand.id)}
                 />
+                <ReactToPrint
+                    trigger={() => (
+                        <button style={{marginLeft: "10px"}} type={"submit"}>Skriv ut QR-kode klisterlappe</button>
+                    )}
+                    content={() => window.document.getElementById("qr-code-small-"+stand.id)}
+                />
                 <div style={{display:"none"}}>
                     <OneQrCode id={"qr-code-"+stand.id} standId={stand.id} /> {/* Pass the ref to the QRCode component */}
+                </div>
+                <div style={{display:"none"}}>
+                    <OneQrCode id={"qr-code-small-"+stand.id} standId={stand.id} type={"small"} />
                 </div>
                 <button type="submit" className="delete-button" onClick={ () => deleteStand(stand.id) }>Slett</button>
             </div>
