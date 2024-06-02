@@ -72,10 +72,10 @@ const AdminStandList = () => {
                     content={() => window.document.getElementById("qr-code-small-"+stand.id)}
                 />
                 <div style={{display:"none"}}>
-                    <OneQrCode id={"qr-code-"+stand.id} standId={stand.id} /> {/* Pass the ref to the QRCode component */}
+                    <OneQrCode id={"qr-code-"+stand.id} stand={stand} standId={stand.id} /> {/* Pass the ref to the QRCode component */}
                 </div>
                 <div style={{display:"none"}}>
-                    <OneQrCode id={"qr-code-small-"+stand.id} standId={stand.id} type={"small"} />
+                    <OneQrCode id={"qr-code-small-"+stand.id} stand={stand} standId={stand.id} type={"small"} />
                 </div>
                 <button type="submit" className="delete-button" onClick={ () => deleteStand(stand.id) }>Slett</button>
             </div>

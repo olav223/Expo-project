@@ -21,39 +21,19 @@ const QRCode  = ({ standId }: {standId?: number | string }) => {
 };
 
 export const OneQrCode = forwardRef(
-    (props: { standId?: number, id:string, type?: string}) => {
-        const [stand, setStand] = useState<StandModel>();
-
-        useEffect(() => {
-            async function getStand() {
-                const response =
-                    await restApi({url: "/api/stand?id=" + props.standId, method: "GET"});
-                if (response.status === 200 && response.body) {
-                    const stand = response.body;
-                    setStand(stand);
-                } else {
-                    console.error(response)
-                    notification({type: "error", text: "Kunne ikke hente stand"})
-                }
-            }
-
-            void getStand();
-        }, [props.standId]);
-
-        if (!props.standId) return null;
-
+    (props: { id: string, standId?: number, stand:StandModel, type?: string}) => {
         return (
             <div>
                 {props.type === 'small'? (
                     <div id={props.id} className={"small-div"}>
-                        <h2 style={{textAlign: "center"}}>{stand?.title? getCharactersUptoColon(stand.title) : ''}</h2>
-                        <QRCode standId={stand?.id}/>
+                        <h2 style={{textAlign: "center"}}>{props.stand.title ? getCharactersUptoColon(props.stand.title) : ''}</h2>
+                        <QRCode standId={props.stand.id}/>
                     </div>
                     ) : (
                     <div id={props.id} className={"a4-div"}>
                         <h2 style={{textAlign: "center"}}>Skann meg og stem på</h2>
-                        <h1 style={{textAlign:"center"}}>{stand?.title}</h1>
-                        <QRCode standId={stand?.id}/>
+                        <h1 style={{textAlign:"center"}}>{props.stand.title}</h1>
+                        <QRCode standId={props.stand.id}/>
                         <img src={logo} alt={logo} style={{width: "100%"}}/>
                     </div>
                 )}

@@ -81,12 +81,12 @@ public class VoteService implements IVoteService {
     }
 
     @Override
-    public Voter saveVoter(final String code, int eventID) {
+    public Voter saveVoter(final String code, int eventID, String ip, String fingerprint) {
         if (code == null) {
             throw new NullPointerException("Code cannot be null");
         }
         try {
-            return voterRepo.save(new Voter(code, eventRepo.findById(eventID)));
+            return voterRepo.save(new Voter(code, eventRepo.findById(eventID), ip, fingerprint));
         }
         catch (Exception e) {
             throw new PersistenceException("Could not save voter: " + e.getMessage());

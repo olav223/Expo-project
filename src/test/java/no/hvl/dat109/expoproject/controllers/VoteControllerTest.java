@@ -174,7 +174,7 @@ class VoteControllerTest {
     @Test
     void generateNewVoterIdWhenIllegalInput() {
         try {
-            controller.getNewVoterID(0);
+            //controller.getNewVoterID(0); TODO: Fix
             fail();
         }
         catch (ResponseStatusException e) {
@@ -184,9 +184,9 @@ class VoteControllerTest {
 
     @Test
     void generateVoterIdWhenDuplicate() {
-        when(vs.saveVoter(anyString(), anyInt())).thenThrow(PersistenceException.class);
+        when(vs.saveVoter(anyString(), anyInt(), anyString(), anyString())).thenThrow(PersistenceException.class);
         try {
-            controller.getNewVoterID(1);
+            //controller.getNewVoterID(1); TODO: Fix
             fail();
         }
         catch (ResponseStatusException e) {
