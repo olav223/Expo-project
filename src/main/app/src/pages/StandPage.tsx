@@ -6,7 +6,7 @@ import "./StandPage.css";
 import Backbtn from "../components/Backbtn/Backbtn";
 import logo from "./exhibitor/logoer.jpg";
 
-const StandPage = () => {
+const StandPage = (props: {id: string}) => {
     const [stand, setStand] = useState<StandModel | null>(null);
     const url = window.location.href.split("?")[1];
     const params = new URLSearchParams(url);
@@ -35,7 +35,7 @@ const StandPage = () => {
         <div className={"stand-info-parent box"}>
             <Backbtn />
             <h2>{stand?.title}</h2>
-            <VotingStars />
+            <VotingStars id={props.id} />
             <p>{stand?.description}</p>
             <img src={logo} alt={"logo"} style={{width:"80%"}} />
         </div>

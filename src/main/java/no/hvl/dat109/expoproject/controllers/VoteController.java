@@ -125,6 +125,11 @@ public class VoteController implements IVoteController {
             ipAddress = ipAddress.split(",")[0];
         }
 
+        Voter voterByFinger = vs.findByFingerprint(fingerprint);
+        if (voterByFinger != null) {
+            return voterByFinger.getId();
+        }
+
         try {
             Voter voter = vs.saveVoter(code, 1, ipAddress, fingerprint);
             if (voter != null) {

@@ -6,8 +6,8 @@ const cookies = new Cookies();
 
 export default class Auth {
 
-    async createVoter(eventId:string):Promise<boolean> {
-        const result = await restApi({url:"/api/vote/newvoter?eventID="+eventId,method:"GET"});
+    async createVoter(eventId:string, visitorId: string):Promise<boolean> {
+        const result = await restApi({url:"/api/vote/newvoter?eventID="+eventId+"&fingerprint="+visitorId,method:"GET"});
         if (result.status === 200 && result.body) {
             const voterID: string = result.body;
             this.storeUser({username: voterID })

@@ -55,7 +55,7 @@ CREATE TABLE voter
 (
     id       CHAR(32) PRIMARY KEY,
     ip       VARCHAR(255) not null,
-    fingerprint VARCHAR(255) not null,
+    fingerprint VARCHAR(255) unique not null,
     id_event INTEGER REFERENCES event (id) ON DELETE CASCADE NOT NULL
 );
 

@@ -5,11 +5,12 @@ import App from "./App";
 import {FpjsProvider} from "@fingerprintjs/fingerprintjs-pro-react";
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+
 root.render(
   <React.StrictMode>
       <FpjsProvider
           loadOptions={{
-           apiKey: process.env.FPJS_PUBLIC_API_KEY?? "",
+           apiKey: process.env.REACT_APP_PUBLIC_API_KEY ?? "",
            region: "eu"
           }}
           >

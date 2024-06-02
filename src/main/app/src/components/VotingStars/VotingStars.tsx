@@ -6,7 +6,7 @@ import "./VotingStars.css";
 import notification from "../../utils/notification";
 const confetti = require('canvas-confetti');
 
-const VotingStars = () => {
+const VotingStars = (props: {id: string}) => {
     const [rating, setRating] = useState(0);
     const [isOpen, setIsOpen] = useState(false);
     const auth = new Auth();
@@ -51,7 +51,7 @@ const VotingStars = () => {
     const getSavedVote = async() => {
         const user = auth.getUser();
         if (user === null) {
-            await auth.createVoter(params.get("event")??"");
+            await auth.createVoter(params.get("event")??"", props.id);
         } else {
             const result = await restApi({url: "/api/vote?standID="+params.get("id")+"&voterID="+auth.getUser()!.username, method: "GET"});
             if (result.status === 200) {

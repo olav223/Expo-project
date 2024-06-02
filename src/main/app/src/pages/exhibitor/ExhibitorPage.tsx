@@ -11,7 +11,7 @@ import notification from "../../utils/notification";
  * Inneholder en knapp for å redigere standen sin.
  * @constructor
  */
-const ExhibitorPage = () => {
+const ExhibitorPage = (props: {id: string}) => {
     const [stand, setExhibitor] = useState<StandModel | null>(null);
     const auth = new Auth();
 
@@ -51,7 +51,7 @@ const ExhibitorPage = () => {
             <h1 style={ { textAlign: "center" } }>Stand forhåndsvisning</h1>
             <div className={ "stand-info-parent box" }>
                 <h2>{ stand?.title }</h2>
-                <VotingStars />
+                <VotingStars id={props.id} />
                 <p>{ stand?.description }</p>
                 <img src={ stand?.image } alt={ "Bilde for stand" } />
                 <QRCode />

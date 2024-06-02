@@ -50,6 +50,8 @@ public interface IVoteService {
      */
     boolean voterExists(String voterID);
 
+    Voter findByFingerprint(String fingerprint);
+
     /**
      * Lagrer en voterID i databasen
      *

@@ -53,6 +53,10 @@ public class VoteService implements IVoteService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public Voter findByFingerprint(String fingerprint) {
+        return this.voterRepo.findByFingerprint(fingerprint);
+    }
 
     @Override
     public int getVote(int standID, String voterID) {
