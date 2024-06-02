@@ -37,3 +37,4 @@ build/
 /src/main/resources/static/
 
 /src/main/resources/env.properties
+/scr/main/app/env.local
