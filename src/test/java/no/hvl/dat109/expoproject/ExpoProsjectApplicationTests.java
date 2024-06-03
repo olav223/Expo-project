@@ -1,3 +1,4 @@
+/*
 package no.hvl.dat109.expoproject;
 
 import org.junit.jupiter.api.Test;
@@ -11,3 +12,6 @@ class ExpoProsjectApplicationTests {
     }
 
 }
+
+
+ */

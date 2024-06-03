@@ -56,7 +56,7 @@
     </dependencies>
 
     <build>
-        <finalName>Expo2023</finalName>
+        <finalName>Expo2024</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
