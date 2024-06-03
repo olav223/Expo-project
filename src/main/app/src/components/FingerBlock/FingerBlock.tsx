@@ -10,7 +10,7 @@ const FingerBlock = () => {
         </ul>
         <p><strong>Neste steg:</strong></p>
         <ul>
-            <li>Deaktiver din reklameblokkering og oppdater siden.</li>
+            <li>Deaktiver din Adblocker og oppdater siden.</li>
             <li>Bytt til en støttet nettleser og prøv igjen.</li>
             <li>Hvis du trenger hjelp, kom til stand <strong>D2 eller D3.</strong></li>
         </ul>
