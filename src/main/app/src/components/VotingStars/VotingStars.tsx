@@ -18,7 +18,8 @@ const VotingStars = (props: {id: string}) => {
     const urlRequired:boolean = params.has("id") && params.has("event");
 
     const handleRating = (rate: number) => {
-        setRating(rate)
+        setRating(rate);
+        vote(rate);
     }
 
     const particles = () => {
@@ -55,12 +56,12 @@ const VotingStars = (props: {id: string}) => {
         } else {
             const result = await restApi({url: "/api/vote?standID="+params.get("id")+"&voterID="+auth.getUser()!.username, method: "GET"});
             if (result.status === 200) {
-                handleRating(result.body);
+                setRating(result.body);
             }
         }
     }
 
-    const vote = async() => {
+    const vote = async(rating: number) => {
         const user = auth.getUser();
 
         if (user !== null) {
@@ -101,10 +102,10 @@ const VotingStars = (props: {id: string}) => {
 
     if (urlRequired && isOpen) {
         return <div>
-            <p>Velg antall stjerner og stem. Siste steme som teller</p>
+            <p>Velg antall stjerner for å stemme. Siste steme som teller</p>
             <canvas id="partical-canvas"></canvas>
             <Rating size={35} initialValue={rating} onClick={handleRating} />
-            <button className={"submit-vote"} onClick={vote}>Stem</button>
+            {/*<button className={"submit-vote"} onClick={vote}>Stem</button>*/}
         </div>
     } else {
         return <div>
