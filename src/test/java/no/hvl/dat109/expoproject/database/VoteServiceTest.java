@@ -162,19 +162,19 @@ public class VoteServiceTest {
 
     @Test
     void saveVoterNullInput() {
-        assertThrows(NullPointerException.class, () -> service.saveVoter(null, 1));
+        assertThrows(NullPointerException.class, () -> service.saveVoter(null, 1, "", ""));
     }
 
     @Test
     void saveVoterExists() {
         doThrow(PersistenceException.class).when(voterRepo).save(any());
-        assertThrows(PersistenceException.class, () -> service.saveVoter(voter1AtExpo1.getId(), voter1AtExpo1.getEvent().getId()));
+        assertThrows(PersistenceException.class, () -> service.saveVoter(voter1AtExpo1.getId(), voter1AtExpo1.getEvent().getId(), "", ""));
     }
 
     @Test
     void saveLegalVoter() {
         doReturn(voter1AtExpo1).when(voterRepo).save(any());
-        assertEquals(voter1AtExpo1, service.saveVoter(voter1AtExpo1.getId(), voter1AtExpo1.getEvent().getId()));
+        assertEquals(voter1AtExpo1, service.saveVoter(voter1AtExpo1.getId(), voter1AtExpo1.getEvent().getId(), "", ""));
     }
 
 }

@@ -3,8 +3,8 @@ import React from "react";
 import ExhibitorPage from "../pages/exhibitor/ExhibitorPage";
 import ExhibitorEditPage from "../pages/exhibitor/ExhibitorEditPage";
 
-const exhibitorRoutes = <Routes>
-    <Route index element={ <ExhibitorPage /> } />
+const exhibitorRoutes = (id: string) => <Routes>
+    <Route index element={ <ExhibitorPage id={id} /> } />
     <Route path="/edit" element={ <ExhibitorEditPage /> } />
 </Routes>;
 

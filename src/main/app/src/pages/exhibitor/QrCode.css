@@ -7,3 +7,13 @@
     padding: 2cm;
     box-sizing: border-box;
 }
+
+.small-div {
+    width: 10cm;
+    height: 10cm;
+    background-color: white;
+    border:none;
+    margin: 0 auto;
+    padding: 2cm;
+    box-sizing: border-box;
+}

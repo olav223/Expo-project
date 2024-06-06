@@ -1,0 +1,21 @@
+.container {
+    width: calc(100% - 40px);
+    max-width: 600px;
+}
+
+.container h2 {
+    font-size: 1.5rem;
+}
+
+.container p,ul {
+    font-size: 1rem;
+}
+
+@media only screen and (max-width: 450px) {
+    .container h2 {
+        font-size: 1.1rem;
+    }
+    .container p, ul {
+        font-size: 0.7rem;
+    }
+}

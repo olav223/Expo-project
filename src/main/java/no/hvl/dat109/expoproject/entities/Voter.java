@@ -22,12 +22,23 @@ public class Voter {
     @JoinColumn(name = "id_event")
     private Event event;
 
+    private String ip;
+    private String fingerprint;
+
     public Voter() {
     }
 
     public Voter(String id, Event event) {
         this.id = id;
         this.event = event;
+    }
+
+
+    public Voter(String id, Event event, String ip, String fingerprint) {
+        this.id = id;
+        this.event = event;
+        this.ip = ip;
+        this.fingerprint = fingerprint;
     }
 
     @Override

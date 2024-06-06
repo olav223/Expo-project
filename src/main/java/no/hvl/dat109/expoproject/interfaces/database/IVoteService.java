@@ -50,6 +50,8 @@ public interface IVoteService {
      */
     boolean voterExists(String voterID);
 
+    Voter findByFingerprint(String fingerprint);
+
     /**
      * Lagrer en voterID i databasen
      *
@@ -59,7 +61,7 @@ public interface IVoteService {
      * @throws NullPointerException Hvis code er null
      * @throws PersistenceException Hvis databasen feiler
      */
-    Voter saveVoter(String code, int eventID);
+    Voter saveVoter(String code, int eventID, String ip, String fingerprint);
 
     /**
      * Generate a number of codes to the event with macthing eventID

@@ -3,6 +3,7 @@ package no.hvl.dat109.expoproject.interfaces.controllers;
 import no.hvl.dat109.expoproject.entities.Score;
 import no.hvl.dat109.expoproject.entities.Vote;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface IVoteController {
@@ -45,7 +46,7 @@ public interface IVoteController {
      * @param eventID Id til eventen
      * @return En unik id
      */
-    String getNewVoterID(int eventID);
+    String getNewVoterID(int eventID, String fingerprint, HttpServletRequest request);
 
     /**
      * Kontrollerer om en voterId er gyldig

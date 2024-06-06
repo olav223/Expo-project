@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface VoterRepo extends JpaRepository<Voter, String> {
+    Voter findByFingerprint(String fingerprint);
 }

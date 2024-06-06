@@ -57,6 +57,13 @@ mvn spring-boot:run
 
 Frontend:
 
+Du må lage en `.env.local` i `./src/main/app` mappen slik:
+```shell
+REACT_APP_PROXY_HOST=http://localhost:8080
+PUBLIC_URL=.
+REACT_APP_PUBLIC_API_KEY=<your API key from fingerprint.com>
+```
+
 Merk: `npm install` trenger kun å kjøres første gang, eller når det er endringer i package.json.
 
 ```shell

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.PersistenceException;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @CrossOrigin
@@ -111,13 +112,26 @@ public class VoteController implements IVoteController {
 
     @Override
     @GetMapping("/newvoter")
-    public String getNewVoterID(@RequestParam int eventID) {
+    public String getNewVoterID(@RequestParam int eventID, @RequestParam String fingerprint, HttpServletRequest request) {
         if (eventID <= 0) {
             throw new ResponseStatusException(HttpStatus.NO_CONTENT, "EventID must be greater than 0");
         }
         String code = VoteUtils.generateVoterID();
+
+        String ipAddress = request.getHeader("X-Forwarded-For");
+        if (ipAddress == null || ipAddress.isEmpty()) {
+            ipAddress = request.getRemoteAddr();
+        } else {
+            ipAddress = ipAddress.split(",")[0];
+        }
+
+        Voter voterByFinger = vs.findByFingerprint(fingerprint);
+        if (voterByFinger != null) {
+            return voterByFinger.getId();
+        }
+
         try {
-            Voter voter = vs.saveVoter(code, 1);
+            Voter voter = vs.saveVoter(code, 1, ipAddress, fingerprint);
             if (voter != null) {
                 return voter.getId();
             }
