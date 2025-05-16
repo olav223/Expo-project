@@ -8,8 +8,8 @@ Laget av:
 
 - [Espen](https://github.com/599007)
 - [Hans](https://github.com/h602509)
-- [Martin](https://github.com/h600878)
-- [Stein Olav](https://github.com/594760)
+- [Martin](https://github.com/emberal)
+- [Stein Olav](https://github.com/olav223)
 - [Tobias](https://github.com/h600879)
 - [Torbjørn](https://github.com/torvat)
 - [Tore](https://github.com/108152)
