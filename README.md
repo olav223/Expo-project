@@ -1,7 +1,7 @@
 # DAT109: EXPO Prosjekt - Gruppe 1
 
 <div style="display: flex; justify-content: center">
-    <img src="https://www.hvl.no/Static/internett/images/logo-no.png" alt="Høgskulen på Vestlandet">
+    <img src="https://www.hvl.no/internett/images/logo-no.png" alt="Høgskulen på Vestlandet">
 </div>
 
 Laget av:
